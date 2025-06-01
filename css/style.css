@@ -983,48 +983,27 @@ footer {
     }
 }
 
-/* Hamburger Menu Styling */
-.hamburger {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 24px;
-    color: #ffb74d;
-    z-index: 1001;
-}
-
-.hamburger {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 24px;
-    color: #ffb74d;
-    z-index: 1001;
-}
 @media (max-width: 767px) {
-    .hamburger {
-        display: block;
-    }
     .main-nav {
-        display: none;
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 250px;
-        height: 100%;
-        background-color: #1a1a1a;
-        flex-direction: column;
-        padding: 80px 20px 20px;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-        transform: translateX(100%);
-        z-index: 1000;
-    }
-    .main-nav.active {
         display: flex;
-        transform: translateX(0);
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px; /* Giảm khoảng cách giữa các mục */
+    }
+
+    .main-nav a {
+        font-size: 12px; /* Giảm kích thước chữ */
+        margin: 0 5px; /* Giảm margin */
+        padding-bottom: 2px;
+    }
+
+    .lang-toggle-btn {
+        font-size: 12px !important;
+        padding: 4px 8px;
+        margin-left: 5px;
+    }
+
+    .header-placeholder {
+        height: 100px; /* Điều chỉnh nếu cần */
     }
 }
