@@ -65,3 +65,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     */
 });
+// 4. Mobile Menu Toggle
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const mainNav = document.getElementById('main-nav');
+    const body = document.body;
+
+    // Create a new div element for the overlay
+    const mobileMenuOverlay = document.createElement('div');
+    mobileMenuOverlay.classList.add('mobile-menu-overlay');
+    document.body.appendChild(mobileMenuOverlay); // Append it to the body
+
+    function toggleMobileMenu() {
+        mainNav.classList.toggle('is-active');
+        hamburgerMenu.classList.toggle('is-active'); // Optional: change icon if needed
+        body.classList.toggle('menu-open'); // To disable scroll and show overlay
+    }
+
+    // Toggle menu when hamburger is clicked
+    if (hamburgerMenu) {
+        hamburgerMenu.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Close menu when a navigation link is clicked
+    document.querySelectorAll('#main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (mainNav.classList.contains('is-active')) {
+                toggleMobileMenu(); // Close menu if it's open
+            }
+        });
+    });
+
+    // Close menu when clicking outside (on the overlay)
+    mobileMenuOverlay.addEventListener('click', () => {
+        if (mainNav.classList.contains('is-active')) {
+            toggleMobileMenu(); // Close menu if it's open
+        }
+    });
+
+    // Optional: Close menu if window is resized above mobile breakpoint (e.g., desktop view)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mainNav.classList.contains('is-active')) {
+            toggleMobileMenu();
+        }
+    });
