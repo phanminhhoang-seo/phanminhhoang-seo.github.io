@@ -983,3 +983,79 @@ footer {
     }
 }
 
+/* Hamburger Menu Styling */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+    color: #ffb74d;
+    z-index: 1001;
+}
+
+.main-nav {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Mobile Menu (max-width: 767px) */
+@media (max-width: 767px) {
+    .hamburger {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #1a1a1a;
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        transform: translateX(100%);
+        z-index: 1000;
+    }
+
+    .main-nav.active {
+        display: flex;
+        transform: translateX(0);
+    }
+
+    .main-nav a {
+        margin: 15px 0;
+        font-size: 18px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .lang-toggle-btn {
+        margin-left: 0;
+        width: fit-content;
+    }
+
+    .global-header .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-placeholder {
+        height: 70px;
+    }
+}
+
+/* Very small screens (max-width: 374px) */
+@media (max-width: 374px) {
+    .main-nav {
+        width: 200px;
+    }
+
+    .main-nav a {
+        font-size: 16px;
+    }
+}
+
