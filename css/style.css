@@ -3,13 +3,13 @@
 
 /* General Styling */
 body {
-    font-family: 'Open Sans', sans-serif; /* Sử dụng Open Sans cho nội dung chính */
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #0d0d0d; /* Nền rất tối */
-    color: #e0e0e0; /* Màu chữ sáng nhẹ */
+    background-color: #0d0d0d;
+    color: #e0e0e0;
     line-height: 1.6;
-    overflow-x: hidden; /* Tránh scroll ngang không mong muốn */
+    overflow-x: hidden;
 }
 
 .container {
@@ -19,65 +19,109 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Montserrat', sans-serif; /* Montserrat cho tiêu đề */
+    font-family: 'Montserrat', sans-serif;
     color: #ffffff;
 }
 
 a {
-    color: #ffb74d; /* Màu cam cho link */
+    color: #ffb74d;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #ff9800; /* Màu cam đậm hơn khi hover */
+    color: #ff9800;
 }
 
-/* Header */
-.header {
+/* --- Global Header (Sticky Navigation) --- */
+.global-header {
+    background-color: #1a1a1a; /* Nền của header */
+    padding: 15px 0;
+    position: fixed; /* Cố định trên cùng */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Đảm bảo header nằm trên mọi thứ */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Bóng đổ nhẹ */
+    transition: background-color 0.3s ease;
+}
+
+.global-header .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Đường kẻ mờ */
+    max-width: 1200px; /* Đảm bảo nội dung header theo container */
+    margin: 0 auto;
+    padding: 0 20px; /* Thêm padding ngang */
 }
 
-.logo {
+.global-header .logo {
     display: flex;
     align-items: center;
+    margin-bottom: 0; /* Loại bỏ margin dưới nếu có */
 }
 
-.logo-image {
-    width: 40px;
+.global-header .logo-image {
+    width: 35px; /* Kích thước logo nhỏ hơn trên header */
     height: auto;
-    margin-right: 10px;
-    border-radius: 50%; /* Nếu là logo hình tròn */
+    margin-right: 8px;
+    border-radius: 50%;
 }
 
-.logo span {
-    font-size: 16px;
-    color: #a0a0a0;
-    font-weight: 600;
+.global-header .logo span {
+    font-size: 18px; /* Kích thước font cho tên trên header */
+    font-weight: 700;
+    color: #ffffff;
     letter-spacing: 0.5px;
 }
 
-.upwork-badge {
-    display: flex;
-    align-items: center;
+.main-nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 25px; /* Khoảng cách giữa các mục menu */
+    font-size: 16px;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    padding-bottom: 3px; /* Dùng cho hiệu ứng gạch chân */
+    border-bottom: 2px solid transparent;
 }
 
-.upwork-logo {
-    width: 80px;
-    height: auto;
-    margin-right: 10px;
+.main-nav a:hover {
+    color: #ffb74d;
+    border-bottom-color: #ffb74d;
 }
 
-.top-rated-plus {
-    font-size: 12px;
-    font-weight: 700;
-    color: #ffb74d; /* Màu cam sáng */
-    letter-spacing: 0.8px;
+.lang-toggle-btn {
+    background-color: #ffb74d;
+    color: #1a1a1a !important; /* Đảm bảo màu chữ */
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 14px !important;
+    margin-left: 30px;
+    transition: background-color 0.3s ease;
+    border-bottom: none !important; /* Bỏ gạch chân */
 }
+
+.lang-toggle-btn:hover {
+    background-color: #ff9800;
+    color: #1a1a1a !important;
+}
+
+.header-placeholder {
+    height: 70px; /* Tạo khoảng trống bằng chiều cao của sticky header */
+    display: block; /* Đảm bảo nó hiển thị */
+}
+
+/* --- END Global Header --- */
+
+
+/* Header Section (Original Hero Header) - This is no longer the main header */
+/* This section can be removed or repurposed if needed */
+.header {
+    display: none; /* Ẩn header cũ nếu bạn dùng global-header */
+    /* Hoặc bạn có thể giữ nó nếu muốn một header riêng cho Hero Section */
+}
+
 
 /* Hero Section */
 .hero-section {
@@ -87,8 +131,8 @@ a:hover {
     padding: 80px 0;
     position: relative;
     overflow: hidden;
-    gap: 40px; /* Khoảng cách giữa các cột */
-    min-height: 600px; /* Đảm bảo đủ không gian */
+    gap: 40px;
+    min-height: 600px;
 }
 
 .hero-content {
@@ -113,7 +157,7 @@ a:hover {
 }
 
 .typing-animation {
-    color: #ffb74d; /* Màu cam cho hiệu ứng gõ chữ */
+    color: #ffb74d;
     font-weight: 700;
 }
 
@@ -122,7 +166,7 @@ a:hover {
     background-color: #ffb74d;
     color: #1a1a1a;
     padding: 15px 30px;
-    border-radius: 8px; /* Bo tròn nhiều hơn */
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 700;
     font-size: 18px;
@@ -132,7 +176,7 @@ a:hover {
 }
 
 .btn-primary:hover {
-    background-color: #ff9800; /* Màu cam đậm hơn khi hover */
+    background-color: #ff9800;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(255, 183, 77, 0.4);
 }
@@ -149,23 +193,28 @@ a:hover {
 
 .hero-image-overlay {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 450px; /* Giới hạn kích thước ảnh */
+    max-width: 450px;
     max-height: 450px;
 }
 
 .hero-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 50%; /* Ảnh tròn */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); /* Bóng đổ mạnh hơn */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 50%;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
     z-index: 5;
     position: relative;
-    border: 5px solid rgba(255, 255, 255, 0.1); /* Viền mỏng */
+    border: 5px solid rgba(255, 255, 255, 0.1);
 }
 
 .abstract-shapes {
@@ -180,10 +229,10 @@ a:hover {
 
 .shape {
     position: absolute;
-    background: linear-gradient(45deg, #ffb74d, #ffa000); /* Gradient cam */
+    background: linear-gradient(45deg, #ffb74d, #ffa000);
     opacity: 0.1;
     border-radius: 50%;
-    filter: blur(25px); /* Làm mờ nhiều hơn */
+    filter: blur(25px);
     animation: floatingShape 15s infinite ease-in-out alternate;
 }
 
@@ -210,26 +259,64 @@ a:hover {
     position: relative;
     display: inline-block;
     text-align: center;
-    width: 100%; /* Đảm bảo căn giữa được */
+    width: 100%;
 }
 
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -15px; /* Điều chỉnh vị trí gạch chân */
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px; /* Độ dài gạch chân */
-    height: 5px; /* Độ dày gạch chân */
+    width: 100px;
+    height: 5px;
     background-color: #ffb74d;
     border-radius: 3px;
 }
 
+/* About Section */
+.about-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    margin-top: 50px;
+}
+
+.contact-info-quick {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Cho phép các mục xuống dòng trên màn hình nhỏ */
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.contact-info-quick p {
+    font-size: 18px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin: 0; /* Reset margin mặc định của p */
+}
+
+.contact-info-quick .contact-icon {
+    font-size: 22px;
+    color: #ffb74d;
+    margin-right: 10px;
+}
+
+.about-section .upwork-badge {
+    margin-top: 20px;
+    flex-basis: 100%; /* Đảm bảo badge nằm trên một dòng riêng nếu cần */
+    justify-content: center;
+}
+
+
 /* Skills Section */
 .skills-section {
     padding: 80px 0;
-    background-color: #1a1a1a;
-    border-radius: 15px;
+    background-color: #0d0d0d; /* Nền của phần này */
+    border-radius: 15px; /* Có thể bỏ nếu muốn nền toàn trang */
     margin-top: 50px;
 }
 
@@ -241,7 +328,7 @@ a:hover {
 }
 
 .skill-category {
-    background-color: #252525;
+    background-color: #1a1a1a; /* Nền của từng kỹ năng */
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -251,7 +338,7 @@ a:hover {
 .skill-category h3 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #ffb74d; /* Màu cam cho tiêu đề kỹ năng */
+    color: #ffb74d;
     display: flex;
     align-items: center;
 }
@@ -277,10 +364,10 @@ a:hover {
 }
 
 .skill-category ul li::before {
-    content: "\f00c"; /* Font Awesome check icon */
+    content: "\f00c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    color: #4CAF50; /* Màu xanh lá cho dấu tích */
+    color: #4CAF50;
     position: absolute;
     left: 0;
     top: 8px;
@@ -336,21 +423,21 @@ a:hover {
 }
 
 .experience-item:nth-child(odd) {
-    left: -10px; /* Dịch sang trái 1 chút để tạo hiệu ứng */
-    margin-right: calc(50% + 25px); /* Đẩy sang trái của timeline */
+    left: -10px;
+    margin-right: calc(50% + 25px);
 }
 
 .experience-item:nth-child(even) {
-    left: 10px; /* Dịch sang phải 1 chút */
-    margin-left: calc(50% + 25px); /* Đẩy sang phải của timeline */
+    left: 10px;
+    margin-left: calc(50% + 25px);
 }
 
 .experience-item:nth-child(odd)::before {
-    left: calc(100% + 25px); /* Vị trí chấm tròn bên phải */
+    left: calc(100% + 25px);
 }
 
 .experience-item:nth-child(even)::before {
-    left: -25px; /* Vị trí chấm tròn bên trái */
+    left: -25px;
 }
 
 
@@ -384,7 +471,7 @@ a:hover {
 }
 
 .experience-item ul li::before {
-    content: "\2022"; /* Dấu chấm */
+    content: "\2022";
     color: #ffb74d;
     position: absolute;
     left: 0;
@@ -490,7 +577,7 @@ a:hover {
 }
 
 .project-tasks li::before {
-    content: "\f00c"; /* Checkmark */
+    content: "\f00c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     color: #4CAF50;
@@ -558,7 +645,7 @@ a:hover {
 }
 
 .other-project-card ul li::before {
-    content: "\2022"; /* Dấu chấm */
+    content: "\2022";
     color: #ffb74d;
     position: absolute;
     left: 0;
@@ -594,7 +681,7 @@ a:hover {
     font-size: 24px;
     color: #ffb74d;
     margin-right: 15px;
-    width: 30px; /* Đảm bảo icon thẳng hàng */
+    width: 30px;
     text-align: center;
 }
 
@@ -612,21 +699,39 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Scroll Reveal Animations (CSS only classes) */
-.reveal-item {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
 
-.reveal-item.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* Responsive Design */
+/* Responsive CSS */
+/* Responsive adjustments for Tablets and smaller devices (<= 992px) */
 @media (max-width: 992px) {
+    .container {
+        padding: 15px;
+    }
+
+    .global-header .header-content {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+    .global-header .logo {
+        margin-bottom: 10px;
+    }
+    .main-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px; /* Khoảng cách giữa các mục menu */
+    }
+    .main-nav a {
+        margin: 0; /* Xóa margin cũ */
+        font-size: 15px;
+    }
+    .lang-toggle-btn {
+        margin-left: 0; /* Xóa margin cũ */
+    }
+    .header-placeholder {
+        height: 110px; /* Điều chỉnh chiều cao placeholder cho menu 2 dòng */
+    }
+
+
     .hero-section {
         flex-direction: column;
         text-align: center;
@@ -636,282 +741,244 @@ footer {
 
     .hero-content, .hero-image-container {
         max-width: 100%;
+        text-align: center;
     }
 
     .hero-image-container {
-        margin-top: 50px;
+        margin-top: 40px;
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+    .hero-image-overlay {
+        width: 350px;
+        height: 350px;
     }
 
     .hero-content h1 {
-        font-size: 56px;
+        font-size: 52px;
     }
 
-    .skills-grid, .projects-grid, .other-projects-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    .hero-content p {
+        font-size: 17px;
     }
 
-    .experience-timeline::before {
-        left: 20px; /* Dịch đường kẻ timeline sang trái */
-    }
-
-    .experience-item {
-        margin-left: 0;
-        margin-right: 0;
-        left: 0;
-        text-align: left;
-        padding-left: 50px; /* Đẩy nội dung vào để có chỗ cho chấm tròn */
-/* Trong file style.css, thêm vào cuối cùng */
-
-/* Responsive adjustments for Tablets and smaller devices */
-@media (max-width: 992px) {
-    /* Đảm bảo tiêu đề vẫn hiển thị tốt */
     .section-title {
         font-size: 42px;
         margin-bottom: 50px;
     }
-}
 
-/* Responsive adjustments for Mobile phones and smaller tablets (Portrait) */
-@media (max-width: 768px) {
-    /* Điều chỉnh font size tổng thể cho mobile */
-    body {
-        font-size: 15px;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    /* Header */
-    .header {
-        flex-direction: column;
-        align-items: center;
-        padding: 15px 0;
-    }
-
-    .logo, .upwork-badge {
-        margin-bottom: 10px;
-    }
-
-    .hero-content h1 {
-        font-size: 42px;
-        margin-bottom: 15px;
-    }
-
-    .hero-content p {
-        font-size: 16px;
-        margin-bottom: 20px;
-    }
-
-    .btn-primary {
-        padding: 12px 25px;
-        font-size: 16px;
-    }
-
-    /* Hero Image */
-    .hero-image-container {
-        max-width: 90%; /* Giới hạn kích thước ảnh trên mobile */
-        min-height: 300px; /* Chiều cao tối thiểu nhỏ hơn */
-        margin-top: 30px;
-    }
-
-    .hero-image-overlay {
-        width: 300px; /* Điều chỉnh kích thước cố định cho overlay */
-        height: 300px;
-    }
-
-    /* Skills Section */
-    .skills-grid {
-        grid-template-columns: 1fr; /* Một cột trên mobile */
+    .skills-grid,
+    .projects-grid,
+    .other-projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
-    }
-
-    .skill-category {
-        padding: 25px;
-    }
-
-    .skill-category h3 {
-        font-size: 22px;
-        margin-bottom: 15px;
-    }
-
-    .skill-category ul li {
-        font-size: 15px;
-    }
-
-    /* Kinh nghiệm Làm việc (Experience Timeline) */
-    .experience-section {
-        padding: 50px 0;
     }
 
     .experience-timeline {
-        max-width: 100%; /* Đảm bảo chiếm hết chiều rộng */
-        padding: 0 10px; /* Giảm padding ngang */
+        max-width: 700px;
+    }
+
+    .experience-item:nth-child(odd),
+    .experience-item:nth-child(even) {
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+    }
+
+    .experience-item:nth-child(odd)::before {
+        left: calc(100% + 20px);
+    }
+    .experience-item:nth-child(even)::before {
+        left: -20px;
+    }
+}
+
+/* Responsive adjustments for Mobile phones (Portrait) (<= 767px) */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+
+    .global-header .logo span {
+        font-size: 16px;
+    }
+    .main-nav a {
+        font-size: 14px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .lang-toggle-btn {
+        padding: 5px 10px;
+        font-size: 13px !important;
+    }
+    .header-placeholder {
+        height: 130px; /* Có thể cần tăng nhẹ chiều cao placeholder */
+    }
+
+
+    .hero-content h1 {
+        font-size: 40px;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+
+    .hero-image-container {
+        max-width: 280px;
+        min-height: 280px;
+    }
+    .hero-image-overlay {
+        width: 280px;
+        height: 280px;
+    }
+
+
+    .section-title {
+        font-size: 34px;
+        margin-bottom: 40px;
+    }
+
+    .experience-timeline {
+        max-width: 100%;
+        padding: 0 10px;
     }
 
     .experience-timeline::before {
-        left: 20px; /* Dịch đường kẻ timeline sang trái */
-        transform: translateX(0); /* Không cần transform */
+        left: 20px;
+        transform: translateX(0);
     }
 
     .experience-item {
-        margin-left: 0; /* Loại bỏ margin trái/phải để làm một cột */
+        width: calc(100% - 40px);
+        margin-left: 40px;
         margin-right: 0;
         left: 0;
-        padding-left: 50px; /* Đẩy nội dung vào để có chỗ cho chấm tròn */
         text-align: left;
     }
 
-    /* Đảm bảo chấm tròn nằm bên trái của tất cả các item */
     .experience-item::before {
-        left: 20px; /* Đặt chấm tròn ở vị trí cố định bên trái */
-        transform: translateX(-50%);
-        top: 25px; /* Điều chỉnh vị trí chấm tròn theo chiều dọc */
+        left: -10px;
+        transform: translateX(0);
+        top: 25px;
     }
 
-    /* Reset vị trí cho các item lẻ/chẵn để tất cả đều nằm ở một cột */
-    .experience-item:nth-child(odd) {
-        margin-right: 0;
-    }
-    .experience-item:nth-child(even) {
-        margin-left: 0;
-    }
-    .experience-item:nth-child(odd)::before {
-        left: 20px; /* Đảm bảo chấm tròn vẫn ở bên trái */
-    }
+    .experience-item:nth-child(odd)::before,
     .experience-item:nth-child(even)::before {
-        left: 20px; /* Đảm bảo chấm tròn vẫn ở bên trái */
+        left: -10px;
     }
 
     .experience-item h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
+        font-size: 18px;
+        margin-bottom: 8px;
     }
     .experience-item ul li {
-        font-size: 15px;
+        font-size: 14px;
     }
 
-    /* Projects Section */
-    .projects-grid {
-        grid-template-columns: 1fr; /* Một cột trên mobile */
-        gap: 20px;
+    .skills-grid,
+    .projects-grid,
+    .other-projects-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
     }
 
-    .project-card {
-        padding: 25px;
+    .service-card,
+    .project-card,
+    .other-project-card {
+        padding: 20px;
     }
 
-    .project-card h3 {
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    .project-description {
-        font-size: 16px;
+    .icon-circle {
+        width: 50px;
+        height: 50px;
         margin-bottom: 15px;
     }
-
-    .project-metrics {
-        grid-template-columns: repeat(2, 1fr); /* Giữ 2 cột cho metrics nếu đủ chỗ */
-        padding: 15px 0;
-    }
-
-    .metric-value {
+    .icon-circle i {
         font-size: 24px;
     }
 
-    .metric-label {
-        font-size: 12px;
+    .project-metrics {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px 0;
     }
 
-    .project-keywords {
-        font-size: 15px;
-    }
-
-    /* Other Projects Section */
-    .other-projects-grid {
-        grid-template-columns: 1fr; /* Một cột trên mobile */
-        gap: 20px;
-    }
-
-    .other-project-card {
-        padding: 25px;
-    }
-
-    .other-project-card h3 {
+    .metric-value {
         font-size: 20px;
     }
-
-    .other-project-card ul li {
-        font-size: 15px;
-    }
-
-    /* Contact Section */
-    .contact-section {
-        padding: 50px 0;
-    }
-
-    .contact-section p {
-        font-size: 16px;
-        margin-bottom: 20px;
+    .metric-label {
+        font-size: 11px;
     }
 
     .contact-info p {
-        font-size: 17px;
-        flex-direction: column; /* Hiển thị các thông tin liên hệ theo chiều dọc */
+        font-size: 16px;
+        flex-direction: column;
         align-items: center;
         margin-bottom: 10px;
     }
     .contact-info p .contact-icon {
         margin-right: 0;
-        margin-bottom: 5px; /* Khoảng cách giữa icon và text khi xếp dọc */
+        margin-bottom: 5px;
+    }
+
+    footer {
+        padding: 20px 0;
+        font-size: 13px;
     }
 }
 
-
-/* Adjustments for very small screens (e.g., iPhone 5/SE, older Androids) */
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 36px;
+/* Adjustments for very small screens (e.g., <= 374px) */
+@media (max-width: 374px) {
+    .global-header .logo span {
+        font-size: 14px;
+    }
+    .main-nav a {
+        font-size: 12px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .lang-toggle-btn {
+        padding: 3px 8px;
+        font-size: 11px !important;
+    }
+    .header-placeholder {
+        height: 150px; /* Có thể cần tăng nhẹ chiều cao placeholder */
     }
 
-    .hero-content p {
+    .hero-content h1 {
+        font-size: 32px;
+    }
+    .hero-image-container,
+    .hero-image-overlay {
+        width: 240px;
+        height: 240px;
+    }
+    .section-title {
+        font-size: 28px;
+    }
+    .experience-item {
+        padding-left: 30px;
+        width: calc(100% - 30px);
+    }
+    .experience-item::before {
+        left: 5px;
+    }
+    .experience-item h3 {
+        font-size: 16px;
+    }
+    .experience-item ul li {
+        font-size: 13px;
+    }
+    .contact-info p {
         font-size: 15px;
     }
-
-    .hero-image-overlay {
-        width: 250px;
-        height: 250px;
-    }
-
-    .section-title {
-        font-size: 32px;
-        margin-bottom: 30px;
-    }
-
-    .experience-timeline::before {
-        left: 15px; /* Dịch đường kẻ timeline sang trái hơn nữa */
-    }
-
-    .experience-item {
-        padding-left: 40px; /* Đẩy nội dung vào */
-    }
-
-    .experience-item::before {
-        left: 15px; /* Vị trí chấm tròn */
-    }
-
-    .experience-item h3 {
-        font-size: 18px;
-    }
-
-    .metric-value {
-        font-size: 20px;
-    }
-
-    .metric-label {
-        font-size: 11px;
-    }
 }
-
-
