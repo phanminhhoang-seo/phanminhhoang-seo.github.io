@@ -660,3 +660,258 @@ footer {
         left: 0;
         text-align: left;
         padding-left: 50px; /* Đẩy nội dung vào để có chỗ cho chấm tròn */
+/* Trong file style.css, thêm vào cuối cùng */
+
+/* Responsive adjustments for Tablets and smaller devices */
+@media (max-width: 992px) {
+    /* Đảm bảo tiêu đề vẫn hiển thị tốt */
+    .section-title {
+        font-size: 42px;
+        margin-bottom: 50px;
+    }
+}
+
+/* Responsive adjustments for Mobile phones and smaller tablets (Portrait) */
+@media (max-width: 768px) {
+    /* Điều chỉnh font size tổng thể cho mobile */
+    body {
+        font-size: 15px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    /* Header */
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+    }
+
+    .logo, .upwork-badge {
+        margin-bottom: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        padding: 12px 25px;
+        font-size: 16px;
+    }
+
+    /* Hero Image */
+    .hero-image-container {
+        max-width: 90%; /* Giới hạn kích thước ảnh trên mobile */
+        min-height: 300px; /* Chiều cao tối thiểu nhỏ hơn */
+        margin-top: 30px;
+    }
+
+    .hero-image-overlay {
+        width: 300px; /* Điều chỉnh kích thước cố định cho overlay */
+        height: 300px;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+        grid-template-columns: 1fr; /* Một cột trên mobile */
+        gap: 20px;
+    }
+
+    .skill-category {
+        padding: 25px;
+    }
+
+    .skill-category h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .skill-category ul li {
+        font-size: 15px;
+    }
+
+    /* Kinh nghiệm Làm việc (Experience Timeline) */
+    .experience-section {
+        padding: 50px 0;
+    }
+
+    .experience-timeline {
+        max-width: 100%; /* Đảm bảo chiếm hết chiều rộng */
+        padding: 0 10px; /* Giảm padding ngang */
+    }
+
+    .experience-timeline::before {
+        left: 20px; /* Dịch đường kẻ timeline sang trái */
+        transform: translateX(0); /* Không cần transform */
+    }
+
+    .experience-item {
+        margin-left: 0; /* Loại bỏ margin trái/phải để làm một cột */
+        margin-right: 0;
+        left: 0;
+        padding-left: 50px; /* Đẩy nội dung vào để có chỗ cho chấm tròn */
+        text-align: left;
+    }
+
+    /* Đảm bảo chấm tròn nằm bên trái của tất cả các item */
+    .experience-item::before {
+        left: 20px; /* Đặt chấm tròn ở vị trí cố định bên trái */
+        transform: translateX(-50%);
+        top: 25px; /* Điều chỉnh vị trí chấm tròn theo chiều dọc */
+    }
+
+    /* Reset vị trí cho các item lẻ/chẵn để tất cả đều nằm ở một cột */
+    .experience-item:nth-child(odd) {
+        margin-right: 0;
+    }
+    .experience-item:nth-child(even) {
+        margin-left: 0;
+    }
+    .experience-item:nth-child(odd)::before {
+        left: 20px; /* Đảm bảo chấm tròn vẫn ở bên trái */
+    }
+    .experience-item:nth-child(even)::before {
+        left: 20px; /* Đảm bảo chấm tròn vẫn ở bên trái */
+    }
+
+    .experience-item h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .experience-item ul li {
+        font-size: 15px;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+        grid-template-columns: 1fr; /* Một cột trên mobile */
+        gap: 20px;
+    }
+
+    .project-card {
+        padding: 25px;
+    }
+
+    .project-card h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .project-description {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .project-metrics {
+        grid-template-columns: repeat(2, 1fr); /* Giữ 2 cột cho metrics nếu đủ chỗ */
+        padding: 15px 0;
+    }
+
+    .metric-value {
+        font-size: 24px;
+    }
+
+    .metric-label {
+        font-size: 12px;
+    }
+
+    .project-keywords {
+        font-size: 15px;
+    }
+
+    /* Other Projects Section */
+    .other-projects-grid {
+        grid-template-columns: 1fr; /* Một cột trên mobile */
+        gap: 20px;
+    }
+
+    .other-project-card {
+        padding: 25px;
+    }
+
+    .other-project-card h3 {
+        font-size: 20px;
+    }
+
+    .other-project-card ul li {
+        font-size: 15px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        padding: 50px 0;
+    }
+
+    .contact-section p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .contact-info p {
+        font-size: 17px;
+        flex-direction: column; /* Hiển thị các thông tin liên hệ theo chiều dọc */
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .contact-info p .contact-icon {
+        margin-right: 0;
+        margin-bottom: 5px; /* Khoảng cách giữa icon và text khi xếp dọc */
+    }
+}
+
+
+/* Adjustments for very small screens (e.g., iPhone 5/SE, older Androids) */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .hero-image-overlay {
+        width: 250px;
+        height: 250px;
+    }
+
+    .section-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .experience-timeline::before {
+        left: 15px; /* Dịch đường kẻ timeline sang trái hơn nữa */
+    }
+
+    .experience-item {
+        padding-left: 40px; /* Đẩy nội dung vào */
+    }
+
+    .experience-item::before {
+        left: 15px; /* Vị trí chấm tròn */
+    }
+
+    .experience-item h3 {
+        font-size: 18px;
+    }
+
+    .metric-value {
+        font-size: 20px;
+    }
+
+    .metric-label {
+        font-size: 11px;
+    }
+}
+
+
