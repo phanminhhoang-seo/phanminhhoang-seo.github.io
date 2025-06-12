@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded. Starting NLP Pipeline initialization process...');
+    console.log('DOMContentLoaded fired. Starting NLP Pipeline initialization process...');
 
     const container = document.querySelector('.pipeline-container');
     const svg = document.querySelector('.pipeline-lines');
@@ -37,8 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Adjusts the zoom level of the pipeline.
-     * @param {number} delta The amount to change zoom by (e.g., 0.1 for zoom in, -0.1 for zoom out).
-     * @param {boolean} reset If true, resets zoom to 1.0.
      */
     const adjustZoom = (delta, reset = false) => {
         if (window.innerWidth <= 992) { 
@@ -57,11 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
         stopAnimation(); // Stop any ongoing animation cycle
         resetPipeline(); // Reset elements for a clean restart
 
-        // Re-calculate and redraw after zoom
+        // Re-initialize pipeline after zoom
         setTimeout(() => { // Small delay to allow CSS transform to apply
-            resizeSVG();
-            drawAllLines(); // Redraw lines based on new zoom
-            animatePipeline(); // Restart animation
+            initializePipeline(); // This will handle resizeSVG, drawAllLines, and animatePipeline
         }, 300); // Allow transform to apply
         
         console.log(`Zoom adjusted to: ${currentZoom}`);
@@ -81,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = el.getBoundingClientRect();
         // Crucial check: if width/height is 0, element is not laid out correctly (e.g., display: none outside media query)
         if (rect.width === 0 || rect.height === 0) {
-            // console.warn(`Element ${el.id || el.className} has zero dimensions. Layout might not be ready.`);
             return null;
         }
         const svgRect = svg.getBoundingClientRect();
@@ -106,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         svg.appendChild(path);
 
         try {
-            // Temporarily make it block to get length if it's hidden by CSS
+            // Temporarily make it block to get length if it's hidden by CSS rules
             // This is especially for getTotalLength which fails on hidden elements
             const originalDisplay = path.style.display;
             path.style.display = 'block'; 
@@ -130,9 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const animatePathFlow = (path) => {
         if (!path) return;
         
-        // Reset path state for animation (ensure it's completely hidden then redrawn)
+        // Ensure path is visible before animating (in case display:none was forced by CSS or JS)
+        path.style.display = 'block';
+
         path.style.transition = 'none'; 
-        void path.offsetWidth; // Force reflow
+        void path.offsetWidth; 
         path.style.strokeDashoffset = path.getTotalLength(); 
         path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Initial opacity based on screen size
 
@@ -142,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
         path.style.opacity = 1;
         path.classList.add('animate');
 
-        // Directly change arrowhead color using JS
         const markerId = path.getAttribute('marker-end');
         if (markerId) {
             const markerElement = svg.querySelector(markerId.substring(4, markerId.length - 1));
@@ -150,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
                     arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
-                    // Apply animated color on desktop, or keep default on mobile
                     arrowheadPath.style.fill = window.innerWidth > 992 ? 'var(--color-animated-line)' : 'var(--color-text-dark)'; 
                 }
             }
@@ -220,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const length = path.getTotalLength();
                 path.style.strokeDashoffset = length;
             } catch (e) {
-                console.warn(`Error getting length for path ${path.id} during reset:`, e);
+                // console.warn(`Error getting length for path ${path.id} during reset:`, e);
                 path.style.strokeDashoffset = '0'; // Fallback
             }
             path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; 
@@ -298,28 +293,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const rankingBox = document.getElementById('box-ranking');
 
         // --- Crucial check for element dimensions and layout stability ---
-        const elementsToCheck = [
-            docBox, parsingBox, segmentAnnoBox, tokenizationBox, tokenIndexingBox,
-            elementAnnotationBox, textSegmentationBox, generateEmbeddingsBox,
-            vectorIndexingBox, searchBox, rankingBox
-        ];
+        const elementsToConnect = {
+            'box-document': docBox,
+            'box-document-parsing': parsingBox,
+            'box-segment-annotation': segmentAnnoBox,
+            'box-tokenization': tokenizationBox,
+            'box-token-indexing': tokenIndexingBox,
+            'box-element-annotation': elementAnnotationBox,
+            'box-text-segmentation': textSegmentationBox,
+            'box-generate-embeddings': generateEmbeddingsBox,
+            'box-vector-indexing': vectorIndexingBox,
+            'box-search': searchBox,
+            'box-ranking': rankingBox
+        };
 
         let allElementsValid = true;
         const coords = {};
-        elementsToCheck.forEach(el => {
+        for (const id in elementsToConnect) {
+            const el = elementsToConnect[id];
             if (!el) { // Check if element exists in DOM
-                console.error(`Required element is null: ${el}. Cannot calculate coordinates.`);
+                console.error(`Required element with ID ${id} not found. Cannot calculate coordinates.`);
                 allElementsValid = false;
-                return;
+                break;
             }
             const center = getElementCenterSVGCoords(el); // Get coordinates and check dimensions
             if (!center) { // If element has zero dimensions (not laid out yet)
                 allElementsValid = false;
-                console.warn(`Element ${el.id} has invalid dimensions (${el.getBoundingClientRect().width}x${el.getBoundingClientRect().height}).`);
-                return;
+                // console.warn(`Element ${id} has invalid dimensions (${el.getBoundingClientRect().width}x${el.getBoundingClientRect().height}).`);
+                break;
             }
-            coords[el.id] = center;
-        });
+            coords[id] = center; // Store calculated center using its ID as key
+        }
 
         if (!allElementsValid && retryCount < MAX_RETRY) {
             console.warn(`Layout not stable. Retrying drawAllLines in 100ms. (Retry: ${retryCount + 1}/${MAX_RETRY})`);
@@ -331,13 +335,13 @@ document.addEventListener('DOMContentLoaded', () => {
             resetPipeline(); // Ensure elements are reset
             return;
         }
-        console.log('All elements have valid dimensions. Proceeding with drawing.');
+        // console.log('All elements have valid dimensions. Proceeding with drawing.');
 
         // --- Actual Drawing Logic ---
         const isSmallScreen = window.innerWidth <= 992; // Re-check screen size for drawing logic
 
         if (!isSmallScreen) { // Desktop/Large Screen Logic (Grid Layout)
-            createSvgPath('line-doc-parsing', `M${coords.box-document.x},${coords.box-document.y} L${coords.box-document-parsing.x},${coords.box-document-parsing.y}`, 'arrowhead-marker');
+            createSvgPath('line-doc-parsing', `M${coords['box-document'].x},${coords['box-document'].y} L${coords['box-document-parsing'].x},${coords['box-document-parsing'].y}`, 'arrowhead-marker');
             createSvgPath('line-parsing-segment', `M${coords['box-document-parsing'].x},${coords['box-document-parsing'].y} L${coords['box-segment-annotation'].x},${coords['box-segment-annotation'].y}`, 'arrowhead-marker');
 
             createSvgPath('line-segment-tokenization',
@@ -400,7 +404,6 @@ document.addEventListener('DOMContentLoaded', () => {
             createSvgPath('line-vector-search-mobile', `M${coords['box-vector-indexing'].x},${coords['box-vector-indexing'].y} L${coords['box-search'].x},${coords['box-search'].y}`, 'arrowhead-marker');
             createSvgPath('line-search-ranking-mobile', `M${coords['box-search'].x},${coords['box-search'].y} L${coords['box-ranking'].x},${coords['box-ranking'].y}`, 'arrowhead-marker');
         }
-        // console.log('Finished drawAllLines attempt.');
     };
 
     // --- Animation Sequence ---
@@ -409,8 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const animatePipeline = async () => {
         if (animationRunning) {
-            // console.log('Animation already running, skipping start.');
-            return; 
+            return; // Animation already running
         }
         animationRunning = true;
         console.log('Starting pipeline animation cycle.');
@@ -463,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (const step of steps) {
             if (!animationRunning) { 
-                // console.log('Animation cycle interrupted externally.');
+                console.log('Animation cycle interrupted externally.');
                 return; 
             }
 
@@ -483,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await fadeInElement(label, shortDelay);
         await new Promise(r => setTimeout(r, longDelay * 2)); 
 
-        // console.log('Pipeline animation cycle finished. Preparing for next loop.');
+        console.log('Pipeline animation cycle finished. Preparing for next loop.');
 
         if (animationRunning) { // Loop condition
             resetPipeline();
@@ -532,7 +534,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const MAX_INITIALIZATION_RETRIES = 10;
         // console.log(`Attempting to initialize pipeline (retry ${retryCount})...`);
 
-        // Check if all relevant boxes are laid out correctly (have dimensions > 0)
+        // Check initial screen size for visibility
+        const currentIsSmallScreen = window.innerWidth <= 992;
+        if (currentIsSmallScreen) {
+            svg.style.display = 'none'; // Hide SVG on mobile
+            if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+                zoomInBtn.parentElement.style.display = 'none';
+            }
+        } else {
+            // On large screens, ensure SVG and zoom controls are visible
+            svg.style.display = 'block';
+            if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+                zoomInBtn.parentElement.style.display = 'flex';
+            }
+        }
+
+        // --- Crucial check for element dimensions and layout stability ---
         const elementsToCheckForLayout = [
             document.getElementById('box-document'), 
             document.getElementById('box-document-parsing'), 
@@ -549,14 +566,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let allBoxesHaveDimensions = true;
         for (const box of elementsToCheckForLayout) {
-            if (!box || box.getBoundingClientRect().width === 0 || box.getBoundingClientRect().height === 0) {
+            if (!box) { // Check if element exists in DOM (might be null if page loading)
+                console.error(`Element not found during layout check: ${box}. This should not happen after DOMContentLoaded.`);
                 allBoxesHaveDimensions = false;
+                break;
+            }
+            const rect = box.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0 || isNaN(rect.width) || isNaN(rect.height)) {
+                // If element has zero dimensions or NaN (not laid out correctly)
+                allBoxesHaveDimensions = false;
+                // console.warn(`Element ${box.id} has invalid dimensions (${rect.width}x${rect.height}).`);
                 break;
             }
         }
 
         if (!allBoxesHaveDimensions && retryCount < MAX_INITIALIZATION_RETRIES) {
-            console.warn(`Initial layout not stable. Retrying initialization in 100ms. (Retry: ${retryCount + 1}/${MAX_INITIALIZATION_RETRIES})`);
+            console.warn(`Layout not stable. Retrying initialization in 100ms. (Retry: ${retryCount + 1}/${MAX_INITIALIZATION_RETRIES})`);
             setTimeout(() => initializePipeline(retryCount + 1), 100);
             return; // Exit this call, retry later
         } else if (!allBoxesHaveDimensions && retryCount >= MAX_INITIALIZATION_RETRIES) {
@@ -568,43 +593,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         console.log('All elements have valid dimensions. Proceeding with drawing and animation.');
 
-        // Initial setup of SVG and drawing lines
+        // Layout is stable, proceed with drawing and animation
         try {
             resizeSVG(); 
             drawAllLines(); // This will also use the internal retry for individual line drawing if needed
         } catch (e) {
-            console.error('Error during initial drawing of SVG lines after elements were ready:', e);
+            console.error('Error during SVG drawing:', e);
             // Even if drawing fails here, try to start animation, but log the error
         }
 
-        // Handle initial screen size visibility
-        const initialIsSmallScreen = window.innerWidth <= 992;
-        if (initialIsSmallScreen) {
-            svg.style.display = 'none'; // Hide SVG on mobile
-            if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
-                zoomInBtn.parentElement.style.display = 'none';
-            }
-            // For mobile, ensure boxes are visible by default
-            document.querySelectorAll('.pipeline-stage-wrapper').forEach(wrapper => {
-                wrapper.style.opacity = 1;
-                wrapper.style.transform = 'translateY(0)';
-                wrapper.classList.add('faded-in');
-            });
-            // Immediately start mobile animation
-            animatePipeline(); 
-        } else {
-            // On large screens, ensure SVG and zoom controls are visible
-            svg.style.display = 'block';
-            if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
-                zoomInBtn.parentElement.style.display = 'flex';
-            }
-            // Start desktop animation
-            animatePipeline();
-        }
+        animatePipeline(); // Start the animation sequence, which will then loop
     };
 
-    // Start the robust initialization process after DOM is loaded
-    initializePipeline();
+    // Start the robust initialization process after DOM is loaded, with an initial delay
+    // This initial delay is crucial for slow loading scenarios or complex CSS
+    setTimeout(() => {
+        initializePipeline();
+    }, 500); // Give 500ms for browser to render layout and apply CSS
 
     // Redraw lines on window resize to maintain connections
     let resizeTimer;
@@ -625,9 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resizeTimer = setTimeout(() => {
             console.log('Window resized, re-initializing pipeline...');
-            // Re-initialize pipeline to adapt to new screen size/layout
-            initializePipeline(); 
-
-        }, 250); // Debounce resize for better performance
+            initializePipeline(); // Re-initialize pipeline to adapt to new screen size/layout
+        }, 250); 
     });
 });
