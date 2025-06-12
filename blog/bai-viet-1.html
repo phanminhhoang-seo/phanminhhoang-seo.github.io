@@ -1,9 +1,38 @@
+Tuyệt vời! Dựa trên nội dung chi tiết bạn cung cấp từ file Word, tôi sẽ chuyển đổi nó sang định dạng HTML cho bài viết blog đầu tiên của bạn (`bai-viet-1.html`). Tôi sẽ giữ cấu trúc bài viết, các tiêu đề, danh sách, và thêm các tag HTML phù hợp.
+
+**Lưu ý:**
+* Đường dẫn CSS và JS sẽ được điều chỉnh để phù hợp với vị trí file trong thư mục `blog/`.
+* Ảnh minh họa trong bài viết (`../images/blog-image-lcp.jpg`) cần được bạn chuẩn bị và đặt vào thư mục `images/`.
+* Link "Đọc thêm" trong `blog/blog.html` (và `blog/blog-en.html`) sẽ trỏ đến file này.
+
+Dưới đây là mã HTML cho `bai-viet-1.html`:
+
+---
+
+### **`blog/bai-viet-1.html`**
+
+*(Bạn sẽ cần copy và dán **toàn bộ** nội dung này để thay thế file `bai-viet-1.html` trong thư mục `blog/` của bạn)*
+
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5 Bước Tối Ưu Core Web Vitals - Blog Phan Minh Hoàng</title>
+    <title>SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước - Blog Phan Minh Hoàng</title>
+    
+    <meta name="description" content="Hướng dẫn chi tiết quy trình dọn dẹp chỉ mục trong Google Search Console (GSC) để khắc phục lỗi không được index, cải thiện traffic và chất lượng SEO.">
+    <meta name="keywords" content="SEO Indexing Cleanup, Google Search Console, GSC, lỗi không index, crawl budget, tối ưu SEO, Technical SEO">
+    <meta name="author" content="Phan Minh Hoàng">
+
+    <meta property="og:title" content="SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước">
+    <meta property="og:description" content="Khắc phục lỗi Google không index trang, cải thiện crawl budget và tăng organic traffic với hướng dẫn chi tiết từ Phan Minh Hoàng.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/phanminhhoang-seo/phanminhhoang-seo.github.io/refs/heads/main/images/blog-thumbnail-1.jpg"> <meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/bai-viet-1.html"> <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2025-06-12T10:00:00+07:00"> <meta property="article:author" content="Phan Minh Hoàng">
+
+    <link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/bai-viet-1.html">
+
+
     <link rel="stylesheet" href="../css/style.css"> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -30,45 +59,298 @@
     <div class="container">
         <article class="blog-post-content">
             <div class="blog-post-header">
-                <h1>5 Bước Tối Ưu Core Web Vitals Để Cải Thiện SEO</h1>
+                <h1>SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước</h1>
                 <p class="blog-post-meta">Đăng bởi Phan Minh Hoàng vào ngày 12/06/2025</p>
             </div>
 
-            <p>Core Web Vitals là một tập hợp các chỉ số liên quan đến trải nghiệm người dùng, được Google giới thiệu như một phần của Page Experience Signals. Việc tối ưu các chỉ số này không chỉ giúp người dùng có trải nghiệm tốt hơn mà còn là yếu tố xếp hạng quan trọng trong SEO.</p>
+            [cite_start]<p>Trong SEO kỹ thuật, việc website không được index đúng cách là một trong những nguyên nhân khiến traffic tụt dốc mà nhiều quản trị viên không nhận ra cho đến khi quá muộn. [cite: 1] [cite_start]Việc Google “đã crawl nhưng không index”, hay “không tìm thấy trang” thường liên quan đến cấu trúc site, kỹ thuật render, hoặc chiến lược nội dung chưa hiệu quả. [cite: 2] [cite_start]Bài viết này sẽ giúp bạn hiểu và thực hiện quy trình dọn dẹp chỉ mục trong Google Search Console (GSC) một cách bài bản, có ví dụ thực tế để áp dụng ngay. [cite: 3]</p>
 
-            <h2>1. Tối Ưu Largest Contentful Paint (LCP)</h2>
-            <p>LCP đo lường thời gian hiển thị phần tử nội dung lớn nhất trên trang. Để cải thiện LCP, bạn cần:</p>
-            <ul>
-                <li><strong>Giảm thời gian phản hồi máy chủ (Server Response Time):</strong> Sử dụng CDN, nâng cấp hosting.</li>
-                <li><strong>Tối ưu hóa hình ảnh:</strong> Nén ảnh, sử dụng định dạng WebP, tải ảnh lười (lazy-loading).</li>
-                <li><strong>Giảm thiểu CSS và JavaScript không cần thiết:</strong> Loại bỏ CSS/JS không dùng, minify code.</li>
-                <li><strong>Tải trước các tài nguyên quan trọng:</strong> Sử dụng `&lt;link rel="preload"&gt;` cho các font hoặc ảnh lớn.</li>
-            </ul>
-            <img src="../images/blog-image-lcp.jpg" alt="Tối ưu LCP">
+            <h2>1. Kiểm tra xem Google/Bing/LLM có nhìn thấy nội dung của bạn không?</h2>
+            [cite_start]<p>Đây là vấn đề cơ bản nhất nhưng lại thường bị bỏ qua – nếu Googlebot không thấy nội dung, thì mọi nỗ lực SEO khác gần như vô nghĩa. [cite: 5]</p>
 
-            <h2>2. Cải Thiện Cumulative Layout Shift (CLS)</h2>
-            <p>CLS đo lường sự dịch chuyển bố cục không mong muốn của các phần tử trên trang. Để tránh CLS, hãy:</p>
+            <h3>Vấn đề:</h3>
+            [cite_start]<p>Nhiều website hiện nay sử dụng JavaScript để hiển thị nội dung sau khi trang được tải (Client-side rendering – CSR). [cite: 6]</p>
+            <p>Tuy nhiên:</p>
             <ul>
-                <li><strong>Luôn đặt kích thước (width/height) cho hình ảnh và video.</strong></li>
-                <li><strong>Tránh chèn nội dung động phía trên nội dung hiện có.</strong></li>
-                <li><strong>Ưu tiên sử dụng `transform` thay vì các thuộc tính kích thước thay đổi bố cục.</strong></li>
+                [cite_start]<li>Googlebot và các trình thu thập dữ liệu khác không luôn thực thi đầy đủ JS. [cite: 7]</li>
+                [cite_start]<li>Các LLM (Large Language Models) như ChatGPT, Gemini, Claude, v.v. chỉ đọc HTML gốc, không render nội dung động. [cite: 8]</li>
             </ul>
 
-            <h2>3. Tối Ưu First Input Delay (FID)</h2>
-            <p>FID đo lường thời gian từ khi người dùng tương tác lần đầu với trang (như nhấp vào nút) đến khi trình duyệt thực sự phản hồi tương tác đó. Mặc dù FID là một chỉ số trên thực tế, nhưng bạn có thể cải thiện nó bằng cách tối ưu Total Blocking Time (TBT) trong phòng thí nghiệm:</p>
+            <h3>Cách kiểm tra:</h3>
+            <ol>
+                <li>Mở website cần kiểm tra.</li>
+                [cite_start]<li>Bấm `F12` (hoặc `Ctrl+Shift+I`) để mở DevTools → chuyển sang tab Network. [cite: 9]</li>
+                [cite_start]<li>Refresh trang (`Ctrl+R`). [cite: 10]</li>
+                [cite_start]<li>Click vào request đầu tiên (thường là URL của trang). [cite: 10]</li>
+                [cite_start]<li>Vào tab Response để xem HTML mà server trả về. [cite: 11]</li>
+                [cite_start]<li>Nếu nội dung chính không có trong HTML (ví dụ như `&lt;div id="root"&gt;&lt;/div&gt;`) thì Google không thể thấy nội dung đó. [cite: 12]</li>
+            </ol>
+
+            <h3>Ví dụ minh họa:</h3>
+            <p>Trang web được xây bằng React:</p>
+            <pre><code class="language-html">
+&lt;body&gt;
+  &lt;div id="root"&gt;&lt;/div&gt;
+  &lt;script src="/bundle.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+            </code></pre>
+            [cite_start]<p>Nội dung bài viết, hình ảnh, tiêu đề... đều nằm trong JS và không có trong HTML gốc. [cite: 13] [cite_start]Google sẽ chỉ thấy khung trống – không có gì để index. [cite: 14]</p>
+
+            <h3>Hướng xử lý:</h3>
             <ul>
-                <li><strong>Giảm thời gian thực thi JavaScript:</strong> Chia nhỏ các tác vụ JS dài, loại bỏ JS không dùng.</li>
-                <li><strong>Giảm thiểu công việc của luồng chính (main thread):</strong> Sử dụng Web Workers cho các tác vụ nặng.</li>
+                [cite_start]<li>Dùng SSR (Server-side rendering) nếu bạn dùng framework như Next.js, Nuxt, SvelteKit... [cite: 15]</li>
+                [cite_start]<li>Hoặc sử dụng Pre-rendering tools như Prerender.io, Rendertron, hoặc Cloudflare Workers. [cite: 15]</li>
             </ul>
 
-            <h2>4. Sử dụng CDN và Caching hiệu quả</h2>
-            <p>Content Delivery Network (CDN) giúp phân phối nội dung của bạn từ các máy chủ gần người dùng nhất, giảm độ trễ. Caching giúp lưu trữ các phiên bản trang web trên trình duyệt người dùng, giảm thời gian tải trang khi truy cập lại.</p>
+            <h3>Một số tài liệu tham khảo:</h3>
+            <ul>
+                <li>Google: We render JavaScript but prefer raw HTML</li>
+                <li>Case study: Technical SEO issue causes NFL.com to lose 84M visits</li>
+                <li>JavaScript SEO basics – Google Search Central</li>
+            </ul>
 
-            <h2>5. Theo dõi và Phân Tích liên tục</h2>
-            <p>Sử dụng các công cụ như Google Search Console, PageSpeed Insights, Lighthouse để theo dõi Core Web Vitals và các chỉ số hiệu suất khác. Phân tích dữ liệu để xác định các vấn đề và ưu tiên hành động khắc phục.</p>
+            <h2>2. Dọn dẹp vùng Excluded trong Google Search Console (GSC)</h2>
+            [cite_start]<p>Tab “Pages” trong GSC là nơi bạn có thể biết những URL nào đã được Google thu thập, index, hoặc bị loại khỏi chỉ mục. [cite: 16] [cite_start]Tuy nhiên, nhiều quản trị viên thường bỏ qua tab “Why pages aren’t indexed” (Tại sao không được lập chỉ mục). [cite: 17] [cite_start]Mỗi loại lỗi “Excluded” có ý nghĩa khác nhau – và xử lý đúng từng loại sẽ giúp khôi phục index, cải thiện crawl budget và tăng organic traffic rõ rệt. [cite: 18]</p>
 
-            <p>Việc tối ưu Core Web Vitals là một quá trình liên tục. Bằng cách áp dụng các bước trên, bạn không chỉ cải thiện thứ hạng SEO mà còn mang lại trải nghiệm tuyệt vời cho người dùng.</p>
-            <p class="blog-post-meta">Tag: SEO, Core Web Vitals, Tối ưu hóa website</p>
+            <h3>2.1. Crawled - Currently Not Indexed</h3>
+            [cite_start]<p>Google đã crawl trang, nhưng quyết định không index nó – điều này thường là tín hiệu chất lượng trang quá thấp hoặc không đáng index. [cite: 19]</p>
+
+            <h3>Cách xử lý:</h3>
+            [cite_start]<p>Xuất danh sách URL từ GSC → lọc ra các URL có status HTTP 200. [cite: 20]</p>
+            <p>Kiểm tra:</p>
+            <ul>
+                [cite_start]<li>Số lượng liên kết nội bộ trỏ đến (tối thiểu 5). [cite: 21]</li>
+                <li>Nội dung quá mỏng? [cite_start](&lt;300 từ). [cite: 22]</li>
+                [cite_start]<li>Trang có bị trùng nội dung với trang khác không? [cite: 23]</li>
+                <li>Có phải trang dạng template, filter page, tag page không?</li>
+            </ul>
+            <p>Hành động:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trường hợp</th>
+                        <th>Xử lý</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nội dung mỏng, cũ, không có traffic</td>
+                        <td>Gắn noindex hoặc xóa hoàn toàn (HTTP 410)</td>
+                    </tr>
+                    <tr>
+                        <td>Có giá trị tiềm năng</td>
+                        <td>Tăng độ dài nội dung, cập nhật lại nội dung, thêm internal link</td>
+                    </tr>
+                    <tr>
+                        <td>Quan trọng với chuyển đổi (e.g. trang dịch vụ)</td>
+                        <td>Submit lại URL trong GSC sau khi cải thiện</td>
+                    </tr>
+                </tbody>
+            [cite_start]</table> [cite: 24]
+
+            <h3>Ví dụ và tài liệu:</h3>
+            <ul>
+                <li>Hướng dẫn chính thức từ Google</li>
+                <li>Case study: 200k URLs bị loại khỏi index và cách khắc phục</li>
+            </ul>
+
+            <h3>2.2. Discovered - Currently Not Indexed</h3>
+            [cite_start]<p>Google đã biết tới URL, nhưng chưa crawl nó → thường do không có hoặc rất ít internal link, trang mồ côi (orphan). [cite: 26]</p>
+
+            <h3>Cách xử lý:</h3>
+            <p>Tăng liên kết nội bộ đến trang đó từ:</p>
+            <ul>
+                <li>Menu, sidebar, footer</li>
+                <li>Liên kết từ bài viết liên quan</li>
+                <li>Sitemap XML (nếu chưa có)</li>
+            </ul>
+            <p>Mẹo:</p>
+            <ul>
+                <li>Dùng Screaming Frog để kiểm tra số lượng internal link trỏ đến URL đó</li>
+                <li>Ưu tiên link từ các trang có PageRank nội bộ cao (trang chủ, category page)</li>
+            </ul>
+            <p>Tham khảo:</p>
+            <ul>
+                <li>Discovered but not indexed explained – Google Help</li>
+                <li>Why your page is discovered but not indexed – Onely</li>
+            </ul>
+
+            <h3>2.3. Not Found (404)</h3>
+            [cite_start]<p>Googlebot truy cập URL nhưng nhận lại mã lỗi 404 – Không tìm thấy. [cite: 28] [cite_start]Nếu các URL này từng tồn tại, có backlink, hoặc được nội bộ liên kết đến, việc không xử lý sẽ dẫn đến mất traffic và điểm tín nhiệm từ Google. [cite: 29]</p>
+
+            <h3>Cách xử lý:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Trường hợp</th>
+                        <th>Giải pháp đề xuất</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>URL không còn giá trị, không có backlink</td>
+                        <td>Gắn mã trạng thái HTTP 410 (Gone) để xóa nhanh khỏi chỉ mục</td>
+                    </tr>
+                    <tr>
+                        <td>URL có backlink từ bên ngoài</td>
+                        <td>Redirect 301 đến trang tương đương hoặc trang chủ đề gần nhất</td>
+                    </tr>
+                    <tr>
+                        <td>URL có liên kết nội bộ trỏ đến</td>
+                        <td>Cập nhật lại liên kết nội bộ hoặc redirect nếu không thể sửa link</td>
+                    </tr>
+                </tbody>
+            [cite_start]</table> [cite: 31]
+
+            <h3>Công cụ hỗ trợ:</h3>
+            <ul>
+                <li>Ahrefs: kiểm tra backlink trỏ về URL 404 (Batch Analysis)</li>
+                <li>Screaming Frog: phát hiện liên kết nội bộ bị hỏng</li>
+            </ul>
+            <p>Tài liệu tham khảo:</p>
+            <ul>
+                <li><a href="https://www.searchenginejournal.com/google-410-status-code/460648/" target="_blank">https://www.searchenginejournal.com/google-410-status-code/460648/</a></li>
+                <li><a href="https://ahrefs.com/blog/broken-links/" target="_blank">https://ahrefs.com/blog/broken-links/</a></li>
+            </ul>
+
+            <h3>2.4. Alternative Page with Proper Canonical</h3>
+            [cite_start]<p>Google đánh dấu trang bị loại bỏ vì đã được canonical hóa về một URL khác. [cite: 33] [cite_start]Điều này thường hợp lý, nhưng trong nhiều trường hợp cấu hình canonical sai hoặc internal link vẫn trỏ đến bản không chuẩn. [cite: 34]</p>
+
+            <h3>Các lỗi phổ biến:</h3>
+            <ul>
+                <li>URL có hoặc không có dấu slash cuối: `/page` vs `/page/`</li>
+                <li>URL có tham số theo dõi như `?utm_source=...`</li>
+                <li>Có hai trang nội dung giống nhau: một cho SEO, một cho quảng cáo trả phí</li>
+            </ul>
+            <h3>Giải pháp:</h3>
+            <ul>
+                <li>Kiểm tra canonical trong thẻ `&lt;head&gt;` và cập nhật chính xác</li>
+                <li>Tránh internal link trỏ đến phiên bản không canonical</li>
+                <li>Với các trang landing page chỉ dùng cho quảng cáo, nên đặt noindex hoặc đổi sang một đường dẫn riêng biệt (vd: `/lp/abc`)</li>
+            </ul>
+            <p>Tài liệu tham khảo:</p>
+            <ul>
+                <li><a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank">https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls</a></li>
+                <li><a href="https://ahrefs.com/blog/canonical-tags/" target="_blank">https://ahrefs.com/blog/canonical-tags/</a></li>
+            </ul>
+
+            <h3>2.5. Excluded by noindex tag</h3>
+            [cite_start]<p>Google loại trang khỏi chỉ mục vì có thẻ `&lt;meta name="robots" content="noindex"&gt;`. [cite: 36] [cite_start]Việc này có thể đúng hoặc sai tùy vào mục đích SEO, nhưng nếu gắn nhầm sẽ dẫn đến mất index những trang quan trọng. [cite: 37]</p>
+
+            <h3>Cách xử lý:</h3>
+            <ul>
+                <li>Dùng Screaming Frog để lọc các URL chứa noindex</li>
+                <li>Dùng Ahrefs để kiểm tra URL đó có backlink không</li>
+                <li>Dùng VLOOKUP giữa dữ liệu GSC và danh sách URL noindex để tìm ra trang có traffic bị loại bỏ</li>
+            </ul>
+            <p>Khuyến nghị:</p>
+            <ul>
+                <li>Tránh gắn noindex cho các trang có nhiều backlink hoặc từng có traffic</li>
+                <li>Nếu trang bị trùng nội dung, có thể dùng canonical thay vì noindex</li>
+            </ul>
+            <p>Tài liệu tham khảo:</p>
+            <ul>
+                <li><a href="https://www.seroundtable.com/google-noindex-crawl-31260.html" target="_blank">https://www.seroundtable.com/google-noindex-crawl-31260.html</a></li>
+                <li><a href="https://moz.com/learn/seo/robot-meta-tag" target="_blank">https://moz.com/learn/seo/robot-meta-tag</a></li>
+            </ul>
+
+            <h3>2.6. Server Error (5xx)</h3>
+            [cite_start]<p>URL bị trả về lỗi server như 500, 502, 503... khiến Google không thể thu thập dữ liệu. [cite: 39] [cite_start]Nếu lặp lại nhiều lần, Google có thể tạm dừng crawl phần còn lại của website. [cite: 40]</p>
+
+            <h3>Cách xử lý:</h3>
+            <ul>
+                <li>Kiểm tra file log của máy chủ hoặc dùng Screaming Frog để rà soát lỗi</li>
+                <li>Kiểm tra URL có phải là trang tạo động từ bộ lọc hoặc phân trang (ví dụ: `/category/shoes?price=0-999999`) không</li>
+                <li>Nếu là URL không cần thiết, có thể chặn bằng robots.txt hoặc redirect hợp lý</li>
+            </ul>
+            <p>Tài liệu tham khảo:</p>
+            <ul>
+                <li><a href="https://developers.google.com/search/docs/crawling-indexing/handling-server-errors" target="_blank">https://developers.google.com/search/docs/crawling-indexing/handling-server-errors</a></li>
+                <li><a href="https://www.oncrawl.com/technical-seo/5xx-server-errors-seo/" target="_blank">https://www.oncrawl.com/technical-seo/5xx-server-errors-seo/</a></li>
+            </ul>
+
+            <h3>2.7. Duplicate Without User-selected Canonical</h3>
+            [cite_start]<p>Google phát hiện hai hoặc nhiều trang có nội dung tương tự nhưng không được chỉ định canonical rõ ràng, dẫn đến việc Google tự quyết định URL chính. [cite: 42]</p>
+
+            <h3>Ví dụ:</h3>
+            <ul>
+                <li>`/seo-checklist` và `/checklist-seo` có nội dung gần giống nhau</li>
+                <li>`/product` và `/product?ref=homepage`</li>
+            </ul>
+            <h3>Cách xử lý:</h3>
+            <ul>
+                <li>Dùng các công cụ như Siteliner, Sitebulb hoặc Screaming Frog để xác định trùng lặp</li>
+                <li>Gắn thẻ canonical trong thẻ `&lt;head&gt;` của mỗi trang</li>
+                <li>Với các URL tạo bởi bộ lọc (filter, tag), nếu không cần index thì gắn noindex hoặc chặn bằng robots.txt</li>
+            </ul>
+            <p>Tài liệu tham khảo:</p>
+            <ul>
+                <li><a href="https://developers.google.com/search/docs/crawling-indexing/similar-pages" target="_blank">https://developers.google.com/search/docs/crawling-indexing/similar-pages</a></li>
+                <li><a href="https://moz.com/learn/seo/duplicate-content" target="_blank">https://moz.com/learn/seo/duplicate-content</a></li>
+            </ul>
+
+            <h2>3. Bảng tổng hợp lỗi Excluded và hướng xử lý</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã loại trừ trong GSC</th>
+                        <th>Nguyên nhân phổ biến</th>
+                        <th>Cách xử lý cụ thể</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Crawled – Currently Not Indexed</td>
+                        <td>Trang đã crawl nhưng nội dung mỏng, không đủ liên kết nội bộ</td>
+                        <td>Tăng liên kết nội bộ, cập nhật nội dung, nếu vô giá trị thì xóa bằng HTTP 410</td>
+                    </tr>
+                    <tr>
+                        <td>Discovered – Currently Not Indexed</td>
+                        <td>Trang được phát hiện nhưng chưa crawl, thường do thiếu internal link</td>
+                        <td>Tạo thêm liên kết nội bộ, đẩy sitemap, liên kết từ menu hoặc các bài viết liên quan</td>
+                    </tr>
+                    <tr>
+                        <td>Not Found (404)</td>
+                        <td>Trang bị xóa, URL sai hoặc liên kết gãy</td>
+                        <td>Redirect 301 nếu có backlink, hoặc HTTP 410 nếu không còn giá trị</td>
+                    </tr>
+                    <tr>
+                        <td>Alternative Page with Proper Canonical</td>
+                        <td>Canonical được gắn không đúng hoặc thiếu nhất quán</td>
+                        <td>Kiểm tra lại thẻ canonical, đồng bộ nội dung và tránh liên kết nội bộ trỏ đến bản phụ</td>
+                    </tr>
+                    <tr>
+                        <td>Excluded by noindex tag</td>
+                        <td>Trang bị gắn thẻ meta robots noindex</td>
+                        <td>Gỡ noindex nếu trang có giá trị SEO, hoặc giữ nếu mục đích loại khỏi chỉ mục là chủ đích</td>
+                    </tr>
+                    <tr>
+                        <td>Server Error (5xx)</td>
+                        <td>Lỗi máy chủ tạm thời hoặc URL sinh sai từ bộ lọc</td>
+                        <td>Khắc phục lỗi kỹ thuật, xử lý redirect nếu URL không hợp lệ, chặn bằng robots.txt nếu cần</td>
+                    </tr>
+                    <tr>
+                        <td>Duplicate Without User-selected Canonical</td>
+                        <td>Trang trùng nội dung nhưng không có canonical rõ ràng</td>
+                        <td>Gắn canonical đúng, gộp nội dung nếu cần thiết, redirect bản trùng không cần thiết</td>
+                    </tr>
+                </tbody>
+            [cite_start]</table> [cite: 44]
+
+            <h2>4. Kết luận</h2>
+            [cite_start]<p>Việc phân tích và xử lý các lỗi “Excluded” trong Google Search Console không chỉ giúp bạn tăng tỷ lệ index mà còn cải thiện chất lượng toàn bộ website trong mắt Google. [cite: 45]</p>
+            [cite_start]<p>Khi thực hiện đúng: [cite: 46, 47, 48]</p>
+            <ul>
+                [cite_start]<li>Nội dung có giá trị sẽ được hiển thị nhiều hơn trong kết quả tìm kiếm. [cite: 46]</li>
+                [cite_start]<li>Crawl budget được phân bổ hợp lý, tập trung vào các trang có khả năng mang lại traffic hoặc chuyển đổi. [cite: 47]</li>
+                [cite_start]<li>Tránh các lỗi kỹ thuật gây ảnh hưởng đến tổng thể hiệu suất SEO. [cite: 48]</li>
+            </ul>
+            [cite_start]<p>Khuyến nghị: [cite: 49, 50, 51]</p>
+            <ul>
+                [cite_start]<li>Duy trì kiểm tra GSC định kỳ, đặc biệt là tab Coverage (Pages). [cite: 49]</li>
+                [cite_start]<li>Kết hợp các công cụ như Screaming Frog, Ahrefs, Sitebulb, hoặc URL Inspection API để thu thập và phân loại dữ liệu chính xác. [cite: 50]</li>
+                [cite_start]<li>Luôn đồng bộ với team nội dung và kỹ thuật khi thực hiện các thay đổi liên quan đến canonical, redirect hoặc robots.txt. [cite: 51]</li>
+            </ul>
         </article>
     </div>
 
@@ -81,3 +363,4 @@
     <script src="../js/main.js"></script>
 </body>
 </html>
+```
