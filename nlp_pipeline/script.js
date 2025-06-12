@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
         resetPipeline(); // Reset elements for a clean restart
 
         // Re-initialize pipeline after zoom
-        setTimeout(() => { // Small delay to allow CSS transform to apply
+        requestAnimationFrame(() => { // Use requestAnimationFrame for smoother redraw/restart
             initializePipeline(); // This will handle resizeSVG, drawAllLines, and animatePipeline
-        }, 300); // Allow transform to apply
+        });
         
         console.log(`Zoom adjusted to: ${currentZoom}`);
     };
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         path.style.display = 'block';
 
         path.style.transition = 'none'; 
-        void path.offsetWidth; 
+        void path.offsetWidth; // Force reflow
         path.style.strokeDashoffset = path.getTotalLength(); 
         path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Initial opacity based on screen size
 
