@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Data Pipeline - Animated Loop</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="pipeline-container">
+        <h1 class="pipeline-title">NLP Data Pipeline</h1>
+
+        <div class="pipeline-flow-grid">
+            <svg class="pipeline-lines" width="100%" height="100%"></svg>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-document">
+                <div class="pipeline-box document-box" id="box-document">
+                    <i class="fas fa-file-alt box-icon"></i>
+                    <span class="box-label">Document</span>
+                    <div class="document-text-lines">
+                        <div class="document-line"></div>
+                        <div class="document-line"></div>
+                        <div class="document-line"></div>
+                        <div class="document-line short"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-parsing">
+                <div class="pipeline-box process-box" id="box-document-parsing">
+                    <i class="fas fa-filter box-icon"></i>
+                    <span class="box-label">Document Parsing</span>
+                </div>
+            </div>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-segment-annotation">
+                <div class="pipeline-box process-box" id="box-segment-annotation">
+                    <i class="fas fa-tags box-icon"></i>
+                    <span class="box-label">Segment-Level Annotation</span>
+                </div>
+            </div>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-tokenization">
+                <div class="pipeline-box data-box blue-box" id="box-tokenization">
+                    <i class="fas fa-cut box-icon"></i>
+                    <span class="box-label">Tokenization</span>
+                </div>
+            </div>
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-token-indexing">
+                <div class="pipeline-box data-box blue-box" id="box-token-indexing">
+                    <i class="fas fa-list-ol box-icon"></i>
+                    <span class="box-label">Token Indexing</span>
+                </div>
+            </div>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-element-annotation">
+                <div class="pipeline-box process-box" id="box-element-annotation">
+                    <i class="fas fa-marker box-icon"></i>
+                    <span class="box-label">Element-Level Annotation</span>
+                </div>
+            </div>
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-text-segmentation">
+                <div class="pipeline-box process-box" id="box-text-segmentation">
+                    <i class="fas fa-grip-lines box-icon"></i>
+                    <span class="box-label">Text Segmentation</span>
+                </div>
+            </div>
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-generate-embeddings">
+                <div class="pipeline-box data-box yellow-box" id="box-generate-embeddings">
+                    <i class="fas fa-brain box-icon"></i>
+                    <span class="box-label">Generate Embeddings</span>
+                </div>
+            </div>
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-vector-indexing">
+                <div class="pipeline-box data-box yellow-box" id="box-vector-indexing">
+                    <i class="fas fa-cubes box-icon"></i>
+                    <span class="box-label">Vector Indexing</span>
+                </div>
+            </div>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-search">
+                <div class="pipeline-box data-box blue-box" id="box-search">
+                    <i class="fas fa-search box-icon"></i>
+                    <span class="box-label">Search</span>
+                </div>
+            </div>
+
+            <div class="pipeline-stage-wrapper" id="stage-wrapper-ranking">
+                <div class="pipeline-box data-box yellow-box" id="box-ranking">
+                    <i class="fas fa-chart-bar box-icon"></i>
+                    <span class="box-label">Ranking</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="deterministic-ranking-label">Deterministic Ranking</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
