@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed. Initializing NLP Pipeline.');
+    console.log('DOM Content Loaded. Starting NLP Pipeline initialization process...');
 
     const container = document.querySelector('.pipeline-container');
     const svg = document.querySelector('.pipeline-lines');
     const pipelineFlowGrid = document.querySelector('.pipeline-flow-grid');
 
     if (!container || !svg || !pipelineFlowGrid) {
-        console.error('Error: Essential DOM elements (container, svg, or grid) not found. Aborting script.');
+        console.error('CRITICAL ERROR: Essential DOM elements (container, svg, or pipelineFlowGrid) not found. Aborting script.');
         return;
     }
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
         zoomInBtn.addEventListener('click', () => adjustZoom(zoomStep));
         zoomOutBtn.addEventListener('click', () => adjustZoom(-zoomStep));
-        zoomResetBtn.addEventListener('click', () => adjustZoom(1.0, true)); // true to reset
+        zoomResetBtn.addEventListener('click', () => adjustZoom(1.0, true));
     } else {
         // console.warn('Zoom control buttons not found. Zoom functionality will be disabled.');
     }
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const adjustZoom = (delta, reset = false) => {
         if (window.innerWidth <= 992) { 
-            return;
+            return; // Zoom disabled on small screens
         }
 
         if (reset) {
@@ -54,28 +54,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pipelineFlowGrid.style.transform = `scale(${currentZoom})`;
 
-        animationRunning = false; 
-        resetPipeline(); 
-        resizeSVG(); 
-        drawAllLines(); 
+        stopAnimation(); // Stop any ongoing animation cycle
+        resetPipeline(); // Reset elements for a clean restart
 
-        setTimeout(() => {
-            animatePipeline();
-        }, 500); // Give time for redraw and initial element positioning
+        // Re-calculate and redraw after zoom
+        setTimeout(() => { // Small delay to allow CSS transform to apply
+            resizeSVG();
+            drawAllLines();
+            animatePipeline(); // Restart animation
+        }, 300); // Allow transform to apply
         
         console.log(`Zoom adjusted to: ${currentZoom}`);
     };
 
+
     /**
      * Calculates the center coordinates of an HTML element relative to the SVG canvas.
+     * Checks if element has valid dimensions.
      * @param {HTMLElement} el The element to get the center of.
-     * @returns {{x: number, y: number}} An object with x and y coordinates relative to the SVG.
+     * @returns {{x: number, y: number}|null} An object with x and y coordinates relative to the SVG, or null if invalid.
      */
     const getElementCenterSVGCoords = (el) => {
         if (!el) {
-            return { x: 0, y: 0 };
+            console.error('getElementCenterSVGCoords called with null element.');
+            return null;
         }
         const rect = el.getBoundingClientRect();
+        // Crucial check: if width/height is 0, element is not laid out correctly (e.g., display: none)
+        if (rect.width === 0 || rect.height === 0) {
+            console.warn(`Element ${el.id || el.className} has zero dimensions. Layout might not be ready.`);
+            return null;
+        }
         const svgRect = svg.getBoundingClientRect();
         return {
             x: (rect.left + rect.width / 2) - svgRect.left,
@@ -85,10 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Creates an SVG path element and adds it to the SVG.
-     * @param {string} id The ID for the path.
-     * @param {string} d The 'd' attribute string for the SVG path (path data).
-     * @param {string} markerEndId The ID of the marker to use at the end of the path (e.g., 'arrowhead-marker').
-     * @returns {SVGPathElement} The created path element.
+     * @returns {SVGPathElement|null} The created path element, or null if creation failed.
      */
     const createSvgPath = (id, d, markerEndId) => {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -101,21 +107,23 @@ document.addEventListener('DOMContentLoaded', () => {
         svg.appendChild(path);
 
         try {
+            // Temporarily make it block to get length if it's hidden by CSS
+            const originalDisplay = path.style.display;
             path.style.display = 'block'; 
             const length = path.getTotalLength();
             path.style.strokeDasharray = length;
             path.style.strokeDashoffset = length;
+            path.style.display = originalDisplay; // Restore original display
+            return path;
         } catch (e) {
-            console.error(`Error calculating length for path ${id}:`, e);
-            path.style.strokeDasharray = '0'; 
-            path.style.strokeDashoffset = '0'; 
+            console.error(`Error calculating length for path ${id} with d="${d}":`, e);
+            svg.removeChild(path); // Remove invalid path
+            return null;
         }
-        return path;
     };
 
     /**
      * Animates the drawing of an SVG path and applies the flow animation class.
-     * @param {SVGPathElement} path The path element to animate.
      */
     const animatePathFlow = (path) => {
         if (!path) return;
@@ -145,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Resets the color of an arrowhead to its default state.
-     * @param {SVGPathElement} path The path element whose marker to reset.
      */
     const resetArrowheadColor = (path) => {
         const markerId = path.getAttribute('marker-end');
@@ -163,9 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Fades in a given HTML element (its wrapper) with a slight pop-up effect.
-     * @param {HTMLElement} elWrapper The wrapper element to fade in.
-     * @param {number} delay The delay in milliseconds before starting the fade.
-     * @returns {Promise<void>} A promise that resolves after the animation.
      */
     const fadeInElement = (elWrapper, delay = 200) => {
         return new Promise(resolve => {
@@ -229,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Creates an SVG <defs> section and a marker for arrowheads.
-     * This marker can be reused for all paths.
      */
     const createArrowheadMarker = () => {
         let defs = svg.querySelector('defs');
@@ -258,12 +261,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Draws all the SVG lines connecting the pipeline boxes.
      * Logic changes based on screen size (desktop vs mobile).
+     * Includes retry mechanism for layout stability.
      */
-    const drawAllLines = () => {
+    const drawAllLines = (retryCount = 0) => {
+        const MAX_RETRY = 5;
+        // console.log(`Attempting to draw lines (retry ${retryCount})...`);
+
         svg.innerHTML = ''; // Clear existing lines
         createArrowheadMarker(); // Recreate marker on redraw
 
-        // Get references to the specific box elements by their IDs
         const docBox = document.getElementById('box-document');
         const parsingBox = document.getElementById('box-document-parsing');
         const segmentAnnoBox = document.getElementById('box-segment-annotation');
@@ -276,110 +282,111 @@ document.addEventListener('DOMContentLoaded', () => {
         const searchBox = document.getElementById('box-search');
         const rankingBox = document.getElementById('box-ranking');
 
-        // Verify all required elements are present. If any are null, stop.
-        const elements = {
+        const elementsToConnect = {
             docBox, parsingBox, segmentAnnoBox, tokenizationBox, tokenIndexingBox,
             elementAnnotationBox, textSegmentationBox, generateEmbeddingsBox,
             vectorIndexingBox, searchBox, rankingBox
         };
 
-        for (const [name, el] of Object.entries(elements)) {
-            if (!el) {
-                console.error(`Missing element: ${name}. Cannot draw lines. Check its ID in HTML.`);
-                return; // Stop drawing if a critical element is missing
+        const C = getElementCenterSVGCoords; // Alias for brevity
+        const isSmallScreen = window.innerWidth <= 992;
+        
+        let allElementsValid = true;
+        const coords = {};
+        for (const name in elementsToConnect) {
+            const el = elementsToConnect[name];
+            const center = C(el);
+            if (!center) { // If element has zero dimensions
+                allElementsValid = false;
+                break;
             }
+            coords[name] = center;
         }
 
-        const C = getElementCenterSVGCoords; // Alias for brevity
+        if (!allElementsValid && retryCount < MAX_RETRY) {
+            console.warn(`Element dimensions invalid. Retrying drawAllLines in 100ms. (Retry: ${retryCount + 1}/${MAX_RETRY})`);
+            setTimeout(() => drawAllLines(retryCount + 1), 100);
+            return;
+        } else if (!allElementsValid && retryCount >= MAX_RETRY) {
+            console.error('Failed to draw lines after multiple retries. Elements likely not laid out correctly.');
+            return;
+        }
 
-        const isSmallScreen = window.innerWidth <= 992;
-
+        // --- Actual Drawing Logic ---
         if (!isSmallScreen) { // Desktop/Large Screen Logic (Grid Layout)
-            createSvgPath('line-doc-parsing', `M${C(docBox).x},${C(docBox).y} L${C(parsingBox).x},${C(parsingBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-parsing-segment', `M${C(parsingBox).x},${C(parsingBox).y} L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-doc-parsing', `M${coords.docBox.x},${coords.docBox.y} L${coords.parsingBox.x},${coords.parsingBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-parsing-segment', `M${coords.parsingBox.x},${coords.parsingBox.y} L${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y}`, 'arrowhead-marker');
 
-            // Branching to Tokenization
             createSvgPath('line-segment-tokenization',
-                `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} ` +
-                `L${C(tokenizationBox).x - 100},${C(segmentAnnoBox).y} ` + // Horizontal to the left of tokenization
-                `L${C(tokenizationBox).x - 100},${C(tokenizationBox).y} ` + // Vertical up to tokenization level
-                `L${C(tokenizationBox).x},${C(tokenizationBox).y}`, // Horizontal to tokenization
+                `M${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y} ` +
+                `L${coords.tokenizationBox.x - 100},${coords.segmentAnnoBox.y} ` +
+                `L${coords.tokenizationBox.x - 100},${coords.tokenizationBox.y} ` +
+                `L${coords.tokenizationBox.x},${coords.tokenizationBox.y}`,
                 'arrowhead-marker'
             );
 
-            // Branching to Element Annotation
             createSvgPath('line-segment-element',
-                `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} ` +
-                `L${C(elementAnnotationBox).x - 100},${C(segmentAnnoBox).y} ` + // Horizontal to the left of element annotation
-                `L${C(elementAnnotationBox).x - 100},${C(elementAnnotationBox).y} ` + // Vertical down to element annotation level
-                `L${C(elementAnnotationBox).x},${C(elementAnnotationBox).y}`, // Horizontal to element annotation
+                `M${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y} ` +
+                `L${coords.elementAnnotationBox.x - 100},${coords.segmentAnnoBox.y} ` +
+                `L${coords.elementAnnotationBox.x - 100},${coords.elementAnnotationBox.y} ` +
+                `L${coords.elementAnnotationBox.x},${coords.elementAnnotationBox.y}`,
                 'arrowhead-marker'
             );
 
-            createSvgPath('line-token-indexing', `M${C(tokenizationBox).x},${C(tokenizationBox).y} L${C(tokenIndexingBox).x},${C(tokenIndexingBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-element-text', `M${C(elementAnnotationBox).x},${C(elementAnnotationBox).y} L${C(textSegmentationBox).x},${C(textSegmentationBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-text-embeddings', `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} L${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-embeddings-vector', `M${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y} L${C(vectorIndexingBox).x},${C(vectorIndexingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-token-indexing', `M${coords.tokenizationBox.x},${coords.tokenizationBox.y} L${coords.tokenIndexingBox.x},${coords.tokenIndexingBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-element-text', `M${coords.elementAnnotationBox.x},${coords.elementAnnotationBox.y} L${coords.textSegmentationBox.x},${coords.textSegmentationBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-text-embeddings', `M${coords.textSegmentationBox.x},${coords.textSegmentationBox.y} L${coords.generateEmbeddingsBox.x},${coords.generateEmbeddingsBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-embeddings-vector', `M${coords.generateEmbeddingsBox.x},${coords.generateEmbeddingsBox.y} L${coords.vectorIndexingBox.x},${coords.vectorIndexingBox.y}`, 'arrowhead-marker');
 
-            // Loop Back (Complex Curve)
-            const tsCenter = C(textSegmentationBox);
-            const saCenter = C(segmentAnnoBox);
-            const controlPointOffset = 100; // How much the curve bends
-
+            const controlPointOffset = 100;
             createSvgPath('line-loop-back',
-                `M${tsCenter.x},${tsCenter.y} ` +
-                `C${tsCenter.x + controlPointOffset},${tsCenter.y + controlPointOffset} ` + // Control point 1 (down and right)
-                `${saCenter.x + controlPointOffset},${saCenter.y + controlPointOffset} ` + // Control point 2 (up and right)
-                `${saCenter.x},${saCenter.y}`, // End point
+                `M${coords.textSegmentationBox.x},${coords.textSegmentationBox.y} ` +
+                `C${coords.textSegmentationBox.x + controlPointOffset},${coords.textSegmentationBox.y + controlPointOffset} ` +
+                `${coords.segmentAnnoBox.x + controlPointOffset},${coords.segmentAnnoBox.y + controlPointOffset} ` +
+                `${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y}`,
                 'arrowhead-marker'
             );
 
-            // Converging lines to Search
-            createSvgPath('line-token-search', `M${C(tokenIndexingBox).x},${C(tokenIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-vector-search', `M${C(vectorIndexingBox).x},${C(vectorIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-token-search', `M${coords.tokenIndexingBox.x},${coords.tokenIndexingBox.y} L${coords.searchBox.x},${coords.searchBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-vector-search', `M${coords.vectorIndexingBox.x},${coords.vectorIndexingBox.y} L${coords.searchBox.x},${coords.searchBox.y}`, 'arrowhead-marker');
 
-            createSvgPath('line-search-ranking', `M${C(searchBox).x},${C(searchBox).y} L${C(rankingBox).x},${C(rankingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-search-ranking', `M${coords.searchBox.x},${coords.searchBox.y} L${coords.rankingBox.x},${coords.rankingBox.y}`, 'arrowhead-marker');
 
         } else { // Mobile/Small Screen Logic (Vertical Stack Layout) - Simplified Paths
-            // All paths are drawn as simple vertical lines between centers of stacked elements
-            createSvgPath('line-doc-parsing-mobile', `M${C(docBox).x},${C(docBox).y} L${C(parsingBox).x},${C(parsingBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-parsing-segment-mobile', `M${C(parsingBox).x},${C(parsingBox).y} L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-doc-parsing-mobile', `M${coords.docBox.x},${coords.docBox.y} L${coords.parsingBox.x},${coords.parsingBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-parsing-segment-mobile', `M${coords.parsingBox.x},${coords.parsingBox.y} L${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y}`, 'arrowhead-marker');
             
-            // Branching on mobile - direct vertical
-            createSvgPath('line-segment-tokenization-mobile', `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} L${C(tokenizationBox).x},${C(tokenizationBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-token-indexing-mobile', `M${C(tokenizationBox).x},${C(tokenizationBox).y} L${C(tokenIndexingBox).x},${C(tokenIndexingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-segment-tokenization-mobile', `M${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y} L${coords.tokenizationBox.x},${coords.tokenizationBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-token-indexing-mobile', `M${coords.tokenizationBox.x},${coords.tokenizationBox.y} L${coords.tokenIndexingBox.x},${coords.tokenIndexingBox.y}`, 'arrowhead-marker');
             
-            // Converging to search (mobile) - simplified to direct vertical connection
-            createSvgPath('line-token-search-mobile', `M${C(tokenIndexingBox).x},${C(tokenIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-token-search-mobile', `M${coords.tokenIndexingBox.x},${coords.tokenIndexingBox.y} L${coords.searchBox.x},${coords.searchBox.y}`, 'arrowhead-marker');
             
-            createSvgPath('line-segment-element-mobile', `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} L${C(elementAnnotationBox).x},${C(elementAnnotationBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-element-text-mobile', `M${C(elementAnnotationBox).x},${C(elementAnnotationBox).y} L${C(textSegmentationBox).x},${C(textSegmentationBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-text-embeddings-mobile', `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} L${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-embeddings-vector-mobile', `M${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y} L${C(vectorIndexingBox).x},${C(vectorIndexingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-segment-element-mobile', `M${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y} L${coords.elementAnnotationBox.x},${coords.elementAnnotationBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-element-text-mobile', `M${coords.elementAnnotationBox.x},${coords.elementAnnotationBox.y} L${coords.textSegmentationBox.x},${coords.textSegmentationBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-text-embeddings-mobile', `M${coords.textSegmentationBox.x},${coords.textSegmentationBox.y} L${coords.generateEmbeddingsBox.x},${coords.generateEmbeddingsBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-embeddings-vector-mobile', `M${coords.generateEmbeddingsBox.x},${coords.generateEmbeddingsBox.y} L${coords.vectorIndexingBox.x},${coords.vectorIndexingBox.y}`, 'arrowhead-marker');
 
-            // Loop back on mobile (simplified L-shape)
             createSvgPath('line-loop-back-mobile', 
-                `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} ` +
-                `L${C(textSegmentationBox).x},${C(segmentAnnoBox).y + 100} ` + // Go down from Text Segmentation
-                `L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y + 100} ` + // Go left to align with Segment Annotation's X
-                `L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, // Go up to Segment Annotation
+                `M${coords.textSegmentationBox.x},${coords.textSegmentationBox.y} ` +
+                `L${coords.textSegmentationBox.x},${coords.segmentAnnoBox.y + 100} ` +
+                `L${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y + 100} ` +
+                `L${coords.segmentAnnoBox.x},${coords.segmentAnnoBox.y}`,
                 'arrowhead-marker'
             );
 
-            createSvgPath('line-vector-search-mobile', `M${C(vectorIndexingBox).x},${C(vectorIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
-            createSvgPath('line-search-ranking-mobile', `M${C(searchBox).x},${C(searchBox).y} L${C(rankingBox).x},${C(rankingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-vector-search-mobile', `M${coords.vectorIndexingBox.x},${coords.vectorIndexingBox.y} L${coords.searchBox.x},${coords.searchBox.y}`, 'arrowhead-marker');
+            createSvgPath('line-search-ranking-mobile', `M${coords.searchBox.x},${coords.searchBox.y} L${coords.rankingBox.x},${coords.rankingBox).y}`, 'arrowhead-marker');
         }
+        console.log('Finished drawAllLines attempt.');
     };
 
     // --- Animation Sequence ---
     let animationRunning = false; 
-    let animationTimeoutId = null; // To store setTimeout ID for animation loop
+    let animationTimeoutId = null; 
 
     const animatePipeline = async () => {
-        // Prevent multiple animation loops from starting
-        if (animationRunning) { 
-            console.log('Animation already running, skipping start.');
-            return;
+        if (animationRunning) {
+            return; // Animation already running
         }
         animationRunning = true;
         console.log('Starting pipeline animation cycle.');
@@ -431,9 +438,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         for (const step of steps) {
-            // Check if animation was stopped externally during the loop
-            if (!animationRunning) {
-                console.log('Animation stopped externally during cycle.');
+            if (!animationRunning) { // Check if animation was stopped externally
+                console.log('Animation cycle interrupted externally.');
                 return; 
             }
 
@@ -457,10 +463,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (animationRunning) { // Loop condition
             resetPipeline();
-            // Store the timeout ID so it can be cleared
             animationTimeoutId = setTimeout(() => { 
                 animatePipeline(); 
-            }, 1000); // Pause after reset before new cycle
+            }, 1000); 
         }
     };
 
@@ -468,12 +473,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * Stops the current animation loop if it's running.
      */
     const stopAnimation = () => {
-        animationRunning = false; // Signal to stop the loop in the next iteration
+        animationRunning = false; 
         if (animationTimeoutId) {
-            clearTimeout(animationTimeoutId); // Clear any pending loop calls
+            clearTimeout(animationTimeoutId);
             animationTimeoutId = null;
         }
-        console.log('Animation explicitly stopped.');
+        console.log('Animation explicitly stopped and cleared pending timeouts.');
     };
 
     // --- Initialization ---
@@ -490,49 +495,61 @@ document.addEventListener('DOMContentLoaded', () => {
         const gridRect = gridWrapper.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect(); 
 
-        // Set SVG width/height to match grid wrapper's dimensions
         svg.style.width = `${gridRect.width}px`;
         svg.style.height = `${gridRect.height}px`;
-        // Position SVG relative to the top-left of the container,
-        // accounting for grid's offset within the container.
         svg.style.left = `${gridRect.left - containerRect.left}px`;
         svg.style.top = `${gridRect.top - containerRect.top}px`;
     };
 
-    // Initial setup: Draw all SVG lines before starting animation
-    // Use a small delay for initial setup to allow CSS to fully render
-    // This helps prevent "mũi tên rải rác" on initial load/F5
-    setTimeout(() => {
-        try {
-            resizeSVG(); 
-            drawAllLines(); 
-        } catch (e) {
-            console.error('Error during initial drawing of SVG lines:', e);
-        }
-
-        // Start the animation sequence, which will then loop
-        animatePipeline();
+    /**
+     * Main initialization function, designed to retry if layout is not ready.
+     */
+    const initializePipeline = (retryCount = 0) => {
+        const MAX_INITIALIZATION_RETRIES = 10;
+        console.log(`Attempting to initialize pipeline (retry ${retryCount})...`);
 
         // Handle initial screen size state (if page loads on small screen)
         const initialIsSmallScreen = window.innerWidth <= 992;
         if (initialIsSmallScreen) {
-            // Hide SVG and zoom controls initially
-            svg.style.display = 'none';
+            svg.style.display = 'none'; // Hide SVG and zoom controls initially
             if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
                 zoomInBtn.parentElement.style.display = 'none';
             }
-            // Force redraw for mobile view and start mobile animation after a short delay
-            // This re-ensures correctness if the initial drawAllLines was based on desktop layout
-            setTimeout(() => {
-                stopAnimation(); // Stop any desktop animation that might have started
-                resetPipeline(); 
-                resizeSVG();
-                drawAllLines(); // Draw mobile paths
-                animatePipeline(); // Start mobile animation
-            }, 500); // Give a bit more time for initial layout to settle
+        } else {
+            // Ensure SVG and zoom controls are visible on large screens
+            svg.style.display = 'block';
+            if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+                zoomInBtn.parentElement.style.display = 'flex';
+            }
         }
-    }, 100); // Initial delay to ensure DOM is fully ready and styled
 
+        try {
+            resizeSVG(); 
+            // Call drawAllLines with retry logic, it will handle if elements aren't ready
+            drawAllLines(); 
+
+            // Check if drawing was successful (i.e., no critical elements were missing)
+            const allPaths = svg.querySelectorAll('.pipeline-line');
+            if (allPaths.length === 0 && !initialIsSmallScreen) { // If no paths drawn on desktop, something is wrong
+                throw new Error('No SVG paths were drawn. Elements might not be ready or are hidden.');
+            }
+
+            // Start animation only after drawing is successful
+            animatePipeline();
+
+        } catch (e) {
+            console.error('Error during pipeline initialization:', e);
+            if (retryCount < MAX_INITIALIZATION_RETRIES) {
+                setTimeout(() => initializePipeline(retryCount + 1), 200 * Math.pow(2, retryCount)); // Exponential back-off retry
+            } else {
+                console.error('Failed to initialize pipeline after multiple retries.');
+                // Display a message to the user if needed
+            }
+        }
+    };
+
+    // Start the robust initialization process after DOM is loaded
+    initializePipeline();
 
     // Redraw lines on window resize to maintain connections
     let resizeTimer;
@@ -547,18 +564,17 @@ document.addEventListener('DOMContentLoaded', () => {
             zoomInBtn.parentElement.style.display = isSmallScreen ? 'none' : 'flex';
         }
 
-        clearTimeout(resizeTimer); // Clear any previous resize timeout
+        clearTimeout(resizeTimer); 
         stopAnimation(); // Stop current animation cycle
-        resetPipeline(); // Reset all elements to initial state
+        resetPipeline(); // Reset elements for a clean state
 
         resizeTimer = setTimeout(() => {
             console.log('Window resized, redrawing lines and restarting animation...');
+            
             resizeSVG();
             drawAllLines(); // Redraw lines based on new screen size (desktop or mobile paths)
 
-            setTimeout(() => {
-                animatePipeline(); // Restart animation
-            }, 500); // Give time for redraw and initial element positioning
-        }, 250); // Debounce resize for better performance
+            animatePipeline(); // Restart animation
+        }, 250); 
     });
 });
