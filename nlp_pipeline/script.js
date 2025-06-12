@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resetPipeline();
             animationTimeoutId = setTimeout(() => { 
                 animatePipeline(); 
-            }, 20); 
+            }, 1000); 
         }
     };
 
