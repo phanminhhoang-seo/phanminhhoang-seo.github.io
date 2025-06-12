@@ -18,8 +18,8 @@
     /* Responsive Layout Dimensions (Default for large screens) */
     --box-min-width: 180px; /* Slightly reduced default width */
     --box-min-height: 90px; /* Slightly reduced default height */
-    --gap-horizontal: 60px; /* Reduced gap */
-    --gap-vertical: 60px; /* Reduced gap */
+    --gap-horizontal: 5vw; /* Use viewport width for gaps */
+    --gap-vertical: 60px; 
 }
 
 /* Base styles for body and overall container */
@@ -44,7 +44,7 @@ body {
     background-color: var(--color-box-bg-white);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    max-width: 1300px; /* **Crucial:** Reduced max-width significantly */
+    max-width: 1300px; 
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -99,20 +99,21 @@ body {
 /* Grid container for precise layout */
 .pipeline-flow-grid {
     display: grid;
+    /* Use minmax to allow columns to shrink but not below a certain point */
     grid-template-columns: 
-        minmax(var(--box-min-width), auto) 
-        var(--gap-horizontal) 
-        minmax(var(--box-min-width), auto) 
-        var(--gap-horizontal) 
-        minmax(var(--box-min-width), auto) 
-        var(--gap-horizontal) 
-        minmax(var(--box-min-width), auto) 
-        var(--gap-horizontal) 
-        minmax(var(--box-min-width), auto) 
-        var(--gap-horizontal) 
-        minmax(var(--box-min-width), auto) 
-        var(--gap-horizontal) 
-        minmax(var(--box-min-width), auto); 
+        minmax(var(--box-min-width), 1fr) /* Col 1 */
+        var(--gap-horizontal) /* Col 2 (Gap) */
+        minmax(var(--box-min-width), 1fr) /* Col 3 */
+        var(--gap-horizontal) /* Col 4 (Gap) */
+        minmax(var(--box-min-width), 1fr) /* Col 5 */
+        var(--gap-horizontal) /* Col 6 (Gap) */
+        minmax(var(--box-min-width), 1fr) /* Col 7 */
+        var(--gap-horizontal) /* Col 8 (Gap) */
+        minmax(var(--box-min-width), 1fr) /* Col 9 */
+        var(--gap-horizontal) /* Col 10 (Gap) */
+        minmax(var(--box-min-width), 1fr) /* Col 11 */
+        var(--gap-horizontal) /* Col 12 (Gap) */
+        minmax(var(--box-min-width), 1fr); /* Col 13 */
     
     grid-template-rows: 
         auto 
@@ -122,13 +123,14 @@ body {
         auto;
         
     position: relative;
-    width: 100%; /* Important: This width refers to the grid's own width */
+    width: 100%; 
+    min-width: 1000px; /* **NEW:** Reduce min-width for grid itself, more flexible */
     align-items: start;
     justify-content: center;
     
-    /* Zoom related properties */
-    transform-origin: top left; /* Zoom from top-left corner */
-    transition: transform 0.2s ease-out; /* Smooth zoom transition */
+    transform-origin: top left;
+    transition: transform 0.2s ease-out;
+    overflow: hidden; /* **NEW:** Hide overflow within the grid to prevent visual overlap */
 }
 
 /* Specific Grid Placements (adjust row/column spans as needed) */
@@ -152,13 +154,13 @@ body {
 
 /* Base style for all pipeline boxes */
 .pipeline-box {
-    padding: 15px 20px; /* Reduced padding for smaller boxes */
+    padding: 15px 20px;
     border-radius: 10px;
     text-align: center;
     font-weight: 600;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-    min-width: var(--box-min-width); /* Use variable for consistent width */
-    min-height: var(--box-min-height); /* Use variable for consistent height */
+    min-width: var(--box-min-width);
+    min-height: var(--box-min-height);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -173,7 +175,7 @@ body {
 }
 
 .box-label {
-    font-size: 1em; /* Slightly smaller label font */
+    font-size: 1em;
     line-height: 1.3;
 }
 
@@ -181,9 +183,9 @@ body {
 .document-box {
     background-color: var(--color-dark-blue);
     color: #fff;
-    min-width: 200px; /* Adjusted width for Document */
-    min-height: 160px; /* Adjusted height for Document */
-    padding: 25px; /* Adjusted padding */
+    min-width: 200px;
+    min-height: 160px;
+    padding: 25px;
     border: none;
     justify-content: space-around;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
@@ -201,7 +203,7 @@ body {
 
 .document-line {
     width: 90%;
-    height: 4px; /* Thinner lines */
+    height: 4px;
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 2px;
 }
@@ -234,8 +236,8 @@ body {
 
 /* Icon Styling */
 .box-icon {
-    font-size: 1.8em; /* Slightly smaller icon size */
-    margin-bottom: 8px; /* Reduced margin */
+    font-size: 1.8em;
+    margin-bottom: 8px;
     color: var(--color-text-dark);
     opacity: 0;
     transform: translateY(10px);
@@ -330,25 +332,26 @@ body {
 
 @media (max-width: 1100px) {
     .pipeline-flow-grid {
+        /* Allow columns to shrink more */
         grid-template-columns: 
-            minmax(160px, auto) 40px minmax(160px, auto) 40px minmax(160px, auto) 40px
-            minmax(160px, auto) 40px minmax(160px, auto) 40px minmax(160px, auto) 40px minmax(160px, auto);
+            minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px
+            minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px minmax(140px, 1fr);
     }
     :root {
-        --box-min-width: 160px;
-        --box-min-height: 80px;
-        --gap-horizontal: 40px;
-        --gap-vertical: 50px;
+        --box-min-width: 140px; /* Further reduced min width */
+        --box-min-height: 70px;
+        --gap-horizontal: 30px; /* Further reduced horizontal gap */
+        --gap-vertical: 40px;
     }
     .document-box {
-        min-width: 180px;
-        min-height: 140px;
+        min-width: 160px; /* Adjusted document box size */
+        min-height: 120px;
     }
     .box-icon {
-        font-size: 1.5em;
+        font-size: 1.4em;
     }
     .box-label {
-        font-size: 0.9em;
+        font-size: 0.85em;
     }
 }
 
@@ -366,6 +369,7 @@ body {
         padding-bottom: 0;
         transform: none !important; /* Reset zoom transform in vertical mode */
         transform-origin: center center !important; /* Reset origin */
+        min-width: auto; /* Remove min-width in vertical mode */
     }
     .pipeline-stage-wrapper {
         position: static !important;
@@ -375,7 +379,7 @@ body {
         width: auto;
     }
     .pipeline-box {
-        min-width: 180px;
+        min-width: 180px; /* Ensure boxes are readable in vertical stack */
         min-height: 90px;
         padding: 15px 20px;
     }
