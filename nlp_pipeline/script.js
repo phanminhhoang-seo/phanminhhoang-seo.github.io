@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed. Initializing NLP Pipeline with Looping Animation and Zoom.');
+    console.log('DOM fully loaded and parsed. Initializing NLP Pipeline.');
 
     const container = document.querySelector('.pipeline-container');
     const svg = document.querySelector('.pipeline-lines');
     const pipelineFlowGrid = document.querySelector('.pipeline-flow-grid');
 
     if (!container || !svg || !pipelineFlowGrid) {
-        console.error('Error: Essential DOM elements not found. Aborting script.');
+        console.error('Error: Essential DOM elements (container, svg, or grid) not found. Aborting script.');
         return;
     }
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         zoomOutBtn.addEventListener('click', () => adjustZoom(-zoomStep));
         zoomResetBtn.addEventListener('click', () => adjustZoom(1.0, true)); // true to reset
     } else {
-        console.warn('Zoom control buttons not found. Zoom functionality might be disabled or hidden.');
+        // console.warn('Zoom control buttons not found. Zoom functionality will be disabled.');
     }
 
     // --- Helper Functions ---
@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {boolean} reset If true, resets zoom to 1.0.
      */
     const adjustZoom = (delta, reset = false) => {
-        // Disable zoom on small screens where layout is vertical
         if (window.innerWidth <= 992) { 
             return;
         }
@@ -55,24 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pipelineFlowGrid.style.transform = `scale(${currentZoom})`;
 
-        // After zoom, we need to re-draw lines and restart the animation cycle
-        // to ensure everything is visually correct.
-        // Signal to stop the current animation loop
         animationRunning = false; 
-        resetPipeline(); // Reset all elements to initial state
+        resetPipeline(); 
+        resizeSVG(); 
+        drawAllLines(); 
 
-        // Re-calculate SVG size and redraw lines based on new layout
-        resizeSVG();
-        drawAllLines();
-
-        // Restart animation cycle after a short delay
         setTimeout(() => {
             animatePipeline();
         }, 500); // Give time for redraw and initial element positioning
         
         console.log(`Zoom adjusted to: ${currentZoom}`);
     };
-
 
     /**
      * Calculates the center coordinates of an HTML element relative to the SVG canvas.
@@ -81,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const getElementCenterSVGCoords = (el) => {
         if (!el) {
-            // console.error('getElementCenterSVGCoords called with null element. Returning {0,0}.');
             return { x: 0, y: 0 };
         }
         const rect = el.getBoundingClientRect();
@@ -100,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {SVGPathElement} The created path element.
      */
     const createSvgPath = (id, d, markerEndId) => {
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path'); // Correct SVG namespace
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('id', id);
         path.setAttribute('d', d);
         path.classList.add('pipeline-line');
@@ -110,14 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
         svg.appendChild(path);
 
         try {
-            path.style.display = 'block'; // Ensure it's not hidden by default CSS
+            path.style.display = 'block'; 
             const length = path.getTotalLength();
             path.style.strokeDasharray = length;
             path.style.strokeDashoffset = length;
         } catch (e) {
             console.error(`Error calculating length for path ${id}:`, e);
-            path.style.strokeDasharray = '0'; // Fallback
-            path.style.strokeDashoffset = '0'; // Fallback
+            path.style.strokeDasharray = '0'; 
+            path.style.strokeDashoffset = '0'; 
         }
         return path;
     };
@@ -129,19 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const animatePathFlow = (path) => {
         if (!path) return;
         
-        // Reset path state for animation
         path.style.transition = 'none'; 
-        void path.offsetWidth; // Force reflow
+        void path.offsetWidth; 
         path.style.strokeDashoffset = path.getTotalLength(); 
-        path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Initial opacity based on screen size
+        path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7;
 
-        // Start path drawing animation
         path.style.transition = 'stroke-dashoffset 1s ease-out, opacity 0.5s ease-out';
-        path.style.strokeDashoffset = '0'; // Draw the line
+        path.style.strokeDashoffset = '0';
         path.style.opacity = 1;
         path.classList.add('animate');
 
-        // Directly change arrowhead color using JS
         const markerId = path.getAttribute('marker-end');
         if (markerId) {
             const markerElement = svg.querySelector(markerId.substring(4, markerId.length - 1));
@@ -149,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
                     arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
-                    // Apply animated color on desktop, or keep default on mobile
                     arrowheadPath.style.fill = window.innerWidth > 992 ? 'var(--color-animated-line)' : 'var(--color-text-dark)'; 
                 }
             }
@@ -167,8 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (markerElement) {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
-                    arrowheadPath.style.transition = 'fill 0.5s ease-in-out'; // Allow transition for reset
-                    arrowheadPath.style.fill = 'var(--color-text-dark)'; // Reset to default color
+                    arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
+                    arrowheadPath.style.fill = 'var(--color-text-dark)';
                 }
             }
         }
@@ -218,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             path.style.transition = 'none'; 
             const length = path.getTotalLength();
             path.style.strokeDashoffset = length;
-            path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Reset opacity based on screen size
+            path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; 
             path.classList.remove('animate');
             void path.offsetWidth; 
             resetArrowheadColor(path); 
@@ -386,10 +373,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Animation Sequence ---
     let animationRunning = false; 
+    let animationTimeoutId = null; // To store setTimeout ID for animation loop
 
     const animatePipeline = async () => {
         // Prevent multiple animation loops from starting
-        if (animationRunning) { // If already running, or if it's a zoom/resize triggered restart
+        if (animationRunning) { 
             console.log('Animation already running, skipping start.');
             return;
         }
@@ -469,9 +457,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (animationRunning) { // Loop condition
             resetPipeline();
-            await new Promise(r => setTimeout(r, 1000)); 
-            animatePipeline(); 
+            // Store the timeout ID so it can be cleared
+            animationTimeoutId = setTimeout(() => { 
+                animatePipeline(); 
+            }, 1000); // Pause after reset before new cycle
         }
+    };
+
+    /**
+     * Stops the current animation loop if it's running.
+     */
+    const stopAnimation = () => {
+        animationRunning = false; // Signal to stop the loop in the next iteration
+        if (animationTimeoutId) {
+            clearTimeout(animationTimeoutId); // Clear any pending loop calls
+            animationTimeoutId = null;
+        }
+        console.log('Animation explicitly stopped.');
     };
 
     // --- Initialization ---
@@ -498,15 +500,39 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Initial setup: Draw all SVG lines before starting animation
-    try {
-        resizeSVG(); 
-        drawAllLines(); 
-    } catch (e) {
-        console.error('Error during initial drawing of SVG lines:', e);
-    }
+    // Use a small delay for initial setup to allow CSS to fully render
+    // This helps prevent "mũi tên rải rác" on initial load/F5
+    setTimeout(() => {
+        try {
+            resizeSVG(); 
+            drawAllLines(); 
+        } catch (e) {
+            console.error('Error during initial drawing of SVG lines:', e);
+        }
 
-    // Start the animation sequence, which will then loop
-    animatePipeline();
+        // Start the animation sequence, which will then loop
+        animatePipeline();
+
+        // Handle initial screen size state (if page loads on small screen)
+        const initialIsSmallScreen = window.innerWidth <= 992;
+        if (initialIsSmallScreen) {
+            // Hide SVG and zoom controls initially
+            svg.style.display = 'none';
+            if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+                zoomInBtn.parentElement.style.display = 'none';
+            }
+            // Force redraw for mobile view and start mobile animation after a short delay
+            // This re-ensures correctness if the initial drawAllLines was based on desktop layout
+            setTimeout(() => {
+                stopAnimation(); // Stop any desktop animation that might have started
+                resetPipeline(); 
+                resizeSVG();
+                drawAllLines(); // Draw mobile paths
+                animatePipeline(); // Start mobile animation
+            }, 500); // Give a bit more time for initial layout to settle
+        }
+    }, 100); // Initial delay to ensure DOM is fully ready and styled
+
 
     // Redraw lines on window resize to maintain connections
     let resizeTimer;
@@ -521,50 +547,18 @@ document.addEventListener('DOMContentLoaded', () => {
             zoomInBtn.parentElement.style.display = isSmallScreen ? 'none' : 'flex';
         }
 
-        if (!isSmallScreen) { // If currently on large screen (or switching from small to large)
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                console.log('Window resized, redrawing lines and resetting animation...');
-                
-                animationRunning = false; 
-                resetPipeline(); 
+        clearTimeout(resizeTimer); // Clear any previous resize timeout
+        stopAnimation(); // Stop current animation cycle
+        resetPipeline(); // Reset all elements to initial state
 
-                resizeSVG();
-                drawAllLines(); 
+        resizeTimer = setTimeout(() => {
+            console.log('Window resized, redrawing lines and restarting animation...');
+            resizeSVG();
+            drawAllLines(); // Redraw lines based on new screen size (desktop or mobile paths)
 
-                setTimeout(() => {
-                    animatePipeline();
-                }, 500); 
-            }, 250); 
-        } else { // If currently on small screen (or switching from large to small)
-            // Ensure animation is stopped and reset if it's running
-            if (animationRunning) {
-                 animationRunning = false;
-                 resetPipeline();
-            }
-            // Draw mobile paths instantly if it becomes small screen and SVG is now visible
-            if (svg.style.display === 'block') { // Only redraw if SVG is meant to be visible (i.e. if it just switched from display: none to block)
-                resizeSVG();
-                drawAllLines();
-                setTimeout(() => { animatePipeline(); }, 100);
-            }
-        }
+            setTimeout(() => {
+                animatePipeline(); // Restart animation
+            }, 500); // Give time for redraw and initial element positioning
+        }, 250); // Debounce resize for better performance
     });
-
-    // Handle initial screen size state (if page loads on small screen)
-    const initialIsSmallScreen = window.innerWidth <= 992;
-    if (initialIsSmallScreen) {
-        // Hide SVG and zoom controls initially
-        svg.style.display = 'none';
-        if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
-            zoomInBtn.parentElement.style.display = 'none';
-        }
-        // Force redraw for mobile view and start mobile animation after a short delay
-        setTimeout(() => {
-            resetPipeline(); 
-            resizeSVG(); // Ensure SVG size is correct even if hidden
-            drawAllLines(); // Draw mobile paths (even if hidden by CSS, they are ready for JS)
-            animatePipeline(); // Start mobile animation
-        }, 100);
-    }
 });
