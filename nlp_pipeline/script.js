@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.pipeline-container');
     const svg = document.querySelector('.pipeline-lines');
 
-    // Basic sanity checks for core elements
     if (!container) {
         console.error('Error: .pipeline-container not found in DOM. Aborting script.');
         return;
@@ -80,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.warn('animatePathFlow called with null path.');
             return;
         }
-        // Temporarily remove transition to ensure instant reset (if called after reset)
+        // Temporarily remove transition for instant reset (if called after reset)
         path.style.transition = 'none'; 
         void path.offsetWidth; // Force reflow
         path.style.strokeDashoffset = path.getTotalLength(); // Reset to fully undrawn
@@ -158,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log('Resetting pipeline for next loop cycle...');
         const allWrappers = document.querySelectorAll('.pipeline-stage-wrapper');
         const allPaths = document.querySelectorAll('.pipeline-line');
-        const allArrowheads = svg.querySelectorAll('.arrowhead');
+        // const allArrowheads = svg.querySelectorAll('.arrowhead'); // Not needed if resetArrowheadColor is used per path
 
         allWrappers.forEach(wrapper => {
             wrapper.style.transition = 'none'; // Instant reset
@@ -400,6 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Redraw lines on window resize to maintain connections
     let resizeTimer;
     window.addEventListener('resize', () => {
+        // Only redraw if not on small screen where SVG is hidden by CSS media query
         if (window.innerWidth > 992) { // Match CSS media query breakpoint
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
