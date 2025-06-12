@@ -403,8 +403,8 @@ body {
     }
     /* Simple vertical line styling for mobile */
     .pipeline-line {
-        stroke-width: 2 !important; /* Thinner lines on mobile */
-        opacity: 0.7 !important;
+        stroke-width: 2.5 !important; /* Thinner lines on mobile */
+        opacity: 0.8 !important;
     }
     .pipeline-line.animate {
         animation: flow-pulse-mobile 1s infinite ease-in-out; /* Faster, lighter pulse for mobile */
