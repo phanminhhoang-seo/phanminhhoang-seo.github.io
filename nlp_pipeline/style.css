@@ -404,15 +404,15 @@ body {
     /* Simple vertical line styling for mobile */
     .pipeline-line {
         stroke-width: 2.5 !important; /* Thinner lines on mobile */
-        opacity: 0.8 !important;
+        opacity: 0.8 !important; /* Start with higher opacity */
     }
     .pipeline-line.animate {
         animation: flow-pulse-mobile 1s infinite ease-in-out; /* Faster, lighter pulse for mobile */
     }
     @keyframes flow-pulse-mobile {
-        0% { opacity: 0.5; stroke-width: 2; }
-        50% { opacity: 0.9; stroke-width: 3; }
-        100% { opacity: 0.5; stroke-width: 2; }
+        0% { opacity: 0.6; stroke-width: 2.5; } /* Base state */
+        50% { opacity: 1; stroke-width: 3.5; } /* Peak state */
+        100% { opacity: 0.6; stroke-width: 2.5; } /* Back to base */
     }
     .arrowhead {
         fill: var(--color-text-dark) !important; /* Ensure default color on mobile */
