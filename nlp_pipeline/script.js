@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const getElementCenterSVGCoords = (el) => {
         if (!el) {
-            // console.error('getElementCenterSVGCoords called with null element. Returning {0,0}.');
             return { x: 0, y: 0 };
         }
         const rect = el.getBoundingClientRect();
@@ -114,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const length = path.getTotalLength();
             path.style.strokeDasharray = length;
             path.style.strokeDashoffset = length;
-            // console.log(`Path ${id} created with length ${length}`);
         } catch (e) {
             console.error(`Error calculating length for path ${id}:`, e);
             path.style.strokeDasharray = '0'; // Fallback
@@ -129,33 +127,28 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const animatePathFlow = (path) => {
         if (!path) return;
-        // Temporarily remove transition to ensure instant reset (if called after reset)
+        
+        // Reset path state for animation
         path.style.transition = 'none'; 
         void path.offsetWidth; // Force reflow
-        path.style.strokeDashoffset = path.getTotalLength(); // Reset to fully undrawn
+        path.style.strokeDashoffset = path.getTotalLength(); 
         path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Initial opacity based on screen size
 
-        // Re-apply transition for actual animation
+        // Start path drawing animation
         path.style.transition = 'stroke-dashoffset 1s ease-out, opacity 0.5s ease-out';
-        path.style.strokeDashoffset = '0'; // Draw the line
+        path.style.strokeDashoffset = '0';
         path.style.opacity = 1;
         path.classList.add('animate');
 
-        // Also change marker color to match line animation
+        // Directly change arrowhead color using JS
         const markerId = path.getAttribute('marker-end');
         if (markerId) {
             const markerElement = svg.querySelector(markerId.substring(4, markerId.length - 1));
             if (markerElement) {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
-                    // On desktop, fill changes color. On mobile, keep default.
-                    if (window.innerWidth > 992) {
-                        arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
-                        arrowheadPath.style.fill = 'var(--color-animated-line)';
-                    } else {
-                        arrowheadPath.style.transition = 'none'; // No color transition on mobile
-                        arrowheadPath.style.fill = 'var(--color-text-dark)'; // Ensure default color on mobile
-                    }
+                    arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
+                    arrowheadPath.style.fill = 'var(--color-animated-line)'; // Change to animated color
                 }
             }
         }
@@ -173,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
                     arrowheadPath.style.transition = 'fill 0.5s ease-in-out'; // Allow transition for reset
-                    arrowheadPath.style.fill = 'var(--color-text-dark)'; // Default color
+                    arrowheadPath.style.fill = 'var(--color-text-dark)'; // Reset to default color
                 }
             }
         }
@@ -189,13 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return new Promise(resolve => {
             setTimeout(() => {
                 if (elWrapper) {
-                    // Temporarily remove transition for instant reset if needed
                     elWrapper.style.transition = 'none'; 
-                    void elWrapper.offsetWidth; // Force reflow
-                    elWrapper.style.opacity = 0; // Ensure starts from hidden
-                    elWrapper.style.transform = 'translateY(20px)'; // Ensure starts from offset
+                    void elWrapper.offsetWidth; 
+                    elWrapper.style.opacity = 0; 
+                    elWrapper.style.transform = 'translateY(20px)';
 
-                    // Re-apply transition for actual animation
                     elWrapper.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
                     elWrapper.style.opacity = 1;
                     elWrapper.style.transform = 'translateY(0)';
@@ -396,7 +387,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const animatePipeline = async () => {
         // Prevent multiple animation loops from starting
-        if (animationRunning && currentZoom === 1.0) { // Only prevent if already running and not a zoom/resize triggered restart
+        // Allow starting if not running, or if it's a zoom/resize triggered restart (animationRunning flag will be set to false by resetPipeline first)
+        if (animationRunning) {
             console.log('Animation already running, skipping start.');
             return;
         }
@@ -435,16 +427,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 { wrapper: getWrapperById('stage-wrapper-tokenization'), path: getPathById('line-segment-tokenization-mobile') },
                 { wrapper: getWrapperById('stage-wrapper-token-indexing'), path: getPathById('line-token-indexing-mobile') },
-                { path: getPathById('line-token-search-mobile') }, // Converge token search here
+                { path: getPathById('line-token-search-mobile') }, 
                 
                 { wrapper: getWrapperById('stage-wrapper-element-annotation'), path: getPathById('line-segment-element-mobile') },
                 { wrapper: getWrapperById('stage-wrapper-text-segmentation'), path: getPathById('line-element-text-mobile') },
-                { path: getPathById('line-loop-back-mobile') }, // Mobile loop back
+                { path: getPathById('line-loop-back-mobile') }, 
                 { wrapper: getWrapperById('stage-wrapper-generate-embeddings'), path: getPathById('line-text-embeddings-mobile') },
                 { wrapper: getWrapperById('stage-wrapper-vector-indexing'), path: getPathById('line-embeddings-vector-mobile') },
-                { path: getPathById('line-vector-search-mobile') }, // Converge vector search here
+                { path: getPathById('line-vector-search-mobile') }, 
 
-                { wrapper: getWrapperById('stage-wrapper-search') }, // Search box itself
+                { wrapper: getWrapperById('stage-wrapper-search') }, 
                 { wrapper: getWrapperById('stage-wrapper-ranking'), path: getPathById('line-search-ranking-mobile') }
             ];
         }
@@ -462,23 +454,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (step.path) {
                 animatePathFlow(step.path);
             }
-            if (step.path2) { // For convergence (only on desktop paths for now)
+            if (step.path2) { 
                  animatePathFlow(step.path2);
             }
             await new Promise(r => setTimeout(r, longDelay));
         }
 
-        if (!animationRunning) return; // Final check before label fade in
+        if (!animationRunning) return; 
         await fadeInElement(label, shortDelay);
-        await new Promise(r => setTimeout(r, longDelay * 2)); // Long pause at the end
+        await new Promise(r => setTimeout(r, longDelay * 2)); 
 
         console.log('Pipeline animation cycle finished. Preparing for next loop.');
 
-        // Reset and restart only if animation is still expected to run (not stopped by external event)
         if (animationRunning) {
             resetPipeline();
-            await new Promise(r => setTimeout(r, 1000)); // Pause after reset before new cycle
-            animatePipeline(); // Loop the animation
+            await new Promise(r => setTimeout(r, 1000)); 
+            animatePipeline(); 
         }
     };
 
@@ -507,8 +498,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial setup: Draw all SVG lines before starting animation
     try {
-        resizeSVG(); // Set initial SVG size before drawing
-        drawAllLines(); // Draw lines for the first time
+        resizeSVG(); 
+        drawAllLines(); 
     } catch (e) {
         console.error('Error during initial drawing of SVG lines:', e);
     }
@@ -538,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 resetPipeline(); 
 
                 resizeSVG();
-                drawAllLines(); // Redraw lines based on new screen size (desktop paths)
+                drawAllLines(); 
 
                 setTimeout(() => {
                     animatePipeline();
@@ -554,7 +545,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (svg.style.display === 'block') { // Only redraw if SVG is meant to be visible (i.e. if it just switched from display: none to block)
                 resizeSVG();
                 drawAllLines();
-                // Restart mobile animation if it was paused or just became visible
                 setTimeout(() => { animatePipeline(); }, 100);
             }
         }
