@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Bước Tối Ưu Core Web Vitals - Blog Phan Minh Hoàng</title>
+    <link rel="stylesheet" href="../css/style.css"> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="blog-post-page">
+    <div class="header-placeholder"></div>
+
+    <header class="global-header" id="global-header">
+        <div class="container header-content">
+            <div class="logo">
+                <img src="../images/logo.png" alt="Logo Portfolio" class="logo-image">
+                <span>PHAN MINH HOÀNG</span>
+            </div>
+            <nav class="main-nav">
+                <a href="../index.html#skills">Kỹ Năng</a>
+                <a href="../index.html#experience">Kinh Nghiệm</a>
+                <a href="../index.html#featured-projects">Dự Án Tiêu Biểu</a>
+                <a href="blog.html">Blog</a>
+                <a href="../index.html#contact">Liên Hệ</a>
+                <a href="post-1.html" class="lang-toggle-btn">English</a> </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <article class="blog-post-content">
+            <div class="blog-post-header">
+                <h1>5 Bước Tối Ưu Core Web Vitals Để Cải Thiện SEO</h1>
+                <p class="blog-post-meta">Đăng bởi Phan Minh Hoàng vào ngày 12/06/2025</p>
+            </div>
+
+            <p>Core Web Vitals là một tập hợp các chỉ số liên quan đến trải nghiệm người dùng, được Google giới thiệu như một phần của Page Experience Signals. Việc tối ưu các chỉ số này không chỉ giúp người dùng có trải nghiệm tốt hơn mà còn là yếu tố xếp hạng quan trọng trong SEO.</p>
+
+            <h2>1. Tối Ưu Largest Contentful Paint (LCP)</h2>
+            <p>LCP đo lường thời gian hiển thị phần tử nội dung lớn nhất trên trang. Để cải thiện LCP, bạn cần:</p>
+            <ul>
+                <li><strong>Giảm thời gian phản hồi máy chủ (Server Response Time):</strong> Sử dụng CDN, nâng cấp hosting.</li>
+                <li><strong>Tối ưu hóa hình ảnh:</strong> Nén ảnh, sử dụng định dạng WebP, tải ảnh lười (lazy-loading).</li>
+                <li><strong>Giảm thiểu CSS và JavaScript không cần thiết:</strong> Loại bỏ CSS/JS không dùng, minify code.</li>
+                <li><strong>Tải trước các tài nguyên quan trọng:</strong> Sử dụng `&lt;link rel="preload"&gt;` cho các font hoặc ảnh lớn.</li>
+            </ul>
+            <img src="../images/blog-image-lcp.jpg" alt="Tối ưu LCP">
+
+            <h2>2. Cải Thiện Cumulative Layout Shift (CLS)</h2>
+            <p>CLS đo lường sự dịch chuyển bố cục không mong muốn của các phần tử trên trang. Để tránh CLS, hãy:</p>
+            <ul>
+                <li><strong>Luôn đặt kích thước (width/height) cho hình ảnh và video.</strong></li>
+                <li><strong>Tránh chèn nội dung động phía trên nội dung hiện có.</strong></li>
+                <li><strong>Ưu tiên sử dụng `transform` thay vì các thuộc tính kích thước thay đổi bố cục.</strong></li>
+            </ul>
+
+            <h2>3. Tối Ưu First Input Delay (FID)</h2>
+            <p>FID đo lường thời gian từ khi người dùng tương tác lần đầu với trang (như nhấp vào nút) đến khi trình duyệt thực sự phản hồi tương tác đó. Mặc dù FID là một chỉ số trên thực tế, nhưng bạn có thể cải thiện nó bằng cách tối ưu Total Blocking Time (TBT) trong phòng thí nghiệm:</p>
+            <ul>
+                <li><strong>Giảm thời gian thực thi JavaScript:</strong> Chia nhỏ các tác vụ JS dài, loại bỏ JS không dùng.</li>
+                <li><strong>Giảm thiểu công việc của luồng chính (main thread):</strong> Sử dụng Web Workers cho các tác vụ nặng.</li>
+            </ul>
+
+            <h2>4. Sử dụng CDN và Caching hiệu quả</h2>
+            <p>Content Delivery Network (CDN) giúp phân phối nội dung của bạn từ các máy chủ gần người dùng nhất, giảm độ trễ. Caching giúp lưu trữ các phiên bản trang web trên trình duyệt người dùng, giảm thời gian tải trang khi truy cập lại.</p>
+
+            <h2>5. Theo dõi và Phân Tích liên tục</h2>
+            <p>Sử dụng các công cụ như Google Search Console, PageSpeed Insights, Lighthouse để theo dõi Core Web Vitals và các chỉ số hiệu suất khác. Phân tích dữ liệu để xác định các vấn đề và ưu tiên hành động khắc phục.</p>
+
+            <p>Việc tối ưu Core Web Vitals là một quá trình liên tục. Bằng cách áp dụng các bước trên, bạn không chỉ cải thiện thứ hạng SEO mà còn mang lại trải nghiệm tuyệt vời cho người dùng.</p>
+            <p class="blog-post-meta">Tag: SEO, Core Web Vitals, Tối ưu hóa website</p>
+        </article>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Phan Minh Hoàng. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
