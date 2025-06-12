@@ -1,25 +1,78 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed. Initializing NLP Pipeline with Looping Animation.');
+    console.log('DOM fully loaded and parsed. Initializing NLP Pipeline with Looping Animation and Zoom.');
 
     const container = document.querySelector('.pipeline-container');
     const svg = document.querySelector('.pipeline-lines');
+    const pipelineFlowGrid = document.querySelector('.pipeline-flow-grid');
 
-    if (!container) {
-        console.error('Error: .pipeline-container not found in DOM. Aborting script.');
+    if (!container || !svg || !pipelineFlowGrid) {
+        console.error('Error: Essential DOM elements not found. Aborting script.');
         return;
     }
-    if (!svg) {
-        console.error('Error: .pipeline-lines SVG not found in DOM. Aborting script.');
-        return;
-    }
-    // console.log('Container and SVG elements found.');
 
     const label = document.querySelector('.deterministic-ranking-label');
     if (!label) {
         console.warn('.deterministic-ranking-label not found.');
     }
 
+    // --- Zoom variables ---
+    let currentZoom = 1.0;
+    const zoomStep = 0.1;
+    const minZoom = 0.5;
+    const maxZoom = 2.0;
+
+    const zoomInBtn = document.getElementById('zoom-in-btn');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+    const zoomResetBtn = document.getElementById('zoom-reset-btn');
+
+    if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+        zoomInBtn.addEventListener('click', () => adjustZoom(zoomStep));
+        zoomOutBtn.addEventListener('click', () => adjustZoom(-zoomStep));
+        zoomResetBtn.addEventListener('click', () => adjustZoom(1.0, true)); // true to reset
+    } else {
+        console.warn('Zoom control buttons not found. Zoom functionality might be disabled or hidden.');
+    }
+
     // --- Helper Functions ---
+
+    /**
+     * Adjusts the zoom level of the pipeline.
+     * @param {number} delta The amount to change zoom by (e.g., 0.1 for zoom in, -0.1 for zoom out).
+     * @param {boolean} reset If true, resets zoom to 1.0.
+     */
+    const adjustZoom = (delta, reset = false) => {
+        // Disable zoom on small screens where layout is vertical
+        if (window.innerWidth <= 992) { 
+            return;
+        }
+
+        if (reset) {
+            currentZoom = 1.0;
+        } else {
+            currentZoom += delta;
+            currentZoom = Math.max(minZoom, Math.min(maxZoom, currentZoom)); // Clamp zoom
+        }
+
+        pipelineFlowGrid.style.transform = `scale(${currentZoom})`;
+
+        // After zoom, we need to re-draw lines and restart the animation cycle
+        // to ensure everything is visually correct.
+        // Signal to stop the current animation loop
+        animationRunning = false; 
+        resetPipeline(); // Reset all elements to initial state
+
+        // Re-calculate SVG size and redraw lines based on new layout
+        resizeSVG();
+        drawAllLines();
+
+        // Restart animation cycle after a short delay
+        setTimeout(() => {
+            animatePipeline();
+        }, 500); // Give time for redraw and initial element positioning
+        
+        console.log(`Zoom adjusted to: ${currentZoom}`);
+    };
+
 
     /**
      * Calculates the center coordinates of an HTML element relative to the SVG canvas.
@@ -75,15 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {SVGPathElement} path The path element to animate.
      */
     const animatePathFlow = (path) => {
-        if (!path) {
-            // console.warn('animatePathFlow called with null path.');
-            return;
-        }
-        // Temporarily remove transition for instant reset (if called after reset)
+        if (!path) return;
+        // Temporarily remove transition to ensure instant reset (if called after reset)
         path.style.transition = 'none'; 
         void path.offsetWidth; // Force reflow
         path.style.strokeDashoffset = path.getTotalLength(); // Reset to fully undrawn
-        path.style.opacity = 0.8; // Reset opacity
+        path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Initial opacity based on screen size
 
         // Re-apply transition for actual animation
         path.style.transition = 'stroke-dashoffset 1s ease-out, opacity 0.5s ease-out';
@@ -98,8 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (markerElement) {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
-                    arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
-                    arrowheadPath.style.fill = 'var(--color-animated-line)';
+                    // On desktop, fill changes color. On mobile, keep default.
+                    if (window.innerWidth > 992) {
+                        arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
+                        arrowheadPath.style.fill = 'var(--color-animated-line)';
+                    } else {
+                        arrowheadPath.style.transition = 'none'; // No color transition on mobile
+                        arrowheadPath.style.fill = 'var(--color-text-dark)'; // Ensure default color on mobile
+                    }
                 }
             }
         }
@@ -154,36 +210,32 @@ document.addEventListener('DOMContentLoaded', () => {
      * Resets the state of all elements to their initial hidden state.
      */
     const resetPipeline = () => {
-        // console.log('Resetting pipeline for next loop cycle...');
         const allWrappers = document.querySelectorAll('.pipeline-stage-wrapper');
         const allPaths = document.querySelectorAll('.pipeline-line');
-        // const allArrowheads = svg.querySelectorAll('.arrowhead'); // Not needed if resetArrowheadColor is used per path
 
         allWrappers.forEach(wrapper => {
-            wrapper.style.transition = 'none'; // Instant reset
+            wrapper.style.transition = 'none'; 
             wrapper.style.opacity = 0;
             wrapper.style.transform = 'translateY(20px)';
             wrapper.classList.remove('faded-in');
-            void wrapper.offsetWidth; // Force reflow
+            void wrapper.offsetWidth; 
         });
 
         allPaths.forEach(path => {
-            path.style.transition = 'none'; // Instant reset
+            path.style.transition = 'none'; 
             const length = path.getTotalLength();
             path.style.strokeDashoffset = length;
-            path.style.opacity = 0.8;
+            path.style.opacity = window.innerWidth > 992 ? 0.8 : 0.7; // Reset opacity based on screen size
             path.classList.remove('animate');
-            void path.offsetWidth; // Force reflow
-            resetArrowheadColor(path); // Reset individual arrowhead color
+            void path.offsetWidth; 
+            resetArrowheadColor(path); 
         });
 
-        // Reset label
         label.style.transition = 'none';
         label.style.opacity = 0;
         label.style.transform = 'translateY(30px)';
-        void label.offsetWidth; // Force reflow
+        void label.offsetWidth;
 
-        // Re-enable transitions after reset
         setTimeout(() => {
             allWrappers.forEach(wrapper => {
                 wrapper.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
@@ -192,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 path.style.transition = 'stroke-dashoffset 1s ease-out, opacity 0.5s ease-out';
             });
             label.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-        }, 50); // Small delay to allow reflow before re-enabling transitions
+        }, 50);
     };
 
     /**
@@ -218,18 +270,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', 'M 0 0 L 10 5 L 0 10 z');
-        path.classList.add('arrowhead'); // For CSS styling
+        path.classList.add('arrowhead'); 
         marker.appendChild(path);
         defs.appendChild(marker);
     };
 
-    // --- Drawing all static SVG lines ---
+    /**
+     * Draws all the SVG lines connecting the pipeline boxes.
+     * Logic changes based on screen size (desktop vs mobile).
+     */
     const drawAllLines = () => {
-        // console.log('Starting drawAllLines...');
         svg.innerHTML = ''; // Clear existing lines
         createArrowheadMarker(); // Recreate marker on redraw
 
-        // Get references to the specific box elements
+        // Get references to the specific box elements by their IDs
         const docBox = document.getElementById('box-document');
         const parsingBox = document.getElementById('box-document-parsing');
         const segmentAnnoBox = document.getElementById('box-segment-annotation');
@@ -252,124 +306,187 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const [name, el] of Object.entries(elements)) {
             if (!el) {
                 console.error(`Missing element: ${name}. Cannot draw lines. Check its ID in HTML.`);
-                return;
+                return; // Stop drawing if a critical element is missing
             }
         }
 
-        const C = getElementCenterSVGCoords;
+        const C = getElementCenterSVGCoords; // Alias for brevity
 
-        // Line 1: Document -> Document Parsing
-        createSvgPath('line-doc-parsing', `M${C(docBox).x},${C(docBox).y} L${C(parsingBox).x},${C(parsingBox).y}`, 'arrowhead-marker');
+        const isSmallScreen = window.innerWidth <= 992;
 
-        // Line 2: Document Parsing -> Segment-Level Annotation
-        createSvgPath('line-parsing-segment', `M${C(parsingBox).x},${C(parsingBox).y} L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, 'arrowhead-marker');
+        if (!isSmallScreen) { // Desktop/Large Screen Logic (Grid Layout)
+            createSvgPath('line-doc-parsing', `M${C(docBox).x},${C(docBox).y} L${C(parsingBox).x},${C(parsingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-parsing-segment', `M${C(parsingBox).x},${C(parsingBox).y} L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, 'arrowhead-marker');
 
-        // Line 3 (Branching): Segment-Level Annotation -> Tokenization (Top Path)
-        // Path goes right from segmentAnno, then up to Tokenization
-        createSvgPath('line-segment-tokenization',
-            `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} ` +
-            `L${C(tokenizationBox).x - 100},${C(segmentAnnoBox).y} ` + // Horizontal to the left of tokenization
-            `L${C(tokenizationBox).x - 100},${C(tokenizationBox).y} ` + // Vertical up to tokenization level
-            `L${C(tokenizationBox).x},${C(tokenizationBox).y}`, // Horizontal to tokenization
-            'arrowhead-marker'
-        );
+            // Branching to Tokenization
+            createSvgPath('line-segment-tokenization',
+                `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} ` +
+                `L${C(tokenizationBox).x - 100},${C(segmentAnnoBox).y} ` + // Horizontal to the left of tokenization
+                `L${C(tokenizationBox).x - 100},${C(tokenizationBox).y} ` + // Vertical up to tokenization level
+                `L${C(tokenizationBox).x},${C(tokenizationBox).y}`, // Horizontal to tokenization
+                'arrowhead-marker'
+            );
 
-        // Line 4 (Branching): Segment-Level Annotation -> Element-Level Annotation (Bottom Path)
-        // Path goes right from segmentAnno, then down to Element Annotation
-        createSvgPath('line-segment-element',
-            `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} ` +
-            `L${C(elementAnnotationBox).x - 100},${C(segmentAnnoBox).y} ` + // Horizontal to the left of element annotation
-            `L${C(elementAnnotationBox).x - 100},${C(elementAnnotationBox).y} ` + // Vertical down to element annotation level
-            `L${C(elementAnnotationBox).x},${C(elementAnnotationBox).y}`, // Horizontal to element annotation
-            'arrowhead-marker'
-        );
+            // Branching to Element Annotation
+            createSvgPath('line-segment-element',
+                `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} ` +
+                `L${C(elementAnnotationBox).x - 100},${C(segmentAnnoBox).y} ` + // Horizontal to the left of element annotation
+                `L${C(elementAnnotationBox).x - 100},${C(elementAnnotationBox).y} ` + // Vertical down to element annotation level
+                `L${C(elementAnnotationBox).x},${C(elementAnnotationBox).y}`, // Horizontal to element annotation
+                'arrowhead-marker'
+            );
 
-        // Line 5: Tokenization -> Token Indexing
-        createSvgPath('line-token-indexing', `M${C(tokenizationBox).x},${C(tokenizationBox).y} L${C(tokenIndexingBox).x},${C(tokenIndexingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-token-indexing', `M${C(tokenizationBox).x},${C(tokenizationBox).y} L${C(tokenIndexingBox).x},${C(tokenIndexingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-element-text', `M${C(elementAnnotationBox).x},${C(elementAnnotationBox).y} L${C(textSegmentationBox).x},${C(textSegmentationBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-text-embeddings', `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} L${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-embeddings-vector', `M${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y} L${C(vectorIndexingBox).x},${C(vectorIndexingBox).y}`, 'arrowhead-marker');
 
-        // Line 6: Element-Level Annotation -> Text Segmentation
-        createSvgPath('line-element-text', `M${C(elementAnnotationBox).x},${C(elementAnnotationBox).y} L${C(textSegmentationBox).x},${C(textSegmentationBox).y}`, 'arrowhead-marker');
+            // Loop Back (Complex Curve)
+            const tsCenter = C(textSegmentationBox);
+            const saCenter = C(segmentAnnoBox);
+            const controlPointOffset = 100; // How much the curve bends
 
-        // Line 7: Text Segmentation -> Generate Embeddings
-        createSvgPath('line-text-embeddings', `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} L${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-loop-back',
+                `M${tsCenter.x},${tsCenter.y} ` +
+                `C${tsCenter.x + controlPointOffset},${tsCenter.y + controlPointOffset} ` + // Control point 1 (down and right)
+                `${saCenter.x + controlPointOffset},${saCenter.y + controlPointOffset} ` + // Control point 2 (up and right)
+                `${saCenter.x},${saCenter.y}`, // End point
+                'arrowhead-marker'
+            );
 
-        // Line 8: Generate Embeddings -> Vector Indexing
-        createSvgPath('line-embeddings-vector', `M${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y} L${C(vectorIndexingBox).x},${C(vectorIndexingBox).y}`, 'arrowhead-marker');
+            // Converging lines to Search
+            createSvgPath('line-token-search', `M${C(tokenIndexingBox).x},${C(tokenIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-vector-search', `M${C(vectorIndexingBox).x},${C(vectorIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
 
-        // Line 9 (Loop Back): Text Segmentation -> Segment-Level Annotation (Complex Curve)
-        const tsCenter = C(textSegmentationBox);
-        const saCenter = C(segmentAnnoBox);
-        const controlPointOffset = 100; // How much the curve bends
+            createSvgPath('line-search-ranking', `M${C(searchBox).x},${C(searchBox).y} L${C(rankingBox).x},${C(rankingBox).y}`, 'arrowhead-marker');
 
-        createSvgPath('line-loop-back',
-            `M${tsCenter.x},${tsCenter.y} ` +
-            `C${tsCenter.x + controlPointOffset},${tsCenter.y + controlPointOffset} ` + // Control point 1 (down and right)
-            `${saCenter.x + controlPointOffset},${saCenter.y + controlPointOffset} ` + // Control point 2 (up and right)
-            `${saCenter.x},${saCenter.y}`, // End point
-            'arrowhead-marker'
-        );
+        } else { // Mobile/Small Screen Logic (Vertical Stack Layout) - Simplified Paths
+            // All paths are drawn as simple vertical lines between centers of stacked elements
+            createSvgPath('line-doc-parsing-mobile', `M${C(docBox).x},${C(docBox).y} L${C(parsingBox).x},${C(parsingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-parsing-segment-mobile', `M${C(parsingBox).x},${C(parsingBox).y} L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, 'arrowhead-marker');
+            
+            // Branching on mobile - direct vertical
+            createSvgPath('line-segment-tokenization-mobile', `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} L${C(tokenizationBox).x},${C(tokenizationBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-token-indexing-mobile', `M${C(tokenizationBox).x},${C(tokenizationBox).y} L${C(tokenIndexingBox).x},${C(tokenIndexingBox).y}`, 'arrowhead-marker');
+            
+            // Converging to search (mobile) - simplified to direct vertical connection
+            createSvgPath('line-token-search-mobile', `M${C(tokenIndexingBox).x},${C(tokenIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
+            
+            createSvgPath('line-segment-element-mobile', `M${C(segmentAnnoBox).x},${C(segmentAnnoBox).y} L${C(elementAnnotationBox).x},${C(elementAnnotationBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-element-text-mobile', `M${C(elementAnnotationBox).x},${C(elementAnnotationBox).y} L${C(textSegmentationBox).x},${C(textSegmentationBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-text-embeddings-mobile', `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} L${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-embeddings-vector-mobile', `M${C(generateEmbeddingsBox).x},${C(generateEmbeddingsBox).y} L${C(vectorIndexingBox).x},${C(vectorIndexingBox).y}`, 'arrowhead-marker');
 
-        // Line 10 (Convergence): Token Indexing -> Search
-        createSvgPath('line-token-search', `M${C(tokenIndexingBox).x},${C(tokenIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
+            // Loop back on mobile (simplified L-shape)
+            createSvgPath('line-loop-back-mobile', 
+                `M${C(textSegmentationBox).x},${C(textSegmentationBox).y} ` +
+                `L${C(textSegmentationBox).x},${C(segmentAnnoBox).y + 100} ` + // Go down from Text Segmentation
+                `L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y + 100} ` + // Go left to align with Segment Annotation's X
+                `L${C(segmentAnnoBox).x},${C(segmentAnnoBox).y}`, // Go up to Segment Annotation
+                'arrowhead-marker'
+            );
 
-        // Line 11 (Convergence): Vector Indexing -> Search
-        createSvgPath('line-vector-search', `M${C(vectorIndexingBox).x},${C(vectorIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
-
-        // Line 12: Search -> Ranking
-        createSvgPath('line-search-ranking', `M${C(searchBox).x},${C(searchBox).y} L${C(rankingBox).x},${C(rankingBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-vector-search-mobile', `M${C(vectorIndexingBox).x},${C(vectorIndexingBox).y} L${C(searchBox).x},${C(searchBox).y}`, 'arrowhead-marker');
+            createSvgPath('line-search-ranking-mobile', `M${C(searchBox).x},${C(searchBox).y} L${C(rankingBox).x},${C(rankingBox).y}`, 'arrowhead-marker');
+        }
     };
 
     // --- Animation Sequence ---
+    let animationRunning = false; 
+
     const animatePipeline = async () => {
+        // Prevent multiple animation loops from starting
+        if (animationRunning && currentZoom === 1.0) { // Only prevent if already running and not a zoom/resize triggered restart
+            console.log('Animation already running, skipping start.');
+            return;
+        }
+        animationRunning = true;
         console.log('Starting pipeline animation cycle.');
-        const shortDelay = 200; // Delay between box appearances
-        const longDelay = 600; // Delay after a stage is complete
+        const shortDelay = 200;
+        const longDelay = 600;
+        const isSmallScreen = window.innerWidth <= 992;
 
         const getWrapperById = (id) => document.getElementById(id);
         const getPathById = (id) => document.getElementById(id);
 
-        const steps = [
-            { wrapper: getWrapperById('stage-wrapper-document') },
-            { wrapper: getWrapperById('stage-wrapper-parsing'), path: getPathById('line-doc-parsing') },
-            { wrapper: getWrapperById('stage-wrapper-segment-annotation'), path: getPathById('line-parsing-segment') },
-            { path: getPathById('line-segment-tokenization') },
-            { wrapper: getWrapperById('stage-wrapper-tokenization') },
-            { wrapper: getWrapperById('stage-wrapper-token-indexing'), path: getPathById('line-token-indexing') },
-            { path: getPathById('line-segment-element') },
-            { wrapper: getWrapperById('stage-wrapper-element-annotation') },
-            { wrapper: getWrapperById('stage-wrapper-text-segmentation'), path: getPathById('line-element-text') },
-            { path: getPathById('line-loop-back') },
-            { wrapper: getWrapperById('stage-wrapper-generate-embeddings'), path: getPathById('line-text-embeddings') },
-            { wrapper: getWrapperById('stage-wrapper-vector-indexing'), path: getPathById('line-embeddings-vector') },
-            { wrapper: getWrapperById('stage-wrapper-search'), path: getPathById('line-token-search'), path2: getPathById('line-vector-search') },
-            { wrapper: getWrapperById('stage-wrapper-ranking'), path: getPathById('line-search-ranking') }
-        ];
+        let steps;
+        if (!isSmallScreen) { // Desktop Order
+            steps = [
+                { wrapper: getWrapperById('stage-wrapper-document') },
+                { wrapper: getWrapperById('stage-wrapper-parsing'), path: getPathById('line-doc-parsing') },
+                { wrapper: getWrapperById('stage-wrapper-segment-annotation'), path: getPathById('line-parsing-segment') },
+                { path: getPathById('line-segment-tokenization') },
+                { wrapper: getWrapperById('stage-wrapper-tokenization') },
+                { wrapper: getWrapperById('stage-wrapper-token-indexing'), path: getPathById('line-token-indexing') },
+                { path: getPathById('line-segment-element') },
+                { wrapper: getWrapperById('stage-wrapper-element-annotation') },
+                { wrapper: getWrapperById('stage-wrapper-text-segmentation'), path: getPathById('line-element-text') },
+                { path: getPathById('line-loop-back') },
+                { wrapper: getWrapperById('stage-wrapper-generate-embeddings'), path: getPathById('line-text-embeddings') },
+                { wrapper: getWrapperById('stage-wrapper-vector-indexing'), path: getPathById('line-embeddings-vector') },
+                { wrapper: getWrapperById('stage-wrapper-search'), path: getPathById('line-token-search'), path2: getPathById('line-vector-search') },
+                { wrapper: getWrapperById('stage-wrapper-ranking'), path: getPathById('line-search-ranking') }
+            ];
+        } else { // Mobile Order (simplified vertical flow)
+            steps = [
+                { wrapper: getWrapperById('stage-wrapper-document') },
+                { wrapper: getWrapperById('stage-wrapper-parsing'), path: getPathById('line-doc-parsing-mobile') },
+                { wrapper: getWrapperById('stage-wrapper-segment-annotation'), path: getPathById('line-parsing-segment-mobile') },
+                
+                { wrapper: getWrapperById('stage-wrapper-tokenization'), path: getPathById('line-segment-tokenization-mobile') },
+                { wrapper: getWrapperById('stage-wrapper-token-indexing'), path: getPathById('line-token-indexing-mobile') },
+                { path: getPathById('line-token-search-mobile') }, // Converge token search here
+                
+                { wrapper: getWrapperById('stage-wrapper-element-annotation'), path: getPathById('line-segment-element-mobile') },
+                { wrapper: getWrapperById('stage-wrapper-text-segmentation'), path: getPathById('line-element-text-mobile') },
+                { path: getPathById('line-loop-back-mobile') }, // Mobile loop back
+                { wrapper: getWrapperById('stage-wrapper-generate-embeddings'), path: getPathById('line-text-embeddings-mobile') },
+                { wrapper: getWrapperById('stage-wrapper-vector-indexing'), path: getPathById('line-embeddings-vector-mobile') },
+                { path: getPathById('line-vector-search-mobile') }, // Converge vector search here
+
+                { wrapper: getWrapperById('stage-wrapper-search') }, // Search box itself
+                { wrapper: getWrapperById('stage-wrapper-ranking'), path: getPathById('line-search-ranking-mobile') }
+            ];
+        }
 
         for (const step of steps) {
+            // Check if animation was stopped externally during the loop
+            if (!animationRunning) {
+                console.log('Animation stopped externally during cycle.');
+                return; 
+            }
+
             if (step.wrapper) {
                 await fadeInElement(step.wrapper, shortDelay);
             }
             if (step.path) {
                 animatePathFlow(step.path);
             }
-            if (step.path2) {
-                animatePathFlow(step.path2);
+            if (step.path2) { // For convergence (only on desktop paths for now)
+                 animatePathFlow(step.path2);
             }
             await new Promise(r => setTimeout(r, longDelay));
         }
 
+        if (!animationRunning) return; // Final check before label fade in
         await fadeInElement(label, shortDelay);
         await new Promise(r => setTimeout(r, longDelay * 2)); // Long pause at the end
 
         console.log('Pipeline animation cycle finished. Preparing for next loop.');
 
-        resetPipeline();
-
-        await new Promise(r => setTimeout(r, 1000)); // Pause after reset before new cycle
-        animatePipeline(); // Loop the animation
+        // Reset and restart only if animation is still expected to run (not stopped by external event)
+        if (animationRunning) {
+            resetPipeline();
+            await new Promise(r => setTimeout(r, 1000)); // Pause after reset before new cycle
+            animatePipeline(); // Loop the animation
+        }
     };
 
     // --- Initialization ---
+    /**
+     * Resizes the SVG element to match the bounding box of its parent grid,
+     * ensuring lines are drawn correctly regardless of zoom or layout changes.
+     */
     const resizeSVG = () => {
         const gridWrapper = document.querySelector('.pipeline-flow-grid');
         if (!gridWrapper) {
@@ -377,18 +494,21 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         const gridRect = gridWrapper.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect(); 
 
+        // Set SVG width/height to match grid wrapper's dimensions
         svg.style.width = `${gridRect.width}px`;
         svg.style.height = `${gridRect.height}px`;
+        // Position SVG relative to the top-left of the container,
+        // accounting for grid's offset within the container.
         svg.style.left = `${gridRect.left - containerRect.left}px`;
         svg.style.top = `${gridRect.top - containerRect.top}px`;
     };
 
     // Initial setup: Draw all SVG lines before starting animation
     try {
-        resizeSVG();
-        drawAllLines();
+        resizeSVG(); // Set initial SVG size before drawing
+        drawAllLines(); // Draw lines for the first time
     } catch (e) {
         console.error('Error during initial drawing of SVG lines:', e);
     }
@@ -399,25 +519,61 @@ document.addEventListener('DOMContentLoaded', () => {
     // Redraw lines on window resize to maintain connections
     let resizeTimer;
     window.addEventListener('resize', () => {
-        // Only redraw if not on small screen where SVG is hidden by CSS media query
-        if (window.innerWidth > 992) { // Match CSS media query breakpoint
+        const isSmallScreen = window.innerWidth <= 992;
+
+        // Toggle SVG display based on screen size
+        svg.style.display = isSmallScreen ? 'none' : 'block';
+        
+        // Hide/show zoom controls based on screen size
+        if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+            zoomInBtn.parentElement.style.display = isSmallScreen ? 'none' : 'flex';
+        }
+
+        if (!isSmallScreen) { // If currently on large screen (or switching from small to large)
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
-                console.log('Window resized, redrawing lines...');
-                resizeSVG();
-                drawAllLines(); // Redraw all lines
+                console.log('Window resized, redrawing lines and resetting animation...');
+                
+                animationRunning = false; 
+                resetPipeline(); 
 
-                // Reset and re-apply animations for paths that should loop
-                resetPipeline(); // Reset all elements
-                // The main animatePipeline loop will restart animations from the beginning
-            }, 250);
-        } else {
-            svg.style.display = 'none'; // Hide SVG on small screens
+                resizeSVG();
+                drawAllLines(); // Redraw lines based on new screen size (desktop paths)
+
+                setTimeout(() => {
+                    animatePipeline();
+                }, 500); 
+            }, 250); 
+        } else { // If currently on small screen (or switching from large to small)
+            // Ensure animation is stopped and reset if it's running
+            if (animationRunning) {
+                 animationRunning = false;
+                 resetPipeline();
+            }
+            // Draw mobile paths instantly if it becomes small screen and SVG is now visible
+            if (svg.style.display === 'block') { // Only redraw if SVG is meant to be visible (i.e. if it just switched from display: none to block)
+                resizeSVG();
+                drawAllLines();
+                // Restart mobile animation if it was paused or just became visible
+                setTimeout(() => { animatePipeline(); }, 100);
+            }
         }
     });
 
-    // Handle initial small screen behavior (if page loads on small screen)
-    if (window.innerWidth <= 992) {
+    // Handle initial screen size state (if page loads on small screen)
+    const initialIsSmallScreen = window.innerWidth <= 992;
+    if (initialIsSmallScreen) {
+        // Hide SVG and zoom controls initially
         svg.style.display = 'none';
+        if (zoomInBtn && zoomOutBtn && zoomResetBtn) {
+            zoomInBtn.parentElement.style.display = 'none';
+        }
+        // Force redraw for mobile view and start mobile animation after a short delay
+        setTimeout(() => {
+            resetPipeline(); 
+            resizeSVG(); // Ensure SVG size is correct even if hidden
+            drawAllLines(); // Draw mobile paths (even if hidden by CSS, they are ready for JS)
+            animatePipeline(); // Start mobile animation
+        }, 100);
     }
 });
