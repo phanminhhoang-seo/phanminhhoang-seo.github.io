@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const getElementCenterSVGCoords = (el) => {
         if (!el) {
+            // console.error('getElementCenterSVGCoords called with null element. Returning {0,0}.');
             return { x: 0, y: 0 };
         }
         const rect = el.getBoundingClientRect();
@@ -136,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Start path drawing animation
         path.style.transition = 'stroke-dashoffset 1s ease-out, opacity 0.5s ease-out';
-        path.style.strokeDashoffset = '0';
+        path.style.strokeDashoffset = '0'; // Draw the line
         path.style.opacity = 1;
         path.classList.add('animate');
 
@@ -148,7 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const arrowheadPath = markerElement.querySelector('.arrowhead');
                 if (arrowheadPath) {
                     arrowheadPath.style.transition = 'fill 0.5s ease-in-out';
-                    arrowheadPath.style.fill = 'var(--color-animated-line)'; // Change to animated color
+                    // Apply animated color on desktop, or keep default on mobile
+                    arrowheadPath.style.fill = window.innerWidth > 992 ? 'var(--color-animated-line)' : 'var(--color-text-dark)'; 
                 }
             }
         }
@@ -387,8 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const animatePipeline = async () => {
         // Prevent multiple animation loops from starting
-        // Allow starting if not running, or if it's a zoom/resize triggered restart (animationRunning flag will be set to false by resetPipeline first)
-        if (animationRunning) {
+        if (animationRunning) { // If already running, or if it's a zoom/resize triggered restart
             console.log('Animation already running, skipping start.');
             return;
         }
@@ -466,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('Pipeline animation cycle finished. Preparing for next loop.');
 
-        if (animationRunning) {
+        if (animationRunning) { // Loop condition
             resetPipeline();
             await new Promise(r => setTimeout(r, 1000)); 
             animatePipeline(); 
