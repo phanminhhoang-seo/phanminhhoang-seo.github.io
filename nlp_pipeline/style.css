@@ -33,7 +33,7 @@ body {
     margin: 0;
     color: var(--color-text-dark);
     overflow-x: hidden; /* Crucial: Prevent horizontal scroll for overflow */
-    overflow-y: auto;
+    overflow-y: auto; /* Allow vertical scroll if content overflows */
     padding: 15px; /* Reduced overall padding */
     box-sizing: border-box;
 }
@@ -59,50 +59,76 @@ body {
     font-weight: 700;
 }
 
-/* Grid container for precise layout */
-.pipeline-flow-grid {
-    display: grid;
-    /* Define grid columns based on variables */
-    grid-template-columns: 
-        minmax(var(--box-min-width), auto) /* Col 1: Document */
-        var(--gap-horizontal) /* Col 2: Gap 1 */
-        minmax(var(--box-min-width), auto) /* Col 3: Document Parsing */
-        var(--gap-horizontal) /* Col 4: Gap 2 */
-        minmax(var(--box-min-width), auto) /* Col 5: Segment-Level Annotation */
-        var(--gap-horizontal) /* Col 6: Gap 3 (Branching) */
-        minmax(var(--box-min-width), auto) /* Col 7: Tokenization / Element-Level Annotation */
-        var(--gap-horizontal) /* Col 8: Gap 4 (Token Indexing / Text Segmentation) */
-        minmax(var(--box-min-width), auto) /* Col 9: Token Indexing / Generate Embeddings */
-        var(--gap-horizontal) /* Col 10: Gap 5 (Vector Indexing) */
-        minmax(var(--box-min-width), auto) /* Col 11: Vector Indexing / Search */
-        var(--gap-horizontal) /* Col 12: Gap 6 (Ranking) */
-        minmax(var(--box-min-width), auto); /* Col 13: Ranking */
-    
-    /* Define grid rows based on variables */
-    grid-template-rows: 
-        auto /* Row 1: Top row (Tokenization, Token Indexing, Search, Ranking) */
-        var(--gap-vertical) /* Row 2: Gap between top and middle row */
-        auto /* Row 3: Middle row (main flow, Element-Level, Text Segmentation, Embeddings, Vector Indexing) */
-        var(--gap-vertical) /* Row 4: Gap for loop */
-        auto; /* Row 5: Bottom row for loop path */
-        
-    position: relative;
-    width: 100%;
-    align-items: start;
-    justify-content: center;
-    /* Optional: Show grid lines for debugging during development */
-    /* background-color: rgba(255, 0, 0, 0.1); */
-    /* border: 1px dashed red; */
+/* Zoom Controls Styling */
+.zoom-controls {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    z-index: 20; /* Ensure it's above other elements */
+    display: flex;
+    gap: 8px; /* Space between buttons */
 }
 
-/* Position each stage wrapper in the grid */
-.pipeline-stage-wrapper {
+.zoom-controls button {
+    background-color: var(--color-box-bg-white);
+    border: 1px solid var(--color-box-border-light);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.2s, box-shadow 0.2s;
+    color: var(--color-text-dark);
+}
+
+.zoom-controls button:hover {
+    background-color: var(--color-background);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.zoom-controls button:active {
+    background-color: var(--color-box-border-light);
+    transform: translateY(1px);
+}
+
+
+/* Grid container for precise layout */
+.pipeline-flow-grid {
+    display: grid;
+    grid-template-columns: 
+        minmax(var(--box-min-width), auto) 
+        var(--gap-horizontal) 
+        minmax(var(--box-min-width), auto) 
+        var(--gap-horizontal) 
+        minmax(var(--box-min-width), auto) 
+        var(--gap-horizontal) 
+        minmax(var(--box-min-width), auto) 
+        var(--gap-horizontal) 
+        minmax(var(--box-min-width), auto) 
+        var(--gap-horizontal) 
+        minmax(var(--box-min-width), auto) 
+        var(--gap-horizontal) 
+        minmax(var(--box-min-width), auto); 
+    
+    grid-template-rows: 
+        auto 
+        var(--gap-vertical) 
+        auto 
+        var(--gap-vertical) 
+        auto;
+        
+    position: relative;
+    width: 100%; /* Important: This width refers to the grid's own width */
+    align-items: start;
+    justify-content: center;
+    
+    /* Zoom related properties */
+    transform-origin: top left; /* Zoom from top-left corner */
+    transition: transform 0.2s ease-out; /* Smooth zoom transition */
 }
 
 /* Specific Grid Placements (adjust row/column spans as needed) */
@@ -333,21 +359,23 @@ body {
     }
     /* Switch to vertical stacking on smaller screens */
     .pipeline-flow-grid {
-        display: flex;
+        display: flex; /* Switch to flexbox for vertical stacking */
         flex-direction: column;
         align-items: center;
         width: 100%;
         padding-bottom: 0;
+        transform: none !important; /* Reset zoom transform in vertical mode */
+        transform-origin: center center !important; /* Reset origin */
     }
     .pipeline-stage-wrapper {
         position: static !important;
         transform: none !important;
         opacity: 1 !important; /* Always visible in vertical layout for animations to start */
-        margin-bottom: 30px; /* Space between vertical stages */
+        margin-bottom: 30px;
         width: auto;
     }
     .pipeline-box {
-        min-width: 180px; /* Ensure boxes are readable in vertical stack */
+        min-width: 180px;
         min-height: 90px;
         padding: 15px 20px;
     }
@@ -361,9 +389,38 @@ body {
     .box-label {
         font-size: 1em;
     }
-    /* Hide SVG lines on vertical layout as they are hard to manage */
+    /* Display SVG lines on vertical layout (simplified paths) */
     .pipeline-lines {
-        display: none;
+        display: block !important; /* **Changed:** Display SVG on mobile */
+        position: absolute; /* Maintain absolute positioning for SVG */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: visible;
+        z-index: 1;
+    }
+    /* Simple vertical line styling for mobile */
+    .pipeline-line {
+        stroke-width: 2 !important; /* Thinner lines on mobile */
+        opacity: 0.7 !important;
+    }
+    .pipeline-line.animate {
+        animation: flow-pulse-mobile 1s infinite ease-in-out; /* Faster, lighter pulse for mobile */
+    }
+    @keyframes flow-pulse-mobile {
+        0% { opacity: 0.5; stroke-width: 2; }
+        50% { opacity: 0.9; stroke-width: 3; }
+        100% { opacity: 0.5; stroke-width: 2; }
+    }
+    .arrowhead {
+        fill: var(--color-text-dark) !important; /* Ensure default color on mobile */
+        transition: none !important; /* No color transition on mobile */
+    }
+
+    .zoom-controls { /* Hide zoom controls in vertical layout */
+        display: none !important;
     }
     .deterministic-ranking-label {
         font-size: 1.1em;
