@@ -1002,26 +1002,6 @@ footer {
 }
 
 /* Responsive adjustments for Mobile phones (Portrait) (<= 767px) */
-@media (max-width: 767px) {
-    body {
-        font-size: 14px;
-    }
-
-    .global-header .logo span {
-        font-size: 16px;
-    }
-    .main-nav a {
-        font-size: 14px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    .lang-toggle-btn {
-        padding: 5px 10px;
-        font-size: 13px !important;
-    }
-    .header-placeholder {
-        height: 130px; /* Có thể cần tăng nhẹ chiều cao placeholder */
-    }
 
 
     .hero-content h1 {
