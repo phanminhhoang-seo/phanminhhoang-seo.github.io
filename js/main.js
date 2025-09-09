@@ -5,6 +5,36 @@ document.addEventListener('DOMContentLoaded', function() {
         once: true,     // Hiệu ứng chỉ chạy một lần khi cuộn qua
         mirror: false,  // Hiệu ứng không chạy lại khi cuộn lên
     });
+    // Thêm đoạn này vào file main.js hiện tại
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('#main-nav');
+
+    if (mobileToggle && mainNav) {
+        mobileToggle.addEventListener('click', function() {
+            mobileToggle.classList.toggle('active');
+            mainNav.classList.toggle('active');
+        });
+
+        // Close menu when clicking on nav links
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileToggle.contains(event.target) && !mainNav.contains(event.target)) {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+            }
+        });
+    }
+
+    // Rest of existing code...
+});
 
     // 2. Typed.js Effect for Hero Title
     // Chuỗi tiếng Việt
