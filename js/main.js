@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileToggle.classList.remove('active');
                 mainNav.classList.remove('active');
             }
-        });
-    }
+    
 
     // Rest of existing code...
 });
