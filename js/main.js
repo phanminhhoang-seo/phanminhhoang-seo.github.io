@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const typedStringsVi = [
         "Phan Minh Hoàng",
         "một chuyên gia SEO", 
-        "một chuyên gia tối ưu hóa tìm kiếm",
-        "một người sáng tạo kỹ thuật số"
+        "một chuyên gia tối ưu hóa tìm kiếm"
+        
     ];
     
     const typedStringsEn = [
