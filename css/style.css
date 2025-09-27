@@ -195,7 +195,7 @@ a:hover {
 }
 
 .header-placeholder {
-    height: 70px;
+    height: 65px; /* Thống nhất với mobile header height */
     display: block;
 }
 
@@ -1098,108 +1098,64 @@ body.no-scroll {
     }
 
     .skill-category,
-    .project-car
-/* Mobile Menu Styles - Add these to your existing CSS */
-/* Mobile Menu - Sửa lại phần này */
-@media (max-width: 768px) {
-    .global-header .header-content {
+    .project-card,
+    .other-project-card {
+        padding: 25px 20px;
+    }
+
+    .project-metrics {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 15px 0;
+    }
+
+    .metric-value {
+        font-size: 24px;
+    }
+
+    .metric-label {
+        font-size: 12px;
+    }
+
+    .interests-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
         padding: 0 15px;
-        position: relative;
     }
 
-    .mobile-menu-toggle {
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        padding: 8px;
-        background: none;
-        border: none;
-        position: relative;
-        z-index: 1002;
-        order: 3; /* Đặt hamburger menu ở cuối */
+    .interest-item {
+        padding: 25px 20px;
     }
 
-    .mobile-menu-toggle span {
-        width: 25px;
-        height: 3px;
-        background-color: #ffffff;
-        margin: 2px 0;
-        transition: 0.3s;
-        border-radius: 2px;
-        display: block;
+    .interest-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        margin-bottom: 15px;
     }
 
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
-
-    /* QUAN TRỌNG: Fix menu full width */
-    .main-nav {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;      /* Full viewport width */
-        height: 100vh;     /* Full viewport height */
-        background-color: #1a1a1a;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 1001;
-        padding: 0;
-        margin: 0;
-    }
-
-    .main-nav.active {
-        display: flex !important;
-    }
-
-    .main-nav a {
-        color: #ffffff;
+    .interest-item h3 {
         font-size: 20px;
-        font-weight: 600;
-        margin: 20px 0;
-        padding: 15px 30px;
+    }
+
+    .interest-item p {
+        font-size: 15px;
+    }
+
+    .contact-info-quick {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .contact-info p {
+        font-size: 17px;
+        flex-direction: column;
         text-align: center;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        border: 2px solid transparent;
+        margin-bottom: 12px;
     }
 
-    .main-nav a:hover {
-        background-color: rgba(255, 183, 77, 0.1);
-        color: #ffb74d;
-        border-color: #ffb74d;
+    .contact-info p .contact-icon {
+        margin-right: 0;
+        margin-bottom: 5px;
     }
-
-    .lang-toggle-btn {
-        background-color: #ffb74d !important;
-        color: #1a1a1a !important;
-        margin: 30px 0 0 0 !important;
-        padding: 12px 24px !important;
-        font-size: 16px !important;
-        border-radius: 8px;
-    }
-
-    .lang-toggle-btn:hover {
-        background-color: #ff9800 !important;
-        color: #1a1a1a !important;
-        border-color: #ff9800 !important;
-    }
-}
-
-/* Lock body scroll khi menu mở */
-body.no-scroll {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
 }
