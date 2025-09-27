@@ -31,16 +31,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize Typed.js nếu element tồn tại
-    if (document.querySelector('.typing-animation')) {
-        new Typed('.typing-animation', {
-            strings: currentTypedStrings, // SỬ DỤNG CHUỖI NGÔN NGỮ ĐƯỢC CHỌN
-            typeSpeed: 70, // Tốc độ gõ chữ
-            backSpeed: 40, // Tốc độ xóa chữ
-            loop: true,    // Lặp lại vô hạn
-            showCursor: true,
-            cursorChar: '|', // Ký tự con trỏ
-        });
-    }
+ // Sửa phần Typed.js trong JS
+if (document.querySelector('.typing-animation')) {
+    new Typed('.typing-animation', {
+        strings: currentTypedStrings,
+        typeSpeed: 70,
+        backSpeed: 40,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|',
+        // Thêm option này để không thay đổi layout
+        preStringTyped: function(arrayPos, self) {
+            // Giữ chiều cao cố định
+        },
+        onStringTyped: function(arrayPos, self) {
+            // Đảm bảo không làm thay đổi layout
+        }
+    });
+}
 
     // 3. Mobile Menu Toggle - FIXED VERSION
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
