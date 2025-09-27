@@ -152,47 +152,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gọi hàm tạo particles khi trang tải xong
     createParticles();
 
-    // 6. Header scroll effect (optional - làm header đẹp hơn khi scroll)
-    let lastScrollTop = 0;
-    const header = document.querySelector('.global-header');
-    
-    if (header) {
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Add background when scrolling
-            if (scrollTop > 50) {
-                header.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.backgroundColor = '#1a1a1a';
-                header.style.backdropFilter = 'none';
+    // 6. Simple resize handler để đóng menu khi chuyển về desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            if (mobileToggle && mainNav) {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('no-scroll');
             }
-            
-            lastScrollTop = scrollTop;
-        });
-    }
-
-    // 7. Lazy loading images (optional - tối ưu performance)
-    const images = document.querySelectorAll('img');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src || img.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => {
-        if (img.dataset.src) {
-            imageObserver.observe(img);
         }
     });
 
-    // 8. Add CSS for particles animation if not exists
+    // 7. Add CSS for particles animation if not exists
     if (!document.querySelector('#particle-styles')) {
         const style = document.createElement('style');
         style.id = 'particle-styles';
@@ -225,40 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(style);
     }
-
-    // 9. Performance optimization - Debounce scroll và resize events
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Apply debounce to scroll events
-    const debouncedScroll = debounce(function() {
-        // Scroll handling code here if needed
-    }, 10);
-
-    const debouncedResize = debounce(function() {
-        // Handle resize if needed
-        if (window.innerWidth > 768) {
-            const mobileToggle = document.querySelector('.mobile-menu-toggle');
-            const mainNav = document.querySelector('.main-nav');
-            if (mobileToggle && mainNav) {
-                mobileToggle.classList.remove('active');
-                mainNav.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        }
-    }, 100);
-
-    window.addEventListener('scroll', debouncedScroll);
-    window.addEventListener('resize', debouncedResize);
 
     console.log('Portfolio website loaded successfully!');
 });
