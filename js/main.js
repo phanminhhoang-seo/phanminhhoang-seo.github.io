@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 2. Typed.js Effect for Hero Title - OPTIMIZED FOR MOBILE
     const typedStringsVi = [
         "Phan Minh Hoàng",
-        "một chuyên gia SEO"
-       
+        "một chuyên gia SEO", 
+        "một chuyên gia tối ưu hóa tìm kiếm",
+        "một người sáng tạo kỹ thuật số"
     ];
     
     const typedStringsEn = [
@@ -32,6 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
         currentTypedStrings = typedStringsEn;
     }
 
+    // Kiểm tra mobile trước khi sử dụng
+    const isMobile = window.innerWidth <= 768;
+
     // Initialize Typed.js với cải thiện cho mobile
     const typingElement = document.querySelector('.typing-animation');
     if (typingElement) {
@@ -39,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const heroContent = document.querySelector('.hero-content h1');
         if (heroContent) {
             // Tính chiều cao dựa trên kích thước màn hình
-            const isMobile = window.innerWidth <= 768;
             const baseHeight = isMobile ? 120 : 180;
             heroContent.style.minHeight = baseHeight + 'px';
         }
