@@ -107,50 +107,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 5. Animation cho các "vòng tròn ngôi sao" (particles)
-    function createParticles() {
+    // 5. Animation cho các "dòng nước chảy" (water waves)
+    function createWaterWaves() {
         const container = document.getElementById('animated-particles');
         if (!container) return; // Đảm bảo container tồn tại
 
-        const numParticles = 30; // Số lượng "ngôi sao" muốn tạo
+        const numWaves = 15; // Số lượng dòng nước
         const containerRect = container.getBoundingClientRect();
         const containerWidth = containerRect.width;
         const containerHeight = containerRect.height;
 
-        for (let i = 0; i < numParticles; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
+        for (let i = 0; i < numWaves; i++) {
+            const waterWave = document.createElement('div');
+            waterWave.classList.add('water-wave');
 
-            // Kích thước ngẫu nhiên cho mỗi ngôi sao
-            const size = Math.random() * 8 + 2; // Từ 2px đến 10px
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
+            // Kích thước ngẫu nhiên cho mỗi dòng nước
+            const width = Math.random() * 60 + 30; // Từ 30px đến 90px
+            const height = Math.random() * 40 + 20; // Từ 20px đến 60px
+            waterWave.style.width = `${width}px`;
+            waterWave.style.height = `${height}px`;
 
-            // Vị trí bắt đầu ngẫu nhiên (gần trung tâm)
-            const startX = Math.random() * containerWidth * 0.4 + containerWidth * 0.3 - containerWidth / 2;
-            const startY = Math.random() * containerHeight * 0.4 + containerHeight * 0.3 - containerHeight / 2;
+            // Vị trí bắt đầu ngẫu nhiên
+            const startX = Math.random() * containerWidth - width / 2;
+            const startY = Math.random() * containerHeight - height / 2;
+            
+            // Tạo path chảy ngẫu nhiên
+            const flowDistance = Math.random() * 150 + 50; // Khoảng cách chảy
+            const flowDirection = Math.random() * 360; // Hướng chảy ngẫu nhiên
 
-            // Vị trí kết thúc ngẫu nhiên (rộng hơn)
-            const endX = Math.random() * containerWidth * 1.5 - containerWidth / 2 * 0.5; // Xa hơn tâm
-            const endY = Math.random() * containerHeight * 1.5 - containerHeight / 2 * 0.5; // Xa hơn tâm
+            waterWave.style.left = `${startX}px`;
+            waterWave.style.top = `${startY}px`;
 
             // Thời gian animation ngẫu nhiên
-            const duration = Math.random() * 8 + 4; // Từ 4s đến 12s
-            const delay = Math.random() * 5; // Độ trễ ngẫu nhiên để các ngôi sao không bay cùng lúc
+            const duration = Math.random() * 8 + 6; // Từ 6s đến 14s
+            const delay = Math.random() * 3; // Độ trễ ngẫu nhiên
 
-            particle.style.setProperty('--start-x', `${startX}px`);
-            particle.style.setProperty('--start-y', `${startY}px`);
-            particle.style.setProperty('--end-x', `${endX}px`);
-            particle.style.setProperty('--end-y', `${endY}px`);
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `${delay}s`;
+            // Set CSS custom properties cho animation
+            waterWave.style.setProperty('--flow-distance', `${flowDistance}px`);
+            waterWave.style.setProperty('--flow-direction', `${flowDirection}deg`);
+            waterWave.style.animationDuration = `${duration}s`;
+            waterWave.style.animationDelay = `${delay}s`;
 
-            container.appendChild(particle);
+            // Thêm opacity ngẫu nhiên
+            const opacity = Math.random() * 0.4 + 0.2; // Từ 0.2 đến 0.6
+            waterWave.style.opacity = opacity;
+
+            container.appendChild(waterWave);
         }
     }
 
-    // Gọi hàm tạo particles khi trang tải xong
-    createParticles();
+    // Gọi hàm tạo water waves khi trang tải xong
+    createWaterWaves();
 
     // 6. Simple resize handler để đóng menu khi chuyển về desktop
     window.addEventListener('resize', function() {
@@ -165,35 +172,73 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 7. Add CSS for particles animation if not exists
-    if (!document.querySelector('#particle-styles')) {
+    // 7. Add CSS for water waves animation if not exists
+    if (!document.querySelector('#water-wave-styles')) {
         const style = document.createElement('style');
-        style.id = 'particle-styles';
+        style.id = 'water-wave-styles';
         style.textContent = `
-            .particle {
+            .water-wave {
                 position: absolute;
-                background: radial-gradient(circle, #ffb74d, #ffa000);
-                border-radius: 50%;
-                opacity: 0.6;
-                animation: particleFloat linear infinite;
+                background: linear-gradient(45deg, 
+                    rgba(100, 149, 237, 0.6), 
+                    rgba(135, 206, 235, 0.4),
+                    rgba(70, 130, 180, 0.5));
+                border-radius: 30% 70% 40% 60%;
+                animation: waveFlow infinite ease-in-out;
                 pointer-events: none;
+                filter: blur(1px);
+                box-shadow: 0 0 20px rgba(135, 206, 235, 0.3);
             }
             
-            @keyframes particleFloat {
-                from {
-                    transform: translate(var(--start-x), var(--start-y));
-                    opacity: 0;
+            @keyframes waveFlow {
+                0% { 
+                    transform: translateX(0px) translateY(0px) rotate(0deg) scale(1);
+                    border-radius: 30% 70% 40% 60%;
+                    opacity: 0.3;
                 }
-                10% {
+                25% {
+                    transform: translateX(20px) translateY(-10px) rotate(45deg) scale(1.1);
+                    border-radius: 60% 40% 70% 30%;
                     opacity: 0.6;
                 }
-                90% {
-                    opacity: 0.6;
+                50% { 
+                    transform: translateX(var(--flow-distance, 50px)) translateY(-20px) rotate(90deg) scale(1.3);
+                    border-radius: 40% 60% 30% 70%;
+                    opacity: 0.4;
                 }
-                to {
-                    transform: translate(var(--end-x), var(--end-y));
-                    opacity: 0;
+                75% {
+                    transform: translateX(30px) translateY(-5px) rotate(135deg) scale(1.1);
+                    border-radius: 70% 30% 60% 40%;
+                    opacity: 0.5;
                 }
+                100% { 
+                    transform: translateX(0px) translateY(0px) rotate(180deg) scale(1);
+                    border-radius: 30% 70% 40% 60%;
+                    opacity: 0.3;
+                }
+            }
+
+            /* Thêm hiệu ứng đặc biệt cho mệnh Thủy */
+            .water-wave:nth-child(3n) {
+                background: linear-gradient(135deg, 
+                    rgba(30, 144, 255, 0.5),
+                    rgba(0, 191, 255, 0.3),
+                    rgba(173, 216, 230, 0.4));
+                animation-direction: reverse;
+            }
+
+            .water-wave:nth-child(5n) {
+                background: linear-gradient(225deg, 
+                    rgba(72, 209, 204, 0.4),
+                    rgba(64, 224, 208, 0.3),
+                    rgba(175, 238, 238, 0.3));
+                animation-duration: 12s !important;
+            }
+
+            .water-wave:hover {
+                animation-play-state: paused;
+                transform: scale(1.5) !important;
+                opacity: 0.8 !important;
             }
         `;
         document.head.appendChild(style);
