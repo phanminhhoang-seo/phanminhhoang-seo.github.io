@@ -1,9 +1,11 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400&display=swap');
 
-/* Prevent horizontal scroll */
+/* Reset và Base Styles */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
@@ -12,6 +14,22 @@ html, body {
     max-width: 100vw;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    line-height: 1.6;
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -20,96 +38,25 @@ html, body {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-        width: 100%;
-    }
-}
-
-html {
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-}
-
-body {
-    overflow-x: hidden;
-    position: relative;
-    width: 100%;
-    max-width: 100vw;
-}
-
-/* Fix cho các elements có thể gây overflow */
-.hero-section,
-.skills-section,
-.projects-section,
-.experience-section,
-.contact-section {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 36px;
-        min-height: 120px; /* Điều chỉnh cho mobile */
-    }
-}
-/* Fix cho grid trên mobile */
-@media (max-width: 768px) {
-    .skills-grid,
-    .projects-grid,
-    .other-projects-grid,
-    .interests-grid {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
-    
-    .project-card,
-    .skill-category,
-    .other-project-card,
-    .interest-item {
-        width: 100%;
-        max-width: 100%;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-}
-
-/* General Styling */
-body {
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #0d0d0d;
-    color: #e0e0e0;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 a {
     color: #ffb74d;
     text-decoration: none;
     transition: color 0.3s ease;
+    word-wrap: break-word;
 }
 
 a:hover {
     color: #ff9800;
 }
 
-/* --- Global Header (Sticky Navigation) --- */
+/* Global Header */
 .global-header {
     background-color: #1a1a1a;
     padding: 15px 0;
@@ -119,7 +66,6 @@ a:hover {
     left: 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease;
 }
 
 .global-header .header-content {
@@ -129,20 +75,19 @@ a:hover {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    position: relative;
 }
 
 .global-header .logo {
     display: flex;
     align-items: center;
-    margin-bottom: 0;
 }
 
 .global-header .logo-image {
     width: 35px;
-    height: auto;
+    height: 35px;
     margin-right: 8px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .global-header .logo span {
@@ -150,6 +95,7 @@ a:hover {
     font-weight: 700;
     color: #ffffff;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 /* Desktop Navigation */
@@ -167,6 +113,7 @@ a:hover {
     transition: color 0.3s ease, border-bottom 0.3s ease;
     padding-bottom: 3px;
     border-bottom: 2px solid transparent;
+    white-space: nowrap;
 }
 
 .main-nav a:hover {
@@ -198,7 +145,6 @@ a:hover {
     padding: 8px;
     background: none;
     border: none;
-    position: relative;
     z-index: 1002;
 }
 
@@ -225,11 +171,9 @@ a:hover {
 }
 
 .header-placeholder {
-    height: 65px; /* Thống nhất với mobile header height */
+    height: 65px;
     display: block;
 }
-
-/* --- END Global Header --- */
 
 /* Hero Section */
 .hero-section {
@@ -237,16 +181,17 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     padding: 80px 0;
-    position: relative;
-    overflow: hidden;
     gap: 40px;
     min-height: 600px;
+    width: 100%;
 }
 
 .hero-content {
     flex: 1;
     max-width: 55%;
     z-index: 10;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .hero-content h1 {
@@ -255,10 +200,12 @@ a:hover {
     line-height: 1.1;
     margin-bottom: 25px;
     color: #ffffff;
-    min-height: 180px; /* Cố định chiều cao để không nhảy */
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .hero-content p {
@@ -266,12 +213,16 @@ a:hover {
     color: #c0c0c0;
     margin-bottom: 30px;
     line-height: 1.7;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .typing-animation {
     color: #ffb74d;
     font-weight: 700;
-    min-height: 1.1em; /* Cố định chiều cao dòng typing */
+    min-height: 1.1em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .btn-primary {
@@ -286,6 +237,7 @@ a:hover {
     letter-spacing: 0.5px;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 5px 15px rgba(255, 183, 77, 0.3);
+    white-space: nowrap;
 }
 
 .btn-primary:hover {
@@ -360,7 +312,7 @@ a:hover {
     100% { transform: translate(0, 0) scale(1); opacity: 0.1; }
 }
 
-/* Section Title Styling */
+/* Section Title */
 .section-title {
     font-size: 48px;
     font-weight: 700;
@@ -370,6 +322,8 @@ a:hover {
     display: inline-block;
     text-align: center;
     width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .section-title::after {
@@ -407,18 +361,15 @@ a:hover {
     display: flex;
     align-items: center;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .contact-info-quick .contact-icon {
     font-size: 22px;
     color: #ffb74d;
     margin-right: 10px;
-}
-
-.about-section .upwork-badge {
-    margin-top: 20px;
-    flex-basis: 100%;
-    justify-content: center;
+    flex-shrink: 0;
 }
 
 /* Skills Section */
@@ -434,6 +385,8 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
     padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .skill-category {
@@ -442,6 +395,10 @@ a:hover {
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .skill-category h3 {
@@ -450,12 +407,14 @@ a:hover {
     color: #ffb74d;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .skill-icon {
     font-size: 28px;
     margin-right: 10px;
     color: #ffb74d;
+    flex-shrink: 0;
 }
 
 .skill-category ul {
@@ -470,6 +429,9 @@ a:hover {
     color: #c0c0c0;
     position: relative;
     padding-left: 25px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 .skill-category ul li::before {
@@ -483,7 +445,7 @@ a:hover {
     font-size: 14px;
 }
 
-/* Work Experience Section */
+/* Experience Section */
 .experience-section {
     padding: 80px 0;
     text-align: center;
@@ -517,6 +479,10 @@ a:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.05);
     text-align: left;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .experience-item::before {
@@ -562,6 +528,8 @@ a:hover {
     margin-top: 0;
     margin-bottom: 15px;
     color: #ffffff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .experience-item ul {
@@ -576,6 +544,9 @@ a:hover {
     color: #c0c0c0;
     position: relative;
     padding-left: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 .experience-item ul li::before {
@@ -587,7 +558,7 @@ a:hover {
     line-height: 1;
 }
 
-/* Featured Projects Section */
+/* Projects Section */
 .projects-section {
     padding: 80px 0;
     text-align: center;
@@ -601,6 +572,8 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
     padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .project-card {
@@ -611,6 +584,10 @@ a:hover {
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .project-card:hover {
@@ -623,12 +600,17 @@ a:hover {
     margin-top: 0;
     margin-bottom: 15px;
     color: #ffb74d;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .project-description {
     font-size: 17px;
     color: #c0c0c0;
     margin-bottom: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 .project-metrics {
@@ -643,6 +625,8 @@ a:hover {
 
 .metric-item {
     text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .metric-value {
@@ -657,6 +641,8 @@ a:hover {
     font-size: 14px;
     color: #a0a0a0;
     line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .project-keywords {
@@ -664,6 +650,8 @@ a:hover {
     color: #e0e0e0;
     font-weight: 500;
     margin-top: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .project-keywords strong {
@@ -682,6 +670,9 @@ a:hover {
     margin-bottom: 8px;
     position: relative;
     padding-left: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 .project-tasks li::before {
@@ -707,6 +698,8 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 30px;
     padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .other-project-card {
@@ -717,6 +710,10 @@ a:hover {
     border: 1px solid rgba(255, 255, 255, 0.05);
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .other-project-card:hover {
@@ -729,6 +726,8 @@ a:hover {
     margin-top: 0;
     margin-bottom: 10px;
     color: #ffffff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .other-project-card .project-date {
@@ -750,6 +749,9 @@ a:hover {
     margin-bottom: 8px;
     position: relative;
     padding-left: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
 }
 
 .other-project-card ul li::before {
@@ -759,42 +761,6 @@ a:hover {
     left: 0;
     font-size: 1.2em;
     line-height: 1;
-}
-
-/* Contact Section */
-.contact-section {
-    padding: 80px 0;
-    text-align: center;
-    background-color: #1a1a1a;
-    border-radius: 15px;
-    margin-top: 50px;
-}
-
-.contact-section p {
-    font-size: 18px;
-    color: #c0c0c0;
-    margin-bottom: 40px;
-}
-
-.contact-info p {
-    font-size: 19px;
-    color: #ffffff;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.contact-icon {
-    font-size: 24px;
-    color: #ffb74d;
-    margin-right: 15px;
-    width: 30px;
-    text-align: center;
-}
-
-.contact-info a {
-    font-weight: 600;
 }
 
 /* Personal Interests Section */
@@ -814,6 +780,8 @@ a:hover {
     color: #c0c0c0;
     margin-bottom: 50px;
     line-height: 1.7;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .interests-grid {
@@ -821,6 +789,8 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .interest-item {
@@ -831,6 +801,10 @@ a:hover {
     border: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .interest-item:hover {
@@ -855,12 +829,59 @@ a:hover {
     font-size: 22px;
     margin-bottom: 15px;
     color: #ffb74d;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .interest-item p {
     font-size: 16px;
     color: #c0c0c0;
     line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    margin-top: 50px;
+}
+
+.contact-section p {
+    font-size: 18px;
+    color: #c0c0c0;
+    margin-bottom: 40px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.contact-info p {
+    font-size: 19px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.contact-icon {
+    font-size: 24px;
+    color: #ffb74d;
+    margin-right: 15px;
+    width: 30px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.contact-info a {
+    font-weight: 600;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Footer */
@@ -880,7 +901,7 @@ body.no-scroll {
 
 /* ============================= RESPONSIVE CSS ============================= */
 
-/* Large Tablets (992px - 1200px) */
+/* Tablets và laptops nhỏ (768px - 1200px) */
 @media (max-width: 1200px) {
     .container {
         max-width: 992px;
@@ -892,7 +913,6 @@ body.no-scroll {
     }
 }
 
-/* Tablets and smaller laptops (768px - 992px) */
 @media (max-width: 992px) {
     .container {
         padding: 15px;
@@ -930,6 +950,7 @@ body.no-scroll {
     .hero-content h1 {
         font-size: 48px;
         margin-bottom: 20px;
+        min-height: 120px;
     }
 
     .hero-content p {
@@ -969,25 +990,33 @@ body.no-scroll {
     }
 }
 
-/* Mobile phones (480px - 768px) */
+/* Mobile phones (max-width: 768px) */
 @media (max-width: 768px) {
-    /* Mobile Header Adjustments */
+    .container {
+        padding: 10px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Mobile Header */
     .global-header {
-        padding: 12px 0;
+        padding: 10px 0;
     }
 
     .global-header .header-content {
-        padding: 0 15px;
+        padding: 0 10px;
         flex-wrap: nowrap;
     }
 
-    /* Show mobile menu toggle */
+    .global-header .logo span {
+        font-size: 16px;
+    }
+
     .mobile-menu-toggle {
         display: flex;
         order: 3;
     }
 
-    /* Hide desktop navigation on mobile */
     .main-nav {
         display: none;
         position: fixed;
@@ -1004,7 +1033,6 @@ body.no-scroll {
         overflow-y: auto;
     }
 
-    /* Show mobile navigation when active */
     .main-nav.active {
         display: flex !important;
     }
@@ -1017,6 +1045,9 @@ body.no-scroll {
         font-size: 16px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .main-nav a:last-child {
@@ -1042,155 +1073,359 @@ body.no-scroll {
 
     /* Hero Section Mobile */
     .hero-section {
-        padding: 40px 0;
-        gap: 25px;
+        padding: 30px 0;
+        gap: 20px;
+        min-height: auto;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+        padding: 0 5px;
     }
 
     .hero-content h1 {
-        font-size: 36px;
-        line-height: 1.2;
+        font-size: 28px;
+        line-height: 1.3;
         margin-bottom: 15px;
+        min-height: 80px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
     .hero-content p {
-        font-size: 16px;
+        font-size: 15px;
         margin-bottom: 20px;
+        line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        text-align: left;
     }
 
     .btn-primary {
-        padding: 12px 24px;
+        padding: 12px 20px;
         font-size: 16px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        text-align: center;
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
     }
 
     .hero-image-container {
-        max-width: 280px;
-        min-height: 280px;
+        max-width: 250px;
+        min-height: 250px;
+        margin: 0 auto;
     }
     
     .hero-image-overlay {
-        width: 280px;
-        height: 280px;
+        width: 250px;
+        height: 250px;
     }
 
     .section-title {
-        font-size: 32px;
-        margin-bottom: 35px;
+        font-size: 24px;
+        margin-bottom: 30px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.3;
     }
 
-    /* Timeline adjustments for mobile */
-    .experience-timeline {
-        max-width: 100%;
-        padding: 0 10px;
-    }
-
-    .experience-timeline::before {
-        left: 20px;
-        transform: translateX(0);
-    }
-
-    .experience-item {
-        width: calc(100% - 40px);
-        margin-left: 40px;
-        margin-right: 0;
-        left: 0;
-        padding: 20px 25px;
-    }
-
-    .experience-item::before {
-        left: -10px;
-        transform: translateX(0);
-        top: 20px;
-        width: 12px;
-        height: 12px;
-    }
-
-    .experience-item:nth-child(odd)::before,
-    .experience-item:nth-child(even)::before {
-        left: -10px;
-    }
-
-    .experience-item h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    .experience-date {
-        font-size: 14px;
-    }
-
-    .experience-item ul li {
-        font-size: 15px;
-        padding: 3px 0;
-    }
-
-    /* Grid adjustments */
+    /* Mobile grid adjustments */
     .skills-grid,
     .projects-grid,
-    .other-projects-grid {
+    .other-projects-grid,
+    .interests-grid {
         grid-template-columns: 1fr;
         gap: 20px;
-        padding: 0 10px;
+        padding: 0 5px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .skill-category,
     .project-card,
-    .other-project-card {
-        padding: 25px 20px;
+    .other-project-card,
+    .interest-item {
+        padding: 20px 15px;
+        width: 100%;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
-    .project-metrics {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 15px 0;
+    .skill-category h3,
+    .project-card h3,
+    .other-project-card h3,
+    .interest-item h3 {
+        font-size: 18px;
+        line-height: 1.3;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
-    .metric-value {
-        font-size: 24px;
+    .skill-category ul li,
+    .project-tasks li,
+    .other-project-card ul li {
+        font-size: 14px;
+        line-height: 1.5;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
-    .metric-label {
+    .project-description,
+    .interest-item p,
+    .interests-description {
+        font-size: 14px;
+        line-height: 1.6;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .project-keywords {
+        font-size: 14px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Timeline mobile */
+    .experience-timeline {
+        max-width: 100%;
+        padding: 0 5px;
+    }
+
+    .experience-timeline::before {
+        left: 15px;
+        transform: translateX(0);
+    }
+
+    .experience-item {
+        width: calc(100% - 30px);
+        margin-left: 30px;
+        margin-right: 0;
+        left: 0;
+        padding: 15px 20px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .experience-item::before {
+        left: -8px;
+        transform: translateX(0);
+        top: 15px;
+        width: 10px;
+        height: 10px;
+    }
+
+    .experience-item:nth-child(odd)::before,
+    .experience-item:nth-child(even)::before {
+        left: -8px;
+    }
+
+    .experience-item h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.3;
+    }
+
+    .experience-date {
         font-size: 12px;
     }
 
-    .interests-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 15px;
+    .experience-item ul li {
+        font-size: 13px;
+        padding: 2px 0;
+        line-height: 1.4;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
-    .interest-item {
-        padding: 25px 20px;
-    }
-
-    .interest-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 28px;
-        margin-bottom: 15px;
-    }
-
-    .interest-item h3 {
-        font-size: 20px;
-    }
-
-    .interest-item p {
-        font-size: 15px;
-    }
-
+    /* Contact info mobile */
     .contact-info-quick {
         flex-direction: column;
         gap: 15px;
+        padding: 0 10px;
+    }
+
+    .contact-info-quick p {
+        font-size: 14px;
+        flex-direction: row;
+        text-align: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        justify-content: center;
+        align-items: center;
     }
 
     .contact-info p {
-        font-size: 17px;
+        font-size: 15px;
         flex-direction: column;
         text-align: center;
         margin-bottom: 12px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 
     .contact-info p .contact-icon {
         margin-right: 0;
         margin-bottom: 5px;
+    }
+
+    .contact-info-quick .contact-icon {
+        margin-right: 8px;
+        flex-shrink: 0;
+    }
+
+    /* Project metrics mobile */
+    .project-metrics {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 15px 0;
+    }
+
+    .metric-item {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .metric-value {
+        font-size: 20px;
+    }
+
+    .metric-label {
+        font-size: 12px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Interest icon mobile */
+    .interest-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    /* Padding adjustments */
+    .about-section,
+    .skills-section,
+    .experience-section,
+    .projects-section,
+    .other-projects-section,
+    .personal-interests-section,
+    .contact-section {
+        padding: 40px 0;
+        margin-top: 30px;
+    }
+
+    .about-section,
+    .skills-section,
+    .projects-section,
+    .contact-section {
+        border-radius: 10px;
+        padding: 30px 10px;
+    }
+}
+
+/* Very small phones (max-width: 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+
+    .global-header .header-content {
+        padding: 0 8px;
+    }
+
+    .global-header .logo span {
+        font-size: 14px;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+        min-height: 70px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+
+    .hero-image-container {
+        max-width: 200px;
+        min-height: 200px;
+    }
+    
+    .hero-image-overlay {
+        width: 200px;
+        height: 200px;
+    }
+
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .skills-grid,
+    .projects-grid,
+    .other-projects-grid,
+    .interests-grid {
+        padding: 0 3px;
+    }
+
+    .skill-category,
+    .project-card,
+    .other-project-card,
+    .interest-item {
+        padding: 15px 12px;
+    }
+
+    .project-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-value {
+        font-size: 18px;
+    }
+
+    .metric-label {
+        font-size: 11px;
+    }
+
+    .experience-item {
+        padding: 12px 15px;
+        margin-left: 25px;
+        width: calc(100% - 25px);
+    }
+
+    .experience-timeline::before {
+        left: 12px;
+    }
+
+    .experience-item::before {
+        left: -6px;
+        width: 8px;
+        height: 8px;
     }
 }
