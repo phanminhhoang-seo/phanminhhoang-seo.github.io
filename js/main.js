@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
         once: true,     // Hiệu ứng chỉ chạy một lần khi cuộn qua
         mirror: false,  // Hiệu ứng không chạy lại khi cuộn lên
     });
-  
 
     // 2. Typed.js Effect for Hero Title
     // Chuỗi tiếng Việt
@@ -31,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentTypedStrings = typedStringsEn;
     }
 
+    // Initialize Typed.js nếu element tồn tại
     if (document.querySelector('.typing-animation')) {
         new Typed('.typing-animation', {
             strings: currentTypedStrings, // SỬ DỤNG CHUỖI NGÔN NGỮ ĐƯỢC CHỌN
@@ -42,7 +42,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 3. Smooth Scrolling for navigation links (e.g., "Xem dự án của tôi")
+    // 3. Mobile Menu Toggle - FIXED VERSION
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (mobileToggle && mainNav) {
+        // Toggle menu khi click hamburger
+        mobileToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        // Đóng menu khi click vào link
+        document.querySelectorAll('.main-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+
+        // Đóng menu khi click ra ngoài (optional)
+        document.addEventListener('click', function(e) {
+            if (!mobileToggle.contains(e.target) && !mainNav.contains(e.target)) {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        });
+
+        // Đóng menu khi resize window (để tránh bug khi xoay máy)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    }
+
+    // 4. Smooth Scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             // Chỉ thực hiện smooth scroll nếu link nằm trên cùng trang
@@ -67,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 4. Animation cho các "vòng tròn ngôi sao" (particles)
+    // 5. Animation cho các "vòng tròn ngôi sao" (particles)
     function createParticles() {
         const container = document.getElementById('animated-particles');
         if (!container) return; // Đảm bảo container tồn tại
@@ -112,40 +152,113 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gọi hàm tạo particles khi trang tải xong
     createParticles();
 
-    // Các phần code comment cũ (reveal-item) có thể được giữ nguyên hoặc xóa
-    /*
-    const revealItems = document.querySelectorAll('.reveal-item');
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-    const observerCallback = (entries, observer) => {
+    // 6. Header scroll effect (optional - làm header đẹp hơn khi scroll)
+    let lastScrollTop = 0;
+    const header = document.querySelector('.global-header');
+    
+    if (header) {
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add background when scrolling
+            if (scrollTop > 50) {
+                header.style.backgroundColor = 'rgba(26, 26, 26, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.backgroundColor = '#1a1a1a';
+                header.style.backdropFilter = 'none';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    }
+
+    // 7. Lazy loading images (optional - tối ưu performance)
+    const images = document.querySelectorAll('img');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
+                const img = entry.target;
+                img.src = img.dataset.src || img.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
             }
         });
-    };
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    revealItems.forEach(item => {
-        observer.observe(item);
     });
-    */
-});
-// Toggle mobile menu
-document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-    this.classList.toggle('active');
-    document.querySelector('.main-nav').classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
-});
 
-// Close menu when clicking on links
-document.querySelectorAll('.main-nav a').forEach(link => {
-    link.addEventListener('click', function() {
-        document.querySelector('.mobile-menu-toggle').classList.remove('active');
-        document.querySelector('.main-nav').classList.remove('active');
-        document.body.classList.remove('no-scroll');
+    images.forEach(img => {
+        if (img.dataset.src) {
+            imageObserver.observe(img);
+        }
     });
+
+    // 8. Add CSS for particles animation if not exists
+    if (!document.querySelector('#particle-styles')) {
+        const style = document.createElement('style');
+        style.id = 'particle-styles';
+        style.textContent = `
+            .particle {
+                position: absolute;
+                background: radial-gradient(circle, #ffb74d, #ffa000);
+                border-radius: 50%;
+                opacity: 0.6;
+                animation: particleFloat linear infinite;
+                pointer-events: none;
+            }
+            
+            @keyframes particleFloat {
+                from {
+                    transform: translate(var(--start-x), var(--start-y));
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.6;
+                }
+                90% {
+                    opacity: 0.6;
+                }
+                to {
+                    transform: translate(var(--end-x), var(--end-y));
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // 9. Performance optimization - Debounce scroll và resize events
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Apply debounce to scroll events
+    const debouncedScroll = debounce(function() {
+        // Scroll handling code here if needed
+    }, 10);
+
+    const debouncedResize = debounce(function() {
+        // Handle resize if needed
+        if (window.innerWidth > 768) {
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+            if (mobileToggle && mainNav) {
+                mobileToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        }
+    }, 100);
+
+    window.addEventListener('scroll', debouncedScroll);
+    window.addEventListener('resize', debouncedResize);
+
+    console.log('Portfolio website loaded successfully!');
 });
