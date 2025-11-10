@@ -26,79 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <style>
-        .blog-post-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            border: 1px solid #ddd;
-        }
-        .blog-post-content th,
-        .blog-post-content td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        .blog-post-content th {
-            background-color: #f4f4f4;
-            font-weight: 600;
-        }
-        .blog-post-content pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 15px 0;
-        }
-        .blog-post-content code {
-            font-family: 'Courier New', Courier, monospace;
-        }
-        /* Style cho FAQ (dùng details/summary GỐC, BỀN VỮNG) */
-        .blog-post-content details {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px 0;
-        }
-        .blog-post-content summary {
-            font-weight: 600;
-            padding: 15px;
-            cursor: pointer;
-            position: relative;
-            /* Dùng list-style-type để có mũi tên gốc, hoặc ẩn đi nếu muốn custom */
-             list-style-type: none; /* Ẩn marker mặc định */
-        }
-        .blog-post-content summary::marker, /* Ẩn marker (Firefox) */
-        .blog-post-content summary::-webkit-details-marker { /* Ẩn marker (Chrome/Safari) */
-            display: none; 
-        }
-        .blog-post-content summary::before { /* Thêm marker custom */
-            content: '►';
-            font-size: 0.8em;
-            margin-right: 10px;
-            transition: transform 0.2s ease;
-        }
-        .blog-post-content details[open] summary::before {
-            transform: rotate(90deg);
-        }
-        .blog-post-content details p {
-            padding: 0 15px 15px 35px; /* Thụt vào sau marker */
-            margin: 0;
-            line-height: 1.7;
-        }
-        /* Style cho link tác giả */
-        .blog-post-meta a,
-        footer a {
-            color: #007bff; /* Hoặc màu link chính của bạn */
-            text-decoration: none;
-        }
-        .blog-post-meta a:hover,
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
+    </head>
 <body class="blog-post-page">
     <div class="header-placeholder"></div>
 
@@ -126,14 +54,13 @@
                 <p class="blog-post-meta">Đăng bởi <a href="https://www.linkedin.com/in/phan-minh-hoang-lead" target="_blank" rel="author noopener">Phan Minh Hoàng</a> vào ngày 10/11/2025</p>
             </div>
             
-            <p style="font-size: 1.1em; font-weight: 600; background: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; border-radius: 4px;">
-                Là người làm SEO, 'nỗi đau' lớn nhất của chúng ta là "cannibalization" (ăn thịt từ khóa) và thứ hạng "nhảy múa" không lý do. Vấn đề gốc rễ? Chúng ta vẫn tư duy theo "từ khóa", trong khi Google đã chuyển sang "ngữ nghĩa".
+            <p class="lead-paragraph"> Là người làm SEO, 'nỗi đau' lớn nhất của chúng ta là "cannibalization" (ăn thịt từ khóa) và thứ hạng "nhảy múa" không lý do. Vấn đề gốc rễ? Chúng ta vẫn tư duy theo "từ khóa", trong khi Google đã chuyển sang "ngữ nghĩa".
             </p>
             <p>Bài viết này là một playbook hoàn chỉnh, giúp bạn "lột xác" tư duy. Chúng ta sẽ bóc tách cách **'đọc vị' ý định (Intent)**, cách xây dựng 'bản đồ tri thức' bằng **Thực thể (Entity)**, và cách dùng <strong>Schema</strong> + <strong>Internal Link</strong> như một 'ngôn ngữ' giao tiếp cao cấp với Google. Mục tiêu: thứ hạng bền vững và CTR cao hơn.</p>
 
-            <nav class="toc" style="background: #fdfdfd; border: 1px dashed #007bff; padding: 15px 20px; border-radius: 8px; margin: 25px 0;">
-                <h3 style="margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 5px;">Mục lục bài viết (Playbook 9 phần)</h3>
-                <ol style="padding-left: 20px; margin-bottom: 0;">
+            <nav class="toc">
+                <h3 style="margin-top: 0;">Mục lục bài viết (Playbook 9 phần)</h3>
+                <ol>
                     <li><a href="#vi-sao">Vì sao Semantic Search là cuộc cách mạng bắt buộc?</a></li>
                     <li><a href="#intent-first">"Intent-First": Nền móng của Semantic SEO</a></li>
                     <li><a href="#entity-cluster">Dựng Topic Cluster bằng 'Entity' (Không phải 'Keyword')</a></li>
@@ -151,8 +78,7 @@
                 <p>SEO truyền thống giống như cố gắng mở một cánh cửa bằng cách thử hàng trăm chiếc chì khóa (từ khóa). Bạn tập trung vào "mật độ", "từ khóa chính", "từ khóa phụ",... hy vọng một từ sẽ khớp.</p>
                 <p>Nhưng Google đã thay đổi (với các bản cập nhật như Hummingbird, BERT, MUM). Nó không còn là một cỗ máy "đọc chữ", mà là một cỗ máy "hiểu ý". Đó chính là <strong>Semantic Search (Tìm kiếm Ngữ nghĩa)</strong>.</p>
                 <p>Nó hiểu rằng "địa điểm ăn trưa ngon ở quận 1" và "nhà hàng tốt cho dân văn phòng q1" có thể mang cùng một 'ý định'. Nó hiểu 'Steve Jobs' là một 'Entity' (thực thể) có quan hệ 'sáng lập' với 'Apple' (một thực thể khác). Khi chúng ta tối ưu theo "ngữ nghĩa", chúng ta không còn chạy theo thuật toán, mà chúng ta xây dựng <strong>'thẩm quyền' (Authority)</strong> bền vững. Thứ hạng ổn định hơn vì bạn trả lời đúng *câu hỏi*, chứ không chỉ 'nhồi' đúng *từ*.</p>
-                <div class="grid cols-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                <div class="grid cols-2"> <div class="card">
                         <h3>SEO truyền thống (Lỗi thời)</h3>
                         <ul>
                             <li>Tập trung: Mật độ từ khóa, số lượng backlink.</li>
@@ -160,8 +86,7 @@
                             <li>Hậu quả: Cannibalization, thứ hạng bấp bênh, dễ bị "knock-out" khi Google update.</li>
                         </ul>
                     </div>
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #f9f9f9;">
-                        <h3>Semantic SEO (Hiện đại)</h3>
+                    <div class="card"> <h3>Semantic SEO (Hiện đại)</h3>
                         <ul>
                             <li>Tập trung: <strong>Intent (Ý định)</strong> & <strong>Entity (Thực thể)</strong>.</li>
                             <li>Mục tiêu: Mỗi URL phục vụ một ý định rõ ràng, sắc nét, và được kết nối trong một 'bản đồ tri thức'.</li>
@@ -171,7 +96,7 @@
                 </div>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="intent-first">
                 <h2>2. "Intent-First": Nền móng của Semantic SEO</h2>
@@ -202,10 +127,10 @@
                         <tr><td><strong>Transactional</strong> (Giao dịch)</td><td>báo giá semantic SEO; đăng ký tư vấn</td><td>Trang báo giá, trang checkout, landing page đăng ký</td></tr>
                     </tbody>
                 </table>
-                <p style="font-style: italic; color: #555;">Quy tắc vàng: <strong>Mỗi ý định cốt lõi xứng đáng có một URL riêng biệt</strong>. Đừng bao giờ cố bán hàng trên một trang thông tin. Đây là chìa khóa để giải quyết triệt để 'cannibalization'.</p>
+                <p><em>Quy tắc vàng: <strong>Mỗi ý định cốt lõi xứng đáng có một URL riêng biệt</strong>. Đừng bao giờ cố bán hàng trên một trang thông tin. Đây là chìa khóa để giải quyết triệt để 'cannibalization'.</em></p>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="entity-cluster">
                 <h2>3. Dựng Topic Cluster bằng 'Entity' (Không phải 'Keyword')</h2>
@@ -232,8 +157,8 @@
                 
                 <h3>3.3. Từ Entity đến Topic Cluster (Ontology & Taxonomy)</h3>
                 <p>Khi đã có danh sách các Entity, chúng ta 'kết nối' chúng lại. Đây chính là lúc chúng ta xây dựng Topic Cluster.</p>
-                <div class="grid cols-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                <div class="grid cols-2">
+                    <div class="card">
                         <h3>Vẽ Mối Quan Hệ (Ontology)</h3>
                         <p>Hãy nghĩ về cách chúng liên quan (đây chính là Ontology - bản thể luận):</p>
                         <ul>
@@ -243,7 +168,7 @@
                             <li><strong>quan hệ (related-to):</strong> 'Topic Cluster' *liên quan đến* 'Internal Link'.</li>
                         </ul>
                     </div>
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #f9f9f9;">
+                    <div class="card">
                         <h3>Cấu Trúc Cụm Chủ Đề (Taxonomy)</h3>
                         <p>Từ mối quan hệ đó, ta 'phân loại' (Taxonomy) chúng thành cấu trúc:</p>
                         <ul>
@@ -258,17 +183,17 @@
                         </ul>
                     </div>
                 </div>
-                <p style="font-style: italic; color: #555;">Khi Google thấy "bản đồ" này, nó sẽ nhận ra: "Ồ, website này không chỉ nói về 1 khía cạnh, họ là một <strong>chuyên gia (Authority)</strong> về toàn bộ chủ đề Semantic SEO".</p>
+                <p><em>Khi Google thấy "bản đồ" này, nó sẽ nhận ra: "Ồ, website này không chỉ nói về 1 khía cạnh, họ là một <strong>chuyên gia (Authority)</strong> về toàn bộ chủ đề Semantic SEO".</em></p>
             </section>
             
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="schema">
                 <h2>4. Schema: "Tấm danh thiếp" cao cấp gửi Google</h2>
                 <p>Nếu nội dung là thứ bạn *viết* cho người dùng, thì <strong>Schema (dữ liệu có cấu trúc)</strong> là thứ bạn *giải thích* cho Google. Nó giống như một tấm 'danh thiếp' hay một 'bản thuyết minh' bạn gửi kèm, nói rõ:</p>
                 <p>"Này Google, đây không phải là một đoạn văn bản ngẫu nhiên. Đoạn này là một <strong>Câu hỏi (<code>FAQPage</code>)</strong>, đây là một <strong>Bài Hướng Dẫn (<code>HowTo</code>)</strong>, đây là <strong>Điều hướng (<code>BreadcrumbList</code>)</strong>, và bài viết này nói về <strong>Thực thể (<code>Thing</code>)</strong> tên là 'Semantic Search'".</p>
                 <p>Nó không chỉ giúp bạn có Rich Snippets. Về mặt ngữ nghĩa, nó giúp Google <strong>xác nhận (disambiguation)</strong> nội dung của bạn, loại bỏ mọi sự mơ hồ và tăng tốc độ hiểu.</p>
-                <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #f9f9f9;">
+                <div class="card">
                     <h3>Khi nào dùng schema nào? (Thực chiến)</h3>
                     <ul>
                         <li><code>Article</code> / <code>BlogPosting</code>: Bắt buộc cho mọi bài viết (chỉ rõ author, publisher).</li>
@@ -281,12 +206,13 @@
                 </div>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="internal-link">
                 <h2>5. Internal Link: Vẽ 'bản đồ' kết nối ngữ nghĩa</h2>
                 <p>Nếu Schema là 'tấm danh thiếp', thì Internal Link là 'mũi tên chỉ đường' kết nối các 'thực thể' trên website của bạn. Đa số mọi người làm sai phần này.</p>
-                <p style="background: rgba(255,0,0,0.05); border: 1px solid #ffcccc; padding: 10px; border-radius: 5px;"><strong>Sai lầm chết người:</strong> Dùng anchor text chung chung như "xem thêm", "tại đây", "click vào đây". Bạn đang lãng phí hoàn toàn 'nước ép' ngữ nghĩa (semantic juice).</p>
+                <p class="error-box"> <strong>Sai lầm chết người:</strong> Dùng anchor text chung chung như "xem thêm", "tại đây", "click vào đây". Bạn đang lãng phí hoàn toàn 'nước ép' ngữ nghĩa (semantic juice).
+                </p>
                 
                 <h3>Quy tắc Anchor Text Vàng</h3>
                 <p>Anchor text của bạn phải mô tả chính xác <strong>'thực thể'</strong> hoặc <strong>'tác vụ'</strong> của trang đích. Nó phải giúp người dùng (và Google) biết họ sẽ nhận được gì KHI click vào.</p>
@@ -304,13 +230,13 @@
                 <p>Mỗi internal link là một phiếu bầu, một lời khẳng định về mối quan hệ giữa hai trang. Hãy làm cho nó thật rõ ràng.</p>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="checklist">
                 <h2>6. Checklist 30 Ngày "Lột Xác" Website Theo Semantic</h2>
                 <p>Đây là kế hoạch hành động chi tiết. Đừng chỉ đọc, hãy làm!</p>
-                <div class="grid cols-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                <div class="grid cols-2">
+                    <div class="card">
                         <h3>Ngày 1–7: Nghiên cứu & Lập Bản Đồ</h3>
                         <ul>
                             <li><strong>Xuất GSC & Tool:</strong> Lấy toàn bộ query bạn đang có.</li>
@@ -319,7 +245,7 @@
                             <li><strong>Quyết định Pillar & Spoke:</strong> Chọn 1 URL làm Pillar, 5-10 Spoke đầu tiên.</li>
                         </ul>
                     </div>
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #f9f9f9;">
+                    <div class="card">
                         <h3>Ngày 8–14: Xây Dựng Nền Móng</h3>
                         <ul>
                             <li><strong>Viết/Cải tạo Pillar:</strong> Viết bài tổng quan nhất, đóng vai trò 'mục lục'.</li>
@@ -327,7 +253,7 @@
                             <li><strong>Tối ưu Title/H1:</strong> Đảm bảo Title/H1 <strong>phản ánh chính xác intent</strong>.</li>
                         </ul>
                     </div>
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #f9f9f9;">
+                    <div class="card">
                         <h3>Ngày 15–21: Tối Ưu Ngữ Nghĩa</h3>
                         <ul>
                             <li><strong>Triển khai Schema:</strong> Thêm <code>BreadcrumbList</code>, <code>FAQPage</code>, <code>HowTo</code>.</li>
@@ -335,7 +261,7 @@
                             <li><strong>Thiết lập Tracking:</strong> Theo dõi % query khớp intent theo URL.</li>
                         </ul>
                     </div>
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                    <div class="card">
                         <h3>Ngày 22–30: Mở Rộng & Đo Lường</h3>
                         <ul>
                             <li><strong>Publish thêm 3–4 Spoke:</strong> Hoàn thiện 'cụm' kiến thức.</li>
@@ -346,7 +272,7 @@
                 </div>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="case">
                 <h2>7. Mini Case: Gỡ Rối Cannibalization Bằng Cách 'Tách Intent'</h2>
@@ -364,13 +290,13 @@
                 </ul>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="kpi">
                 <h2>8. Đo Lường: Những KPI Nào Thực Sự Nói Lên Hiệu Quả?</h2>
                 <p>Hãy ngừng việc chỉ nhìn vào 'thứ hạng'. Trong <strong>Semantic SEO</strong>, chúng ta đo 'sức khỏe' của cả cụm chủ đề.</p>
-                <div class="grid cols-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                <div class="grid cols-2">
+                    <div class="card">
                         <h3>KPI cốt lõi cần theo dõi</h3>
                         <ul>
                             <li><strong>CTR (Click-Through-Rate):</strong> Tăng? Tốt. Tức là tiêu đề/schema đã 'khớp' với intent.</li>
@@ -379,7 +305,7 @@
                             <li><strong>Số lượng query/trang:</strong> Một URL 'khớp' với ngày càng nhiều truy vấn.</li>
                         </ul>
                     </div>
-                    <div class="card" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; background: #f9f9f9;">
+                    <div class="card">
                         <h3>Cách đọc GSC (Thực chiến)</h3>
                         <ul>
                             <li>Vào GSC -> Performance -> Pages.</li>
@@ -391,7 +317,7 @@
                 </div>
             </section>
 
-            <hr style="margin: 30px 0;">
+            <hr>
 
             <section id="faq" class="faq">
                 <h2>9. Câu hỏi thường gặp (Phần gỡ rối)</h2>
@@ -418,8 +344,8 @@
             </section>
         </article>
 
-        <nav class="post-navigation" style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px; text-align: center;">
-            <a href="blog.html" class="back-to-blog-btn" style="background: #333; color: #fff; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: 600; font-family: 'Montserrat', sans-serif; transition: background 0.3s ease;">
+        <nav class="post-navigation">
+            <a href="blog.html" class="back-to-blog-btn">
                 <i class="fas fa-arrow-left"></i> Quay về trang Blog
             </a>
         </nav>
@@ -431,6 +357,5 @@
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../js/main.js"></script>
-    
-    </body>
+</body>
 </html>
