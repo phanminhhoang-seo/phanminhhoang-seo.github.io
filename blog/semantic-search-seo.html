@@ -5,28 +5,355 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Semantic Search trong SEO: Hướng dẫn Thực chiến Toàn tập (2025) - Blog Phan Minh Hoàng</title>
-    
     <meta name="description" content="Hướng dẫn semantic search trong SEO (A-Z) từ Phan Minh Hoàng: mapping intent, dựng topic cluster theo entity, tối ưu schema & internal link, kèm checklist 30 ngày.">
-    <meta name="keywords" content="semantic search, semantic seo, entity, schema, internal link, topic cluster, phan minh hoàng, hướng dẫn semantic search, semantic search trong seo">
     <meta name="author" content="Phan Minh Hoàng">
-
     <meta property="og:title" content="Semantic Search trong SEO: Hướng dẫn Thực chiến Toàn tập (2025)">
     <meta property="og:description" content="Playbook chi tiết về Intent, Entity, Schema và Topic Cluster để thống trị SERP, đúc kết từ Phan Minh Hoàng.">
-    
     <meta property="og:image" content="https://raw.githubusercontent.com/phanminhhoang-seo/phanminhhoang-seo.github.io/refs/heads/main/images/blog-thumbnail-2.jpg"> 
-    
     <meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/semantic-search-seo.html">
     <meta property="og:type" content="article">
-    <meta property="article:published_time" content="2025-11-10T17:00:00+07:00"> <meta property="article:author" content="Phan Minh Hoàng">
-
+    <meta property="article:published_time" content="2025-11-10T17:00:00+07:00">
+    <meta property="article:author" content="Phan Minh Hoàng">
     <link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/semantic-search-seo.html">
 
-    <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    </head>
+    <style>
+        :root{
+          --bg: #0b0d12;
+          --panel: #11141b;
+          --muted: #a8b3c7;
+          --text: #e6edf6;
+          --accent: #51d1a6;
+          --accent-2: #7aa2f7;
+          --border: #1e2430;
+          --transition-speed: 0.3s;
+          --font-main: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+          --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
+        }
+        
+        /* Reset cơ bản */
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            line-height: 1.7;
+            font-size: 16px; /* Chuẩn */
+        }
+        
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 20px;
+        }
+
+        /* --- Style cho Header của bạn (Dark Mode) --- */
+        .header-placeholder {
+            height: 60px; /* Giữ chỗ cho header */
+        }
+        .global-header {
+            background: var(--panel);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 60px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px; /* Ghi đè .container */
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text);
+        }
+        .logo-image {
+            height: 30px;
+            margin-right: 10px;
+        }
+        .main-nav a {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color var(--transition-speed) ease;
+        }
+        .main-nav a:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .main-nav a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
+        }
+        
+        /* --- Style cho Nội dung bài viết --- */
+        .blog-post-header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .blog-post-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.1rem;
+            line-height: 1.2;
+            margin: 0 0 8px;
+            color: var(--text);
+        }
+        .blog-post-header .blog-post-meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .blog-post-header .blog-post-meta a {
+            color: var(--accent-2);
+            text-decoration: none;
+        }
+        .blog-post-header .blog-post-meta a:hover {
+            text-decoration: underline;
+        }
+        
+        .blog-post-content h2 {
+            font-family: var(--font-heading);
+            font-size: 1.55rem;
+            margin: 28px 0 12px 0;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+            color: var(--text);
+        }
+        .blog-post-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            margin: 16px 0 6px 0;
+            color: var(--accent-2);
+        }
+        .blog-post-content a {
+            color: var(--accent-2);
+            text-decoration: none;
+        }
+        .blog-post-content a:hover { text-decoration: underline; }
+        .blog-post-content hr {
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+        .blog-post-content strong {
+            color: var(--accent);
+        }
+        .blog-post-content ul, .blog-post-content ol {
+            padding-left: 25px;
+        }
+        
+        /* --- Các Class "Xịn" (Card, Grid, TOC...) --- */
+        .lead {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            border-radius: 14px;
+            color: #c7d2e6;
+            margin-bottom: 16px;
+            font-size: 1.05em;
+        }
+        .toc {
+            background: linear-gradient(180deg,rgba(81,209,166,.10),rgba(81,209,166,0));
+            border: 1px dashed rgba(81,209,166,.35);
+            padding: 16px;
+            border-radius: 14px;
+            margin: 25px 0;
+        }
+        .toc h3 {
+            color: var(--text);
+            margin: 0 0 8px 0;
+            font-size: 1.05rem;
+            border-bottom: none; /* Ghi đè */
+            padding-left: 0; /* Ghi đè */
+        }
+        .toc ol { padding-left: 18px; margin: 0; }
+        
+        .grid {
+            display: grid;
+            gap: 14px;
+            margin: 20px 0;
+        }
+        .grid.cols-2 {
+            grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+        }
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 14px;
+            transition: all var(--transition-speed) ease;
+        }
+        .card:hover {
+            border-color: var(--accent-2);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .blog-post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .blog-post-content th,
+        .blog-post-content td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .blog-post-content th {
+            background: rgba(81,209,166,.1); /* Nền xanh */
+        }
+        .blog-post-content tr:last-child td { border-bottom: 0; }
+        
+        .pill {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 8px 10px;
+            border-radius: 12px;
+        }
+        .blog-post-content code {
+            background: #0e1220;
+            border: 1px solid #24304b;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-family: ui-monospace,Menlo,Monaco,Consolas,monospace;
+            color: #cfe1ff;
+        }
+        
+        /* --- FAQ Mượt mà --- */
+        .faq details {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin: 10px 0;
+            transition: all var(--transition-speed) ease;
+        }
+        .faq details:hover { border-color: var(--accent); }
+        .faq summary {
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            padding-left: 1.5em;
+            position: relative;
+        }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::before {
+            content: '►';
+            position: absolute;
+            left: 0;
+            top: 2px; /* Chỉnh lại */
+            font-size: 0.8em;
+            color: var(--accent);
+            transition: transform 0.2s ease-in-out;
+        }
+        .faq details[open] summary::before {
+            transform: rotate(90deg);
+        }
+        .faq details > *:not(summary) {
+            overflow: hidden;
+            transition: all var(--transition-speed) ease-in-out;
+            margin-top: 10px;
+            padding-left: 1.5em; /* Thụt vào */
+        }
+        
+        /* --- Nút quay về --- */
+        .post-navigation {
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            text-align: center;
+        }
+        .back-to-blog-btn {
+            background: var(--accent-2);
+            color: var(--bg);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .back-to-blog-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+        }
+        
+        /* --- Footer (Dark Mode) --- */
+        footer {
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+        footer a {
+            color: var(--accent-2);
+        }
+        
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Semantic Search trong SEO: Hướng dẫn Thực chiến Toàn tập (2025)",
+      "description": "Hướng dẫn semantic search trong SEO (A-Z) từ Phan Minh Hoàng: mapping intent, dựng topic cluster theo entity, tối ưu schema & internal link, kèm checklist 30 ngày.",
+      "inLanguage": "vi-VN",
+      "author": {"@type": "Person", "name": "Phan Minh Hoàng", "url": "https://www.linkedin.com/in/phan-minh-hoang-lead"},
+      "publisher": {"@type": "Person", "name": "Phan Minh Hoàng", "url": "https://www.linkedin.com/in/phan-minh-hoang-lead"},
+      "isPartOf": {"@type": "WebSite", "name": "Blog SEO của Phan Minh Hoàng"}
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/index.html"},
+        {"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/blog.html"},
+        {"@type":"ListItem","position":3,"name":"Semantic Search trong SEO"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Semantic search khác gì tối ưu từ khóa truyền thống?","acceptedAnswer":{"@type":"Answer","text":"Cách truyền thống tập trung vào 'từ khóa' và 'mật độ'. Semantic search tập trung vào 'ý định' (intent) và 'mối quan hệ' giữa các 'thực thể' (entities)."}},
+        {"@type":"Question","name":"Entity, ontology và taxonomy liên quan thế nào?","acceptedAnswer":{"@type":"Answer","text":"Entity là 'điểm' kiến thức (Google). Ontology là 'mối quan hệ' (Google là 'công cụ tìm kiếm'). Taxonomy là 'cách phân loại' (Tech > Search Engine > Google)."}},
+        {"@type":"Question","name":"Khi nào cần tách bài để tránh cannibalization?","acceptedAnswer":{"@type":"Answer","text":"Khi 1 URL nhận query cho 2 (hoặc nhiều) intent khác nhau (ví dụ: vừa 'là gì' vừa 'báo giá')."}}
+      ]
+    }
+    </script>
+
+</head>
 <body class="blog-post-page">
     <div class="header-placeholder"></div>
 
@@ -41,7 +368,8 @@
                 <a href="../index.html#skills">Kỹ Năng</a>
                 <a href="../index.html#experience">Kinh Nghiệm</a>
                 <a href="../index.html#featured-projects">Dự Án Tiêu Biểu</a>
-                <a href="blog.html" class="active">Blog</a> <a href="../index.html#contact">Liên Hệ</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="../index.html#contact">Liên Hệ</a>
                 </nav>
         </div>
     </header>
@@ -54,9 +382,12 @@
                 <p class="blog-post-meta">Đăng bởi <a href="https://www.linkedin.com/in/phan-minh-hoang-lead" target="_blank" rel="author noopener">Phan Minh Hoàng</a> vào ngày 10/11/2025</p>
             </div>
             
-            <p class="lead-paragraph"> Là người làm SEO, 'nỗi đau' lớn nhất của chúng ta là "cannibalization" (ăn thịt từ khóa) và thứ hạng "nhảy múa" không lý do. Vấn đề gốc rễ? Chúng ta vẫn tư duy theo "từ khóa", trong khi Google đã chuyển sang "ngữ nghĩa".
+            <p class="lead">
+                Là người làm SEO, 'nỗi đau' lớn nhất của chúng ta là "cannibalization" (ăn thịt từ khóa) và thứ hạng "nhảy múa" không lý do. Vấn đề gốc rễ? Chúng ta vẫn tư duy theo "từ khóa", trong khi Google đã chuyển sang "ngữ nghĩa".
             </p>
-            <p>Bài viết này là một playbook hoàn chỉnh, giúp bạn "lột xác" tư duy. Chúng ta sẽ bóc tách cách **'đọc vị' ý định (Intent)**, cách xây dựng 'bản đồ tri thức' bằng **Thực thể (Entity)**, và cách dùng <strong>Schema</strong> + <strong>Internal Link</strong> như một 'ngôn ngữ' giao tiếp cao cấp với Google. Mục tiêu: thứ hạng bền vững và CTR cao hơn.</p>
+            <p class="lead">
+                Bài viết này là một playbook hoàn chỉnh, giúp bạn "lột xác" tư duy. Chúng ta sẽ bóc tách cách <strong>'đọc vị' ý định (Intent)</strong>, cách xây dựng 'bản đồ tri thức' bằng <strong>Thực thể (Entity)</strong>, và cách dùng <strong>Schema</strong> + <strong>Internal Link</strong> như một 'ngôn ngữ' giao tiếp cao cấp với Google. Mục tiêu: thứ hạng bền vững và CTR cao hơn.
+            </p>
 
             <nav class="toc">
                 <h3 style="margin-top: 0;">Mục lục bài viết (Playbook 9 phần)</h3>
@@ -78,7 +409,8 @@
                 <p>SEO truyền thống giống như cố gắng mở một cánh cửa bằng cách thử hàng trăm chiếc chì khóa (từ khóa). Bạn tập trung vào "mật độ", "từ khóa chính", "từ khóa phụ",... hy vọng một từ sẽ khớp.</p>
                 <p>Nhưng Google đã thay đổi (với các bản cập nhật như Hummingbird, BERT, MUM). Nó không còn là một cỗ máy "đọc chữ", mà là một cỗ máy "hiểu ý". Đó chính là <strong>Semantic Search (Tìm kiếm Ngữ nghĩa)</strong>.</p>
                 <p>Nó hiểu rằng "địa điểm ăn trưa ngon ở quận 1" và "nhà hàng tốt cho dân văn phòng q1" có thể mang cùng một 'ý định'. Nó hiểu 'Steve Jobs' là một 'Entity' (thực thể) có quan hệ 'sáng lập' với 'Apple' (một thực thể khác). Khi chúng ta tối ưu theo "ngữ nghĩa", chúng ta không còn chạy theo thuật toán, mà chúng ta xây dựng <strong>'thẩm quyền' (Authority)</strong> bền vững. Thứ hạng ổn định hơn vì bạn trả lời đúng *câu hỏi*, chứ không chỉ 'nhồi' đúng *từ*.</p>
-                <div class="grid cols-2"> <div class="card">
+                <div class="grid cols-2">
+                    <div class="card">
                         <h3>SEO truyền thống (Lỗi thời)</h3>
                         <ul>
                             <li>Tập trung: Mật độ từ khóa, số lượng backlink.</li>
@@ -86,7 +418,8 @@
                             <li>Hậu quả: Cannibalization, thứ hạng bấp bênh, dễ bị "knock-out" khi Google update.</li>
                         </ul>
                     </div>
-                    <div class="card"> <h3>Semantic SEO (Hiện đại)</h3>
+                    <div class="card">
+                        <h3>Semantic SEO (Hiện đại)</h3>
                         <ul>
                             <li>Tập trung: <strong>Intent (Ý định)</strong> & <strong>Entity (Thực thể)</strong>.</li>
                             <li>Mục tiêu: Mỗi URL phục vụ một ý định rõ ràng, sắc nét, và được kết nối trong một 'bản đồ tri thức'.</li>
@@ -95,7 +428,7 @@
                     </div>
                 </div>
             </section>
-
+            
             <hr>
 
             <section id="intent-first">
@@ -121,10 +454,10 @@
                         <tr><th>Intent (Ý định)</th><th>Ví dụ truy vấn</th><th>Loại trang phù hợp</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td><strong>Informational</strong> (Tìm hiểu)</td><td>semantic search là gì; entity là gì; ai sáng lập apple</td><td>Bài guide (Pillar), Blog post (Spoke), Wiki</td></tr>
-                        <tr><td><strong>Practical/How-to</strong> (Cách làm)</td><td>quy trình semantic SEO; cách mapping entity; hướng dẫn cài schema</td><td>Playbook, checklist, template (Spoke)</td></tr>
-                        <tr><td><strong>Commercial</strong> (Điều tra)</td><td>dịch vụ semantic SEO; công cụ schema tốt nhất; so sánh A vs B</td><td>Trang dịch vụ, case study, bài review, so sánh</td></tr>
-                        <tr><td><strong>Transactional</strong> (Giao dịch)</td><td>báo giá semantic SEO; đăng ký tư vấn</td><td>Trang báo giá, trang checkout, landing page đăng ký</td></tr>
+                        <tr><td><strong>Informational</strong> (Tìm hiểu)</td><td><code>semantic search là gì</code>; <code>entity là gì</code></td><td>Bài guide (Pillar), Blog post (Spoke)</td></tr>
+                        <tr><td><strong>Practical/How-to</strong> (Cách làm)</td><td><code>quy trình semantic SEO</code>; <code>mapping entity</code></td><td>Playbook, checklist, template (Spoke)</td></tr>
+                        <tr><td><strong>Commercial</strong> (Điều tra)</td><td><code>dịch vụ semantic SEO</code>; <code>công cụ schema</code></td><td>Trang dịch vụ, case study, review</td></tr>
+                        <tr><td><strong>Transactional</strong> (Giao dịch)</td><td><code>báo giá semantic SEO</code>; <code>đăng ký tư vấn</code></td><td>Trang báo giá, landing page</td></tr>
                     </tbody>
                 </table>
                 <p><em>Quy tắc vàng: <strong>Mỗi ý định cốt lõi xứng đáng có một URL riêng biệt</strong>. Đừng bao giờ cố bán hàng trên một trang thông tin. Đây là chìa khóa để giải quyết triệt để 'cannibalization'.</em></p>
@@ -172,7 +505,7 @@
                         <h3>Cấu Trúc Cụm Chủ Đề (Taxonomy)</h3>
                         <p>Từ mối quan hệ đó, ta 'phân loại' (Taxonomy) chúng thành cấu trúc:</p>
                         <ul>
-                            <li><strong>Pillar (Trụ cột):</strong> /huong-dan-semantic-search-seo/ (Bài tổng quan nhất)</li>
+                            <li><strong>Pillar (Trụ cột):</strong> /huong-dan-semantic-search-seo/</li>
                             <li><strong>Spoke (Vệ tinh):</strong>
                                 <ul>
                                     <li>/entity-trong-seo-la-gi/</li>
@@ -211,10 +544,11 @@
             <section id="internal-link">
                 <h2>5. Internal Link: Vẽ 'bản đồ' kết nối ngữ nghĩa</h2>
                 <p>Nếu Schema là 'tấm danh thiếp', thì Internal Link là 'mũi tên chỉ đường' kết nối các 'thực thể' trên website của bạn. Đa số mọi người làm sai phần này.</p>
-                <p class="error-box"> <strong>Sai lầm chết người:</strong> Dùng anchor text chung chung như "xem thêm", "tại đây", "click vào đây". Bạn đang lãng phí hoàn toàn 'nước ép' ngữ nghĩa (semantic juice).
-                </p>
+                <div class="pill">
+                    <strong>Sai lầm chết người:</strong> Dùng anchor text chung chung như "xem thêm", "tại đây", "click vào đây". Bạn đang lãng phí hoàn toàn 'nước ép' ngữ nghĩa (semantic juice).
+                </div>
                 
-                <h3>Quy tắc Anchor Text Vàng</h3>
+                <h3 style="margin-top: 20px;">Quy tắc Anchor Text Vàng</h3>
                 <p>Anchor text của bạn phải mô tả chính xác <strong>'thực thể'</strong> hoặc <strong>'tác vụ'</strong> của trang đích. Nó phải giúp người dùng (và Google) biết họ sẽ nhận được gì KHI click vào.</p>
                 <ul>
                     <li><strong>Spoke → Pillar (Từ vệ tinh về trụ cột):</strong> Dùng anchor text chứa thực thể chính.
@@ -357,5 +691,56 @@
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../js/main.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.faq details').forEach((details) => {
+        const summary = details.querySelector('summary');
+        const content = details.querySelector('p'); // Giả sử nội dung là 1 thẻ <p>
+
+        // Áp style ban đầu (Ẩn)
+        if (!details.hasAttribute('open')) {
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+            content.style.marginTop = '0';
+        } else {
+            content.style.maxHeight = 'none'; // Đảm bảo nó hiện ra nếu có 'open'
+        }
+
+        summary.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          if (details.hasAttribute('open')) {
+            // Đóng
+            content.style.maxHeight = content.scrollHeight + 'px';
+            requestAnimationFrame(() => {
+                content.style.maxHeight = '0px';
+                content.style.opacity = '0';
+                content.style.marginTop = '0';
+            });
+            setTimeout(() => {
+              details.removeAttribute('open');
+            }, 300); // 300ms = --transition-speed
+          } else {
+            // Mở
+            details.setAttribute('open', '');
+            const height = content.scrollHeight;
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+            content.style.marginTop = '0';
+            
+            requestAnimationFrame(() => {
+                content.style.maxHeight = height + 'px';
+                content.style.opacity = '1';
+                content.style.marginTop = '10px';
+            });
+            setTimeout(() => {
+              content.style.maxHeight = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+    </script>
 </body>
 </html>
