@@ -54,7 +54,7 @@
         .blog-post-content code {
             font-family: 'Courier New', Courier, monospace;
         }
-        /* Style cho FAQ (dùng details/summary) */
+        /* Style cho FAQ (dùng details/summary GỐC, BỀN VỮNG) */
         .blog-post-content details {
             background: #f9f9f9;
             border: 1px solid #ddd;
@@ -66,10 +66,12 @@
             padding: 15px;
             cursor: pointer;
             position: relative;
+            /* Dùng list-style-type để có mũi tên gốc, hoặc ẩn đi nếu muốn custom */
+             list-style-type: none; /* Ẩn marker mặc định */
         }
-        .blog-post-content summary::marker { /* Ẩn marker mặc định */
+        .blog-post-content summary::marker, /* Ẩn marker (Firefox) */
+        .blog-post-content summary::-webkit-details-marker { /* Ẩn marker (Chrome/Safari) */
             display: none; 
-            content: '';
         }
         .blog-post-content summary::before { /* Thêm marker custom */
             content: '►';
@@ -84,6 +86,16 @@
             padding: 0 15px 15px 35px; /* Thụt vào sau marker */
             margin: 0;
             line-height: 1.7;
+        }
+        /* Style cho link tác giả */
+        .blog-post-meta a,
+        footer a {
+            color: #007bff; /* Hoặc màu link chính của bạn */
+            text-decoration: none;
+        }
+        .blog-post-meta a:hover,
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -111,7 +123,7 @@
             
             <div class="blog-post-header">
                 <h1>Semantic Search trong SEO: Hướng dẫn Thực chiến Toàn tập (2025)</h1>
-                <p class="blog-post-meta">Đăng bởi Phan Minh Hoàng vào ngày 10/11/2025</p>
+                <p class="blog-post-meta">Đăng bởi <a href="https://www.linkedin.com/in/phan-minh-hoang-lead" target="_blank" rel="author noopener">Phan Minh Hoàng</a> vào ngày 10/11/2025</p>
             </div>
             
             <p style="font-size: 1.1em; font-weight: 600; background: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; border-radius: 4px;">
@@ -235,7 +247,7 @@
                         <h3>Cấu Trúc Cụm Chủ Đề (Taxonomy)</h3>
                         <p>Từ mối quan hệ đó, ta 'phân loại' (Taxonomy) chúng thành cấu trúc:</p>
                         <ul>
-                            <li><strong>Pillar (Trụ cột):</strong> /huong-dan-semantic-search-seo/</li>
+                            <li><strong>Pillar (Trụ cột):</strong> /huong-dan-semantic-search-seo/ (Bài tổng quan nhất)</li>
                             <li><strong>Spoke (Vệ tinh):</strong>
                                 <ul>
                                     <li>/entity-trong-seo-la-gi/</li>
@@ -385,7 +397,7 @@
                 <h2>9. Câu hỏi thường gặp (Phần gỡ rối)</h2>
                 <details>
                     <summary>Semantic search khác gì tối ưu từ khóa truyền thống?</summary>
-                    <p>Cách truyền thống tập trung vào 'từ khóa' và 'mật độ'. <strong>Semantic search (tìm kiếm ngữ nghĩa)</strong> tập trung vào 'ý định' (intent) và 'mối quan hệ' giữa các 'thực thể' (entities). Nó hiểu rằng 'kem chống nắng' và 'cách bảo vệ da khỏi tia UV' là liên quan, ngay cả khi không có từ khóa chung.</p>
+                    <p>Cách truyền thống tập trung vào 'từ khóa' và 'mật độ' (bạn phải lặp lại từ khóa X lần). <strong>Semantic search (tìm kiếm ngữ nghĩa)</strong> tập trung vào 'ý định' (intent) và 'mối quan hệ' giữa các 'thực thể' (entities). Nó hiểu rằng 'kem chống nắng' và 'cách bảo vệ da khỏi tia UV' là liên quan, ngay cả khi không có từ khóa chung.</p>
                 </details>
                 <details>
                     <summary>Entity, ontology và taxonomy liên quan thế nào?</summary>
@@ -413,11 +425,12 @@
         </nav>
         
     </div> <footer>
-        <p>&copy; 2025 Phan Minh Hoàng. All rights reserved.</p>
+        <p>&copy; 2025 <a href="https://www.linkedin.com/in/phan-minh-hoang-lead" target="_blank" rel="author noopener">Phan Minh Hoàng</a>. All rights reserved.</p>
     </footer>
 
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../js/main.js"></script>
+    
     </body>
 </html>
