@@ -116,6 +116,10 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Prevent iOS text size adjustment */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -130,10 +134,39 @@ body {
   max-width: 100vw;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  /* Improve font rendering on mobile */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent text overflow */
+  min-width: 320px;
 }
 
 body.no-scroll {
   overflow: hidden;
+  /* Fix iOS Safari scrolling issue */
+  position: fixed;
+  width: 100%;
+}
+
+/* Improve tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: rgba(255, 183, 77, 0.2);
+  -webkit-touch-callout: none;
+}
+
+a, button {
+  -webkit-tap-highlight-color: rgba(255, 183, 77, 0.3);
+}
+
+/* Remove spinner from number inputs on mobile */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* ====================================================================
@@ -362,6 +395,11 @@ a:focus-visible {
   white-space: nowrap;
   border: none;
   cursor: pointer;
+  /* Mobile touch optimization */
+  min-width: 44px;
+  min-height: 44px;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .btn-primary:hover {
@@ -372,6 +410,12 @@ a:focus-visible {
 
 .btn-primary:active {
   transform: translateY(-1px);
+}
+
+/* Touch-friendly focus state */
+.btn-primary:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* Hero Image */
@@ -953,9 +997,22 @@ footer {
     --spacing-2xl: 30px;
   }
 
+  /* Viewport fix for iOS */
+  html {
+    height: -webkit-fill-available;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
   /* Mobile Navigation */
   .mobile-menu-toggle {
     display: flex;
+    /* Increase touch target size */
+    padding: 12px;
+    margin: -12px;
   }
 
   .main-nav {
@@ -972,6 +1029,8 @@ footer {
     border-top: 1px solid var(--color-border-light);
     max-height: calc(100vh - var(--header-height));
     overflow-y: auto;
+    /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
   }
 
   .main-nav.active {
@@ -985,13 +1044,19 @@ footer {
     border-radius: var(--radius-sm);
     border-bottom: 1px solid var(--color-border-light);
     white-space: normal;
+    /* Increase touch target */
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .main-nav a:last-child {
     border-bottom: none;
   }
 
-  .main-nav a:hover {
+  .main-nav a:hover,
+  .main-nav a:active {
     background-color: rgba(255, 183, 77, 0.1);
   }
 
@@ -999,6 +1064,7 @@ footer {
     margin: var(--spacing-md) auto 0;
     display: block;
     width: fit-content;
+    min-height: 44px;
   }
 
   /* Mobile Hero */
@@ -1019,12 +1085,13 @@ footer {
   }
 
   .btn-primary {
-    padding: 12px var(--spacing-md);
+    padding: 14px var(--spacing-md);
     font-size: var(--font-size-base);
     white-space: normal;
     display: block;
     width: fit-content;
     margin: 0 auto;
+    min-height: 48px;
   }
 
   .hero-image-container {
@@ -1035,6 +1102,16 @@ footer {
   .hero-image-overlay {
     width: 250px;
     height: 250px;
+  }
+
+  /* Ensure all interactive elements are touch-friendly */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-width: 44px;
+    min-height: 44px;
   }
 
   /* Mobile Grids */
@@ -1124,6 +1201,13 @@ footer {
     width: 60px;
     height: 60px;
     font-size: 24px;
+  }
+
+  /* Prevent text selection on tap */
+  .touch-device .hero-content h1,
+  .touch-device .section-title {
+    -webkit-user-select: none;
+    user-select: none;
   }
 }
 
@@ -1227,6 +1311,124 @@ footer {
    ==================================================================== */
 @media (prefers-color-scheme: light) {
   /* Add light mode variables if needed */
+}
+
+/* ====================================================================
+   20. MOBILE-SPECIFIC OPTIMIZATIONS
+   ==================================================================== */
+
+/* Landscape orientation on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    flex-direction: row;
+    min-height: auto;
+    padding: var(--spacing-md) 0;
+  }
+
+  .hero-content,
+  .hero-image-container {
+    max-width: 50%;
+  }
+
+  .hero-image-container {
+    max-width: 200px;
+    min-height: 200px;
+  }
+
+  .hero-image-overlay {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-content h1 {
+    font-size: 24px;
+    min-height: 60px;
+  }
+}
+
+/* iOS-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari */
+  body {
+    /* Fix for iOS viewport height with toolbar */
+    min-height: -webkit-fill-available;
+  }
+
+  .main-nav {
+    /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fix iOS input zoom */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Android-specific optimizations */
+@media (max-width: 768px) {
+  /* Prevent text inflation on Android */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .global-header {
+    padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  }
+
+  .container {
+    padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  }
+}
+
+/* ====================================================================
+   21. IMAGE OPTIMIZATION FOR MOBILE
+   ==================================================================== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Lazy loading placeholder */
+img[data-src] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[data-src].loaded {
+  opacity: 1;
+}
+
+/* Prevent layout shift */
+img[width][height] {
+  height: auto;
+}
+
+/* ====================================================================
+   22. PERFORMANCE HINTS
+   ==================================================================== */
+
+/* GPU acceleration for animations */
+.hero-image,
+.shape,
+.btn-primary {
+  will-change: transform;
+}
+
+/* Contain layout repaints */
+.card,
+.project-card,
+.skill-category {
+  contain: layout style paint;
 }
 
 /* ====================================================================
