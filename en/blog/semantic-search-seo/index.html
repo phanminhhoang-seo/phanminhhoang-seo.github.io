@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semantic search in SEO: optimising for search intent and entities – Phan Minh Hoàng</title>
+<meta name="description" content="What semantic search is and how to apply it to SEO: reading intent from the SERP, defining entities, building topic clusters, and using schema and internal links properly.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/semantic-search-seo/">
+<link rel="alternate" hreflang="en" href="https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/semantic-search-seo/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Semantic search in SEO: optimising for search intent and entities – Phan Minh Hoàng">
+<meta property="og:description" content="What semantic search is and how to apply it to SEO: reading intent from the SERP, defining entities, building topic clusters, and using schema and internal links properly.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://phanminhhoang-seo.github.io/index-en.html"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/en/blog/"},{"@type":"ListItem","position":3,"name":"Semantic search in SEO","item":"https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Semantic search in SEO: optimising for search intent and entities","description":"What semantic search is and how to apply it to SEO: reading intent from the SERP, defining entities, building topic clusters, and using schema and internal links properly.","url":"https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/","inLanguage":"en","datePublished":"2026-11-13","dateModified":"2026-11-13","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/en/blog/"},"translationOfWork":{"@type":"BlogPosting","url":"https://phanminhhoang-seo.github.io/blog/semantic-search-seo/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is semantic search different from traditional keyword optimisation?","acceptedAnswer":{"@type":"Answer","text":"Keyword optimisation focuses on whether a page contains the right words. Semantic search focuses on whether the page answers the search intent and clearly describes entities and their relationships. Keywords still matter, but they aren't enough."}},{"@type":"Question","name":"How do entities, ontology and taxonomy relate?","acceptedAnswer":{"@type":"Answer","text":"Entities are things and concepts (Hanoi, SEO, Google). Ontology describes the relationships between them (Hanoi is the capital of Vietnam). Taxonomy arranges them into a classification tree. Together they shape a topic cluster."}},{"@type":"Question","name":"When should one page be split into two?","acceptedAnswer":{"@type":"Answer","text":"When a page receives queries from two different intents, or when the top 10 for the query is a different page type from yours. If queries differ only in wording but share an intent, keep them on one page."}},{"@type":"Question","name":"Does schema help rankings?","acceptedAnswer":{"@type":"Answer","text":"Schema isn't a direct ranking factor. It helps search engines understand content and makes pages eligible for some rich results. Only declare values that are true and visible on the page."}}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/index-en.html">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Main navigation"><ul class="nav-list"><li><a href="/en/services/">Services</a></li><li><a href="/index-en.html#experience">Experience</a></li><li><a href="/index-en.html#projects">Projects</a></li><li><a href="/en/blog/" aria-current="page">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li><li><a class="lang" href="/blog/semantic-search-seo/" hreflang="vi" lang="vi">Tiếng Việt</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/index-en.html">Home</a></li><li><a href="/en/blog/">Blog</a></li><li aria-current="page">Semantic search in SEO</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">Semantic search in SEO: optimising for search intent and entities</h1>
+<p class="meta">Phan Minh Hoang. Published <time datetime="2026-11-13">13/11/2026</time>, updated <time datetime="2026-11-13">13/11/2026</time>. 5 min read.</p></header>
+<div class="prose">
+<p class="lead">Many sites run into the same problem: pages compete with each other and rankings swing without a clear reason. The cause is usually a site organised around a keyword list, while Google judges pages by search intent and by how entities relate. This guide goes from the concept to applying it on a real site.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Contents</h2><ol><li><a href="#what-is-it">What is semantic search?</a></li><li><a href="#intent">Start from search intent</a></li><li><a href="#entities">Entities and topic clusters</a></li><li><a href="#schema">Schema helps machines understand; it isn&#x27;t a ranking switch</a></li><li><a href="#internal-links">Semantic internal linking</a></li><li><a href="#30-day-plan">A 30-day plan</a></li><li><a href="#example">Example: two intents on one page</a></li><li><a href="#measurement">Measurement</a></li><li><a href="#faq">Frequently asked questions</a></li><li><a href="#refs">References</a></li></ol></nav>
+<section id="what-is-it">
+<h2>1. What is semantic search?</h2>
+<p><strong>Semantic search is how a search engine understands the meaning of a query and of content</strong>, rather than only matching words. Google moved in this direction with the Knowledge Graph (2012) and Hummingbird (2013), then language models such as BERT (2019).</p>
+<p>That doesn't make keywords irrelevant. Google still matches words, but combines that with understanding context: "good lunch spots in District 1" and "office lunch places D1" can be read as the same need. For SEO, a page has to answer the need behind the query, not just contain the right words.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Keyword optimisation versus semantic optimisation">
+<table><thead><tr><th></th><th>Keyword optimisation</th><th>Semantic optimisation</th></tr></thead><tbody>
+<tr><td>Planning unit</td><td>A keyword list</td><td>Search intent and entities</td></tr>
+<tr><td>One page serves</td><td>Many keywords, possibly mixed intents</td><td>One core intent</td></tr>
+<tr><td>Common risk</td><td>Pages competing with each other</td><td>Splitting pages too thin</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="intent">
+<h2>2. Start from search intent</h2>
+<p>Before writing, read the search results page (SERP) for the main query. The type of page Google ranks is the clearest signal of intent.</p>
+<ul>
+<li><strong>Page types in the top 10:</strong> guides, service pages, product pages or videos? If the top 10 is all service pages and you planned a blog post, you've probably picked the wrong page type.</li>
+<li><strong>People also ask:</strong> the follow-up questions searchers care about.</li>
+<li><strong>Related searches:</strong> the next step in the searcher's journey.</li>
+<li><strong>Modifiers in the query:</strong> "what is", "how to", "guide" usually mean informational intent; "price", "quote", "service", "buy" mean commercial intent.</li>
+</ul>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Types of search intent">
+<table><thead><tr><th>Intent</th><th>Example query</th><th>Suitable page</th></tr></thead><tbody>
+<tr><td>Informational</td><td><code>what is semantic search</code></td><td>Explainer, pillar page</td></tr>
+<tr><td>How-to</td><td><code>how to define entities for a website</code></td><td>Step-by-step guide, template, checklist</td></tr>
+<tr><td>Commercial investigation</td><td><code>semantic seo services</code></td><td>Service page, case study</td></tr>
+<tr><td>Transactional</td><td><code>seo quote</code></td><td>Pricing page, contact page</td></tr>
+</tbody></table></div>
+<p>The rule: <strong>one core intent per URL</strong>. But queries worded differently with the same intent belong on one page. Splitting them into many small pages only creates more pages that compete with each other.</p>
+</section>
+
+<section id="entities">
+<h2>3. Entities and topic clusters</h2>
+<h3>3.1. How is an entity different from a keyword?</h3>
+<p>A keyword is a string of characters. An entity is an identifiable thing or concept with attributes and relationships to other entities. "Phone" is a keyword; the iPhone 15 Pro Max is an entity, made by Apple, with colours, storage sizes and a release year.</p>
+<p>The more clearly a site describes its entities and how they relate, the less work a search engine needs to understand what the site is about.</p>
+<h3>3.2. Three steps to define a site's entities</h3>
+<ol>
+<li><strong>Central entity:</strong> what the site exists for, what it sells. Example: SEO services.</li>
+<li><strong>Attributes of the central entity:</strong> price, process, timeline, results, types (technical, content, GEO).</li>
+<li><strong>Related entities:</strong> concepts searchers need to understand before deciding: entities, schema, internal links, Search Console.</li>
+</ol>
+<h3>3.3. From entity relationships to topic clusters</h3>
+<p>Once you have the entities, define how they relate: "is a type of", "is part of", "is used for". Then arrange them into a cluster with one pillar page and supporting articles:</p>
+<ul>
+<li>Pillar: <code>/semantic-seo-guide/</code></li>
+<li>Supporting articles: <code>/entities-in-seo/</code>, <code>/schema-guide/</code>, <code>/semantic-internal-linking/</code></li>
+</ul>
+<p>Each supporting article must answer its own intent. If two answer the same question, merge them.</p>
+</section>
+
+<section id="schema">
+<h2>4. Schema helps machines understand; it isn't a ranking switch</h2>
+<p>Structured data (schema) describes, in a machine-readable format, who wrote a page, when it was published and which entities it covers. Google uses it to understand content and to show rich results. Schema itself isn't a direct ranking factor.</p>
+<p>Note the 2023 changes: FAQ rich results now only appear for well-known, authoritative government and health sites, and HowTo rich results were removed. You can still mark up FAQPage if it matches the visible content, but don't expect a rich result.</p>
+<ul>
+<li><code>Article</code> or <code>BlogPosting</code> for articles: author, published date, modified date.</li>
+<li><code>BreadcrumbList</code> for pages in a hierarchy.</li>
+<li><code>Organization</code> or <code>Person</code> for whoever owns the site.</li>
+<li><code>Product</code>, <code>Service</code>, <code>LocalBusiness</code> when the page really is a product, service or place.</li>
+</ul>
+<p>The rule: only declare values that are true and visible on the page. No schema beats wrong schema.</p>
+</section>
+
+<section id="internal-links">
+<h2>5. Semantic internal linking</h2>
+<p>Internal links tell search engines how pages relate. Anchor text should describe the entity or task the target page covers. Avoid "read more" or "click here", which say nothing about the target.</p>
+<ul>
+<li><strong>Supporting article to pillar:</strong> anchor contains the main entity, e.g. <span class="anchor-demo">semantic SEO guide</span>.</li>
+<li><strong>Pillar to supporting article:</strong> anchor describes the sub-entity, e.g. <span class="anchor-demo">what entities mean in SEO</span>.</li>
+<li><strong>Between supporting articles:</strong> only link when the content genuinely continues, e.g. after defining entities you need to <span class="anchor-demo">mark up entities with schema</span>.</li>
+</ul>
+</section>
+
+<section id="30-day-plan">
+<h2>6. A 30-day plan</h2>
+<div class="grid">
+<div class="card"><h3>Days 1–7: research</h3><ul><li>Export every query from Search Console.</li><li>Group queries by intent.</li><li>Pick the central entity and 5–10 related entities.</li></ul></div>
+<div class="card"><h3>Days 8–14: foundations</h3><ul><li>Write or fix the pillar page.</li><li>Publish the two most important supporting articles.</li><li>Align titles and H1s with intent.</li></ul></div>
+<div class="card"><h3>Days 15–21: links and schema</h3><ul><li>Review anchor text and replace generic anchors.</li><li>Add schema that matches each page type.</li></ul></div>
+<div class="card"><h3>Days 22–30: expand and measure</h3><ul><li>Publish 3–4 more supporting articles.</li><li>Compare CTR before and after title changes.</li><li>Recheck pages that compete with each other.</li></ul></div>
+</div>
+</section>
+
+<section id="example">
+<h2>7. Example: two intents on one page</h2>
+<p><strong>Situation:</strong> the page <code>/semantic-search-in-seo/</code> gets impressions for both "what is semantic search" (informational) and "semantic seo services" (commercial). Rankings for both groups are unstable.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>Keep the current page for the informational intent and remove the sales pitch.</li>
+<li>Create a separate service page for the commercial intent, with process, case studies and contact details.</li>
+<li>Link both ways between the pages with descriptive anchors.</li>
+<li>After 4–8 weeks, check in Search Console that each page receives its own group of queries.</li>
+</ol>
+</section>
+
+<section id="measurement">
+<h2>8. Measurement</h2>
+<ul>
+<li><strong>Queries per page:</strong> a rise means Google sees the page covering the topic more broadly.</li>
+<li><strong>Average position alongside query count:</strong> both improving together is the good signal.</li>
+<li><strong>CTR:</strong> a rise after a title change means the title matches intent better.</li>
+<li><strong>Competing pages:</strong> in Search Console, open Performance, pick a page and look at Queries. Queries from another intent mixed in are a sign to split or merge.</li>
+</ul>
+</section>
+<section id="faq" aria-labelledby="faq-t"><h2 id="faq-t">Frequently asked questions</h2><details><summary>How is semantic search different from traditional keyword optimisation?</summary><p>Keyword optimisation focuses on whether a page contains the right words. Semantic search focuses on whether the page answers the search intent and clearly describes entities and their relationships. Keywords still matter, but they aren&#x27;t enough.</p></details><details><summary>How do entities, ontology and taxonomy relate?</summary><p>Entities are things and concepts (Hanoi, SEO, Google). Ontology describes the relationships between them (Hanoi is the capital of Vietnam). Taxonomy arranges them into a classification tree. Together they shape a topic cluster.</p></details><details><summary>When should one page be split into two?</summary><p>When a page receives queries from two different intents, or when the top 10 for the query is a different page type from yours. If queries differ only in wording but share an intent, keep them on one page.</p></details><details><summary>Does schema help rankings?</summary><p>Schema isn&#x27;t a direct ranking factor. It helps search engines understand content and makes pages eligible for some rich results. Only declare values that are true and visible on the page.</p></details></section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">References</h2><ul><li><a href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data" rel="noopener" target="_blank">Introduction to structured data – Google Search Central</a></li><li><a href="https://developers.google.com/search/blog/2023/08/howto-faq-changes" rel="noopener" target="_blank">Changes to HowTo and FAQ rich results – Google Search Central Blog (August 2023)</a></li><li><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" rel="noopener" target="_blank">Creating helpful, reliable, people-first content – Google Search Central</a></li><li><a href="https://blog.google/products/search/search-language-understanding-bert/" rel="noopener" target="_blank">Understanding searches better than ever before (BERT) – Google (2019)</a></li></ul></section>
+</div>
+<footer class="post-foot"><h2>Read next</h2><ul><li><a href="/en/blog/seo-indexing-cleanup/">Indexing Cleanup: fixing each reason Google gives for not indexing a page</a></li><li><a href="/en/services/geo/">GEO services</a></li><li><a href="/en/blog/">All articles</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Footer links"><ul class="foot-links"><li><a href="/en/services/seo/">SEO services</a></li><li><a href="/en/services/geo/">GEO services</a></li><li><a href="/en/services/seo-mentoring/">SEO mentoring</a></li><li><a href="/en/blog/">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li></ul></nav><p>© 2026 Phan Minh Hoàng. Updated 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

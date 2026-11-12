@@ -1,5 +1,5 @@
 # robots.txt – https://phanminhhoang-seo.github.io
-# Cập nhật 2026-11-12. Toàn bộ site là nội dung công khai, cho phép mọi bot hợp lệ.
+# Cập nhật 2026-11-13. Toàn bộ site là nội dung công khai, cho phép mọi bot hợp lệ.
 
 User-agent: *
 Allow: /

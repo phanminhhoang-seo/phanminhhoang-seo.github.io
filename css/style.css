@@ -259,7 +259,7 @@ figure { margin: 0; }
 .svc-list h3 a:hover, .svc-list h2 a:hover { text-decoration: underline; }
 .svc-list p { margin: 0; color: #3a4553; }
 .post-head .lede { max-width: 62ch; font-size: 1.1rem; color: #2d3744; }
-.svc { max-width: 760px; padding-bottom: 24px; }
+
 .svc section { padding: 28px 0; border-top: 1px solid var(--rule); scroll-margin-top: 80px; }
 .svc h2 { font-size: 1.45rem; }
 .deliver { margin: 0; display: grid; gap: 16px; }
@@ -278,3 +278,40 @@ figure { margin: 0; }
 .foot-links { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 6px 20px; }
 .foot-links li { margin: 0; }
 .foot-links a { color: var(--ink); }
+
+/* ---------- Trang dịch vụ v2 ---------- */
+.svc-hero { background: var(--surface); border-bottom: 1px solid var(--rule); padding: 40px 0 48px; margin-top: 12px; }
+.svc-hero-grid { display: grid; gap: 32px; align-items: start; }
+@media (min-width: 900px) { .svc-hero-grid { grid-template-columns: 1.4fr 1fr; gap: 56px; } }
+.svc-hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: -.025em; margin-bottom: .2em; }
+.svc-hero .tagline { font-size: 1.3rem; font-weight: 500; color: var(--serp-link); margin-bottom: .8em; max-width: 34ch; line-height: 1.35; }
+.svc-hero .lede { max-width: 58ch; color: #2d3744; }
+.facts { margin: 0; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--paper); }
+.facts div { padding: 14px 18px; border-top: 1px solid var(--rule); }
+.facts div:first-child { border-top: 0; }
+.facts dt { font-size: .82rem; color: var(--muted); }
+.facts dd { margin: 2px 0 0; font-weight: 600; }
+.svc { padding-top: 8px; }
+.svc > * { max-width: 880px; }
+.svc > section { padding: 36px 0; border-top: 1px solid var(--rule); scroll-margin-top: 80px; }
+.svc > section:first-child { border-top: 0; }
+.svc h2 { font-size: 1.55rem; }
+.svc .note { font-size: .9rem; color: var(--muted); }
+.svc-cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+.svc-card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; }
+.svc-card h3 { font-size: 1.02rem; margin-bottom: .35em; }
+.svc-card p { margin: 0; color: #3a4553; font-size: .95rem; }
+.checks { list-style: none; padding: 0; }
+.checks li { position: relative; padding-left: 28px; }
+.checks li::before { content: ""; position: absolute; left: 4px; top: .45em; width: 10px; height: 6px; border-left: 2px solid var(--ctr); border-bottom: 2px solid var(--ctr); transform: rotate(-45deg); }
+.svc table th[scope="row"] { background: transparent; font-weight: 600; white-space: nowrap; }
+.cta-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px;
+  background: var(--ink); color: #fff; border-radius: 12px; padding: 24px 28px; margin: 12px 0; }
+.cta-band p { margin: 0; color: #c9d1dc; }
+.cta-band .band-t { color: #fff; font-weight: 600; font-size: 1.15rem; margin-bottom: 2px; }
+.btn.light { background: #fff; color: var(--ink); border-color: #fff; }
+.btn.light:hover { background: #e8edf5; }
+.svc-start { background: var(--surface); border: 1px solid var(--rule) !important; border-radius: var(--radius); padding: 28px !important; margin-top: 12px; }
+.svc details { border-bottom: 1px solid var(--rule); padding: 12px 0; }
+.prose section { margin-top: 0; }
+.prose #faq h2, .prose #refs h2 { margin-top: 2em; }

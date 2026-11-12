@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indexing Cleanup: fixing each reason Google gives for not indexing a page – Phan Minh Hoàng</title>
+<meta name="description" content="How to read the Page indexing report in Google Search Console and handle each reason: discovered or crawled but not indexed, 404, canonical, noindex and 5xx errors.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/">
+<link rel="alternate" hreflang="en" href="https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Indexing Cleanup: fixing each reason Google gives for not indexing a page – Phan Minh Hoàng">
+<meta property="og:description" content="How to read the Page indexing report in Google Search Console and handle each reason: discovered or crawled but not indexed, 404, canonical, noindex and 5xx errors.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:modified_time" content="2026-11-13">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://phanminhhoang-seo.github.io/index-en.html"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/en/blog/"},{"@type":"ListItem","position":3,"name":"Indexing cleanup","item":"https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Indexing Cleanup: fixing each reason Google gives for not indexing a page","description":"How to read the Page indexing report in Google Search Console and handle each reason: discovered or crawled but not indexed, 404, canonical, noindex and 5xx errors.","url":"https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/","inLanguage":"en","datePublished":"2026-11-13","dateModified":"2026-11-13","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/en/blog/"},"translationOfWork":{"@type":"BlogPosting","url":"https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long until a fixed page is indexed again?","acceptedAnswer":{"@type":"Answer","text":"There's no fixed time. On a small site it's usually a few days to a few weeks after Google recrawls. Requesting indexing in URL Inspection can speed up the crawl but doesn't guarantee indexing."}},{"@type":"Question","name":"Should I delete every page that isn't indexed?","acceptedAnswer":{"@type":"Answer","text":"No. Sort them first: merge pages with duplicate intent, noindex auto-generated pages with no value, and improve pages that have value. Mass deletion without sorting easily loses pages with backlinks or past traffic."}},{"@type":"Question","name":"Do 404s hurt my rankings?","acceptedAnswer":{"@type":"Answer","text":"According to Google, 404s on removed pages don't affect your other pages. Only act when the broken URL is important, has backlinks, or is still linked internally."}}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/index-en.html">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Main navigation"><ul class="nav-list"><li><a href="/en/services/">Services</a></li><li><a href="/index-en.html#experience">Experience</a></li><li><a href="/index-en.html#projects">Projects</a></li><li><a href="/en/blog/" aria-current="page">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li><li><a class="lang" href="/blog/seo-indexing-cleanup/" hreflang="vi" lang="vi">Tiếng Việt</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/index-en.html">Home</a></li><li><a href="/en/blog/">Blog</a></li><li aria-current="page">Indexing cleanup</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">Indexing Cleanup: fixing each reason Google gives for not indexing a page</h1>
+<p class="meta">Phan Minh Hoang. Published <time datetime="2026-11-13">13/11/2026</time>, updated <time datetime="2026-11-13">13/11/2026</time>. 6 min read.</p></header>
+<div class="prose">
+<p class="lead">A page that isn&#x27;t indexed can&#x27;t rank. This guide walks through each reason in Search Console&#x27;s Page indexing report: which ones are real errors, which are normal, and in what order to deal with them.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Contents</h2><ol><li><a href="#can-bots-read">Can Google and AI crawlers read your content?</a></li><li><a href="#read-the-report">Reading the Page indexing report properly</a></li><li><a href="#each-reason">Handling each reason</a></li><li><a href="#summary">Summary table</a></li><li><a href="#monthly-routine">A monthly cleanup routine</a></li><li><a href="#faq">Frequently asked questions</a></li><li><a href="#refs">References</a></li></ol></nav>
+<section id="can-bots-read">
+<h2>1. Can Google and AI crawlers read your content?</h2>
+<p>Check this first. If the main content isn't in the HTML the server returns, nothing else you optimise will matter.</p>
+<p>Many sites build their content with JavaScript after the page loads (client-side rendering). Googlebot does run JavaScript, but rendering happens in a later step and costs more. AI crawlers are a harder case: according to Vercel's analysis (December 2024), crawlers from OpenAI, Anthropic, Perplexity and Meta download JavaScript files but don't execute them. Only Gemini (which uses Google's infrastructure) and Applebot render JavaScript.</p>
+<h3>How to check</h3>
+<ol>
+<li>Open the page and press <code>Ctrl + U</code> to view the source. Search for a sentence from the main content.</li>
+<li>Or open DevTools (<code>F12</code>), go to Network, reload, click the first request and look at Response.</li>
+<li>In Search Console, run URL Inspection and choose "View crawled page" to see the HTML Google received.</li>
+</ol>
+<p>If all you see is an empty shell like this, crawlers can't see the content:</p>
+<pre><code>&lt;body&gt;
+  &lt;div id="root"&gt;&lt;/div&gt;
+  &lt;script src="/bundle.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<h3>How to fix it</h3>
+<ul>
+<li>Move to server-side rendering (SSR) or static generation (SSG) with frameworks such as Next.js, Nuxt, SvelteKit or Astro.</li>
+<li>Dynamic rendering with tools such as Prerender.io is only a stopgap. Google states it is not a recommended long-term solution.</li>
+</ul>
+</section>
+
+<section id="read-the-report">
+<h2>2. Reading the Page indexing report properly</h2>
+<p>This report used to be called Index Coverage, with an "Excluded" group. The current version splits URLs into "Indexed" and "Not indexed", with a reason for each.</p>
+<p>The most important point: <strong>not every reason is an error</strong>. Google says several statuses are expected. Before fixing anything, filter the report by sitemap ("All submitted pages") so you only look at URLs you actually want indexed. URLs outside your sitemap that aren't indexed are usually noise.</p>
+</section>
+
+<section id="each-reason">
+<h2>3. Handling each reason</h2>
+
+<h3 id="crawled">3.1. Crawled – currently not indexed</h3>
+<p>Google read the page but decided not to index it for now. Google calls this a common message that doesn't necessarily need attention, since it doesn't index every page on the web.</p>
+<h4>What to check</h4>
+<ul>
+<li>Does the page add anything beyond pages already indexed, on your site and elsewhere?</li>
+<li>Does it share the same search intent as another page of yours?</li>
+<li>Is it an auto-generated page: filters, tags, pagination, internal search results?</li>
+<li>Is it linked from related pages, and is it in the sitemap?</li>
+</ul>
+<p>Google publishes no minimum word count or internal-link count. Counting words won't diagnose anything. The real question is whether the page is worth Google storing another copy of.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Handling crawled but not indexed pages">
+<table><thead><tr><th>Situation</th><th>Action</th></tr></thead><tbody>
+<tr><td>Same intent as a stronger page</td><td>Merge into the stronger page and 301 redirect</td></tr>
+<tr><td>Auto-generated, no search value</td><td>Add noindex, or remove from the sitemap and cut links to it</td></tr>
+<tr><td>Valuable but not distinct enough</td><td>Add original information (data, examples, first-hand experience) and links from related pages</td></tr>
+<tr><td>Important for revenue (service, product)</td><td>Improve the content, then request indexing in URL Inspection</td></tr>
+</tbody></table></div>
+
+<h3 id="discovered">3.2. Discovered – currently not indexed</h3>
+<p>Google knows the URL but hasn't crawled it. Google explains this usually means the crawl was rescheduled to avoid overloading the server. On a small site, a long stay in this status usually means Google doesn't treat the URL as a priority yet.</p>
+<h4>What to do</h4>
+<ul>
+<li>Link to the URL from pages Google crawls often: the homepage, menus, related articles.</li>
+<li>List it in the sitemap with an accurate <code>lastmod</code> date.</li>
+<li>Cut low-value URLs (parameters, tags, filter pages) so crawling focuses on important pages.</li>
+<li>Check server response time if many URLs sit in this status.</li>
+</ul>
+
+<h3 id="404">3.3. Not found (404)</h3>
+<p>Google is clear: a 404 isn't necessarily a problem if the page was removed with no replacement. 404s on some URLs don't lower the rankings of your other pages.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Handling 404 errors">
+<table><thead><tr><th>Situation</th><th>Action</th></tr></thead><tbody>
+<tr><td>Page moved to a new URL</td><td>301 redirect to the new URL</td></tr>
+<tr><td>Old URL has external backlinks</td><td>301 to the closest equivalent page</td></tr>
+<tr><td>Page removed, no replacement</td><td>Leave it as 404 or return 410. Both drop the URL from the index; 410 states the removal is permanent</td></tr>
+<tr><td>Internal links point to the broken URL</td><td>Fix the internal links; no redirect needed</td></tr>
+</tbody></table></div>
+
+<h3 id="alternate">3.4. Alternate page with proper canonical tag</h3>
+<p>The page points its canonical to another, indexed page. Google says there's nothing to do. Only check when the chosen canonical is wrong, for example:</p>
+<ul>
+<li>URLs with and without a trailing slash: <code>/page</code> and <code>/page/</code>.</li>
+<li>URLs with tracking parameters such as <code>?utm_source=</code>.</li>
+<li>An ad landing page duplicating an SEO page.</li>
+</ul>
+<p>In those cases, fix the canonical tag and point every internal link straight at the canonical version.</p>
+
+<h3 id="noindex">3.5. Excluded by noindex tag</h3>
+<p>The page carries <code>&lt;meta name="robots" content="noindex"&gt;</code>. The only question is whether that was intended.</p>
+<ul>
+<li>Filter noindexed URLs in Screaming Frog.</li>
+<li>Cross-check against Search Console performance data and backlinks to find pages that once had traffic or links and were tagged by mistake.</li>
+<li>For duplicate pages, consider canonical instead of noindex so signals consolidate on the main page.</li>
+</ul>
+
+<h3 id="5xx">3.6. Server error (5xx)</h3>
+<p>When the server keeps returning 5xx errors, Google slows crawling across the whole site. Fix these early.</p>
+<ul>
+<li>Read the server logs to see which URL groups fail and when.</li>
+<li>If the errors come from filter or parameter URLs (for example <code>/category/shoes?price=0-999999</code>), fix how those URLs are generated or block crawling of that group.</li>
+</ul>
+
+<h3 id="duplicate">3.7. Duplicate without user-selected canonical</h3>
+<p>Google says this isn't an error: it doesn't show duplicate pages, so it picks one. Act only if Google picked the wrong page:</p>
+<ul>
+<li>Declare a clear canonical on the duplicates.</li>
+<li>Point internal links at the page you want to keep.</li>
+<li>If two pages serve the same intent, merge them with a 301 redirect.</li>
+</ul>
+</section>
+
+<section id="summary">
+<h2>4. Summary table</h2>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Summary of reasons pages are not indexed">
+<table><thead><tr><th>Reason in Search Console</th><th>An error?</th><th>What to do</th></tr></thead><tbody>
+<tr><td>Crawled – currently not indexed</td><td>Not necessarily</td><td>Merge, improve or noindex depending on the page's value</td></tr>
+<tr><td>Discovered – currently not indexed</td><td>Not necessarily</td><td>Internal links, sitemap, fewer low-value URLs</td></tr>
+<tr><td>Not found (404)</td><td>Only for important pages</td><td>301 if there's a replacement; fix internal links</td></tr>
+<tr><td>Alternate page with proper canonical tag</td><td>No</td><td>Check only if the canonical is wrong</td></tr>
+<tr><td>Excluded by noindex tag</td><td>Depends on intent</td><td>Remove noindex if added by mistake</td></tr>
+<tr><td>Server error (5xx)</td><td>Yes</td><td>Fix the server; block URLs that generate errors</td></tr>
+<tr><td>Duplicate without user-selected canonical</td><td>No</td><td>Declare a canonical if Google chose wrongly</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="monthly-routine">
+<h2>5. A monthly cleanup routine</h2>
+<ol>
+<li>Export the not-indexed URLs, filtered by sitemap.</li>
+<li>Start with real errors (5xx, mistaken noindex, 404s on important pages), then important pages stuck in "discovered" or "crawled" but not indexed.</li>
+<li>Fix by group, not URL by URL.</li>
+<li>Click "Validate fix" in Search Console for each group you've handled.</li>
+<li>Watch the indexed-page trend month by month rather than day by day.</li>
+</ol>
+</section>
+<section id="faq" aria-labelledby="faq-t"><h2 id="faq-t">Frequently asked questions</h2><details><summary>How long until a fixed page is indexed again?</summary><p>There&#x27;s no fixed time. On a small site it&#x27;s usually a few days to a few weeks after Google recrawls. Requesting indexing in URL Inspection can speed up the crawl but doesn&#x27;t guarantee indexing.</p></details><details><summary>Should I delete every page that isn&#x27;t indexed?</summary><p>No. Sort them first: merge pages with duplicate intent, noindex auto-generated pages with no value, and improve pages that have value. Mass deletion without sorting easily loses pages with backlinks or past traffic.</p></details><details><summary>Do 404s hurt my rankings?</summary><p>According to Google, 404s on removed pages don&#x27;t affect your other pages. Only act when the broken URL is important, has backlinks, or is still linked internally.</p></details></section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">References</h2><ul><li><a href="https://support.google.com/webmasters/answer/7440203" rel="noopener" target="_blank">Page indexing report – Google Search Console Help</a></li><li><a href="https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics" rel="noopener" target="_blank">JavaScript SEO basics – Google Search Central</a></li><li><a href="https://developers.google.com/search/docs/crawling-indexing/javascript/dynamic-rendering" rel="noopener" target="_blank">Dynamic rendering as a workaround – Google Search Central</a></li><li><a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" rel="noopener" target="_blank">Consolidate duplicate URLs – Google Search Central</a></li><li><a href="https://developers.google.com/search/docs/crawling-indexing/http-network-errors" rel="noopener" target="_blank">HTTP status codes and network errors – Google Search Central</a></li><li><a href="https://vercel.com/blog/the-rise-of-the-ai-crawler" rel="noopener" target="_blank">The rise of the AI crawler – Vercel (December 2024)</a></li></ul></section>
+</div>
+<footer class="post-foot"><h2>Read next</h2><ul><li><a href="/en/blog/semantic-search-seo/">Semantic search in SEO: optimising for search intent and entities</a></li><li><a href="/en/services/seo/">SEO services</a></li><li><a href="/en/blog/">All articles</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Footer links"><ul class="foot-links"><li><a href="/en/services/seo/">SEO services</a></li><li><a href="/en/services/geo/">GEO services</a></li><li><a href="/en/services/seo-mentoring/">SEO mentoring</a></li><li><a href="/en/blog/">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li></ul></nav><p>© 2026 Phan Minh Hoàng. Updated 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+</body>
+</html>
