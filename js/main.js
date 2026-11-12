@@ -20,73 +20,89 @@
     matchMedia('(min-width: 861px)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
   }
 
-  // 2. Ô tìm kiếm tự gõ truy vấn (chỉ trang trí, đã có bản text cho trình đọc màn hình)
-  const q = document.querySelector('.serp-q');
-  if (q && q.dataset.queries) {
-    const list = q.dataset.queries.split('|');
-    if (reduce) { q.textContent = list[0]; }
-    else {
-      let i = 0, n = 0, del = false;
-      const tick = () => {
-        const s = list[i];
-        n += del ? -1 : 1;
-        q.textContent = s.slice(0, n);
-        let wait = del ? 35 : 75;
-        if (!del && n === s.length) { del = true; wait = 1800; }
-        else if (del && n === 0) { del = false; i = (i + 1) % list.length; wait = 400; }
-        setTimeout(tick, wait);
+  // 2. Hoạt cảnh hành trình khách hàng: Google -> ChatGPT -> Claude -> Gemini -> sau khi tối ưu
+  const jr = document.querySelector('.journey');
+  if (jr) {
+    const scenes = [...jr.querySelectorAll('.scene')];
+    const tabs = [...jr.querySelectorAll('.jt')];
+    const pauseBtn = jr.querySelector('.j-pause');
+    const bar = jr.querySelector('.j-progress span');
+    const DUR = [4600, 4800, 4800, 4800, 5200];
+    let i = -1, timer = 0, typers = [], paused = false, started = 0;
+
+    const clearTypers = () => { typers.forEach(clearTimeout); typers = []; };
+    const typeIn = (el) => {
+      const full = el.dataset.text || '';
+      el.textContent = ''; el.classList.remove('done');
+      if (reduce) { el.textContent = full; el.classList.add('done'); return; }
+      let n = 0;
+      const step = () => {
+        el.textContent = full.slice(0, ++n);
+        if (n < full.length) typers.push(setTimeout(step, 45));
+        else el.classList.add('done');
       };
-      tick();
-    }
-  }
-
-  // 3. Hiệu ứng con trỏ: các chấm quanh chuột sáng lên như bot đang "crawl"
-  if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  const cv = document.createElement('canvas');
-  cv.id = 'crawl';
-  cv.setAttribute('aria-hidden', 'true');
-  document.body.prepend(cv);
-  const ctx = cv.getContext('2d');
-  const GAP = 28, OFF = 14, R = 150;
-  let w, h, dpr, mx = -999, my = -999, onLink = false, raf = 0;
-
-  const size = () => {
-    dpr = Math.min(devicePixelRatio || 1, 2);
-    w = innerWidth; h = innerHeight;
-    cv.width = w * dpr; cv.height = h * dpr;
-    cv.style.width = w + 'px'; cv.style.height = h + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw();
-  };
-
-  function draw() {
-    raf = 0;
-    ctx.clearRect(0, 0, w, h);
-    if (mx < 0) return;
-    const rgb = onLink ? '26,13,171' : '26,115,232';
-    const x0 = Math.floor((mx - R) / GAP), x1 = Math.ceil((mx + R) / GAP);
-    const y0 = Math.floor((my - R) / GAP), y1 = Math.ceil((my + R) / GAP);
-    for (let gx = x0; gx <= x1; gx++) {
-      for (let gy = y0; gy <= y1; gy++) {
-        const px = gx * GAP + OFF, py = gy * GAP + OFF;
-        const d = Math.hypot(px - mx, py - my);
-        if (d > R) continue;
-        const t = 1 - d / R;
-        ctx.fillStyle = `rgba(${rgb},${(t * .85).toFixed(3)})`;
-        ctx.beginPath();
-        ctx.arc(px, py, 1 + t * 2.4, 0, 6.2832);
-        ctx.fill();
+      typers.push(setTimeout(step, 250));
+    };
+    const show = (k) => {
+      clearTypers();
+      i = k;
+      scenes.forEach((s, n) => s.classList.toggle('on', n === k));
+      tabs.forEach((t, n) => {
+        t.classList.toggle('active', n === k);
+        t.classList.toggle('done', k < 4 && n < k);
+        t.classList.toggle('ok', k === 4);
+      });
+      scenes[k].querySelectorAll('.typed').forEach(typeIn);
+      if (bar) {
+        bar.style.transition = 'none'; bar.style.width = (k / scenes.length * 100) + '%';
+        if (!paused && !reduce) {
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            bar.style.transition = `width ${DUR[k]}ms linear`;
+            bar.style.width = ((k + 1) / scenes.length * 100) + '%';
+          }));
+        }
       }
-    }
+      started = Date.now();
+      clearTimeout(timer);
+      if (!paused && !reduce) timer = setTimeout(() => show((k + 1) % scenes.length), DUR[k]);
+    };
+    const setPaused = (p) => {
+      paused = p;
+      pauseBtn.setAttribute('aria-pressed', String(p));
+      pauseBtn.textContent = p ? pauseBtn.dataset.play : pauseBtn.dataset.pause;
+      clearTimeout(timer);
+      if (bar) { bar.style.transition = 'none'; bar.style.width = getComputedStyle(bar).width; }
+      if (!p) show((i + 1) % scenes.length);
+    };
+    tabs.forEach((t, n) => t.addEventListener('click', () => { paused = true; setPaused(true); show(n); }));
+    pauseBtn.addEventListener('click', () => setPaused(!paused));
+    // chỉ chạy khi khối đang nằm trong màn hình
+    if (reduce) { pauseBtn.hidden = true; show(0); }
+    else if ('IntersectionObserver' in window) {
+      let first = true;
+      new IntersectionObserver(([en]) => {
+        if (en.isIntersecting) { if (first) { first = false; show(0); } else if (!paused) show(i); }
+        else clearTimeout(timer);
+      }, { threshold: 0.25 }).observe(jr);
+    } else show(0);
   }
 
-  const queue = () => { if (!raf) raf = requestAnimationFrame(draw); };
+  // 3. Hiệu ứng con trỏ: một quầng sáng mềm đi theo chuột, nằm dưới nội dung nên không che chữ
+  if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const glow = document.createElement('div');
+  glow.id = 'glow';
+  glow.setAttribute('aria-hidden', 'true');
+  document.body.prepend(glow);
+  let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+  const loop = () => {
+    x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+    glow.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    raf = (Math.abs(tx - x) + Math.abs(ty - y) > 0.5) ? requestAnimationFrame(loop) : 0;
+  };
   addEventListener('pointermove', (e) => {
-    mx = e.clientX; my = e.clientY;
-    onLink = !!(e.target.closest && e.target.closest('a, button'));
-    queue();
+    tx = e.clientX; ty = e.clientY;
+    if (!glow.classList.contains('on')) { x = tx; y = ty; glow.classList.add('on'); }
+    if (!raf) raf = requestAnimationFrame(loop);
   }, { passive: true });
-  document.addEventListener('pointerleave', () => { mx = my = -999; queue(); });
-  addEventListener('resize', size);
-  size();
+  document.addEventListener('pointerleave', () => glow.classList.remove('on'));
 })();
