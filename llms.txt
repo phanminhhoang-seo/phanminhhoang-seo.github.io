@@ -9,21 +9,21 @@
 ## Dịch vụ
 - [Dịch vụ SEO](https://phanminhhoang-seo.github.io/dich-vu/seo/): Dịch vụ SEO tổng thể: audit kỹ thuật và index, nghiên cứu từ khoá theo ý định, kế hoạch nội dung, internal link, KPI chia theo từng tháng.
 - [SEO services](https://phanminhhoang-seo.github.io/en/services/seo/): Full SEO services: technical and indexing audits, intent-based keyword research, content planning, internal linking and KPIs broken down by month.
-- [Dịch vụ GEO](https://phanminhhoang-seo.github.io/dich-vu/geo/): Dịch vụ GEO (Generative Engine Optimization) giúp thương hiệu được ChatGPT, Gemini, Perplexity và Google AI Overviews nhắc tới và trích dẫn. Cam kết theo tháng, đo bằng bộ câu hỏi thật.
-- [GEO services](https://phanminhhoang-seo.github.io/en/services/geo/): GEO (Generative Engine Optimization) services that help ChatGPT, Gemini, Perplexity and Google AI Overviews mention and cite your brand. Monthly commitments, measured on real customer questions.
-- [Mentor SEO](https://phanminhhoang-seo.github.io/dich-vu/mentor-seo/): Khoá mentor SEO 10 buổi, 2 buổi mỗi tuần, học trên chính website của học viên: cách công cụ tìm kiếm vận hành, index, ý định tìm kiếm, internal link, audit nội dung.
-- [SEO mentoring](https://phanminhhoang-seo.github.io/en/services/seo-mentoring/): A 10-session SEO mentoring course, two sessions a week, taught on the learner's own website: how search engines work, indexing, search intent, internal links, content audits.
+- [Dịch vụ GEO](https://phanminhhoang-seo.github.io/dich-vu/geo/): Dịch vụ GEO giúp thương hiệu được ChatGPT, Gemini, Perplexity và Google AI Overviews nhắc tới, trích dẫn. Cam kết theo tháng, đo bằng câu hỏi thật.
+- [GEO services](https://phanminhhoang-seo.github.io/en/services/geo/): GEO services that get your brand mentioned and cited by ChatGPT, Gemini, Perplexity and Google AI Overviews. Monthly commitments on real questions.
+- [Khoá học SEO 1 kèm 1](https://phanminhhoang-seo.github.io/dich-vu/mentor-seo/): Khoá học SEO 1 kèm 1, 10 buổi, học trên chính website của bạn: cách Google index, ý định tìm kiếm, internal link, audit nội dung, Search Console.
+- [1-on-1 SEO course](https://phanminhhoang-seo.github.io/en/services/seo-mentoring/): A 10-session 1-on-1 SEO course taught on your own website: how Google indexes, search intent, internal links, content audits and Search Console.
 
 ## Bài viết
 - [Semantic Search trong SEO: tối ưu theo ý định tìm kiếm và thực thể](https://phanminhhoang-seo.github.io/blog/semantic-search-seo/): Semantic search là gì và áp dụng vào SEO thế nào: đọc ý định tìm kiếm từ SERP, xác định thực thể, dựng cụm chủ đề, dùng schema và internal link đúng cách.
-- [Semantic search in SEO: optimising for search intent and entities](https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/): What semantic search is and how to apply it to SEO: reading intent from the SERP, defining entities, building topic clusters, and using schema and internal links properly.
-- [Dọn dẹp chỉ mục (Indexing Cleanup): xử lý từng lý do trang không được Google index](https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/): Cách đọc báo cáo Lập chỉ mục trang trong Google Search Console và xử lý từng lý do: đã phát hiện/đã thu thập nhưng chưa index, 404, canonical, noindex, lỗi 5xx.
-- [Indexing Cleanup: fixing each reason Google gives for not indexing a page](https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/): How to read the Page indexing report in Google Search Console and handle each reason: discovered or crawled but not indexed, 404, canonical, noindex and 5xx errors.
+- [Semantic search in SEO: optimising for search intent and entities](https://phanminhhoang-seo.github.io/en/blog/semantic-search-seo/): What semantic search is and how to apply it: read intent from the SERP, define entities, build topic clusters, use schema and internal links properly.
+- [Dọn dẹp chỉ mục (Indexing Cleanup): xử lý từng lý do trang không được Google index](https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/): Đọc báo cáo Lập chỉ mục trang trong Search Console và xử lý từng lý do: chưa được index, 404, canonical, noindex, lỗi 5xx.
+- [Indexing Cleanup: fixing each reason Google gives for not indexing a page](https://phanminhhoang-seo.github.io/en/blog/seo-indexing-cleanup/): How to read Search Console's Page indexing report and fix each reason: not indexed, 404, canonical, noindex and 5xx server errors.
 
 ## Kinh nghiệm
 - 03/2026 – nay: SEO Leader, Công ty Cổ phần Forza
 - 08/2025 – 01/2026: SEO Specialist, Học viện RNI
-- 01/2025 – 07/2025: Leader SEO Freelance và mentor SEO
+- 01/2025 – 07/2025: Leader SEO Freelance và dạy SEO 1 kèm 1
 - 11/2024 – 12/2024: SEO Specialist (thử việc), Golden Owl Solutions
 - 05/2023 – 11/2024: Chuyên viên SEO, Công ty Cổ phần Forza
 - 05/2023 – 04/2024: Leader SEO Freelance, Vietvape
