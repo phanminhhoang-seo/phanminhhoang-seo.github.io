@@ -424,3 +424,20 @@ main > section { padding-block: 64px; }
 .scene.final { justify-content: center; }
 .scene.final .flag { margin: 4px 0 0; }
 @media (max-width: 480px) { .j-stage { height: 340px; } .jt.done::after, .jt.ok::after { top: 4px; right: 4px; } }
+
+/* ---------- Tác giả đầu bài và CTA trong bài ---------- */
+.author { display: flex; gap: 12px; align-items: center; margin: 4px 0 8px; padding: 12px 16px; background: var(--surface); border-radius: 18px; width: fit-content; max-width: 100%;
+  box-shadow: 0 1px 2px rgb(23 32 44 / .05); }
+.author img { width: 44px; height: 44px; border-radius: 50%; flex: none; }
+.author p { margin: 0; line-height: 1.4; }
+.author .a-name a { font-weight: 600; color: var(--ink); text-decoration: none; }
+.author .a-name a:hover { text-decoration: underline; }
+.author .a-role { font-size: .88rem; color: #3a4553; }
+.author .a-meta { font-size: .82rem; color: var(--muted); }
+.post-cta { margin: 28px 0; padding: 20px 22px; border-radius: 22px; background: linear-gradient(135deg, #eef2fe, #f1edf9); }
+.post-cta p { margin: 0 0 10px; color: var(--ink); }
+.post-cta a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; text-decoration: none; }
+.post-cta a:hover { background: #2b3747; }
+.blog-list h2 { font-size: 1.35rem; margin: 8px 0 4px; }
+.blog-list + .blog-list { padding-top: 8px; }
+.author img { background: #e3e9f2; object-fit: cover; }
