@@ -441,3 +441,24 @@ main > section { padding-block: 64px; }
 .blog-list h2 { font-size: 1.35rem; margin: 8px 0 4px; }
 .blog-list + .blog-list { padding-top: 8px; }
 .author img { background: #e3e9f2; object-fit: cover; }
+
+/* ---------- Báo giá ---------- */
+.price-cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin: 8px 0 24px; }
+.price-card { background: var(--surface); border-radius: 22px; padding: 22px; display: flex; flex-direction: column;
+  box-shadow: 0 1px 2px rgb(23 32 44 / .05), 0 12px 32px -22px rgb(23 32 44 / .3); }
+.price-card:nth-child(2) { outline: 2px solid var(--clicks); }
+.price-card h3 { font-size: 1.1rem; margin-bottom: 2px; }
+.price-card .term { font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
+.price-card ul { font-size: .93rem; flex: 1; }
+.price-card .price { font-weight: 700; font-size: 1.15rem; margin: 6px 0 12px; }
+.price-card .btn { align-self: flex-start; min-height: 42px; }
+.factors-t { font-size: 1.05rem; }
+.svc td:first-child { white-space: nowrap; }
+@media (max-width: 600px) { .svc td:first-child { white-space: normal; } }
+
+/* Bảng trong trang dịch vụ */
+.svc table { border-collapse: collapse; width: 100%; font-size: .95rem; min-width: 560px; }
+.svc th, .svc td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+.svc thead th { background: #f0f3f7; font-weight: 600; }
+.svc tbody tr:last-child th, .svc tbody tr:last-child td { border-bottom: 0; }
+.svc table th[scope="row"] { white-space: normal; min-width: 120px; }
