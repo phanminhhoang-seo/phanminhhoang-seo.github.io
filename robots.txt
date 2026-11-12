@@ -1,0 +1,39 @@
+# robots.txt – https://phanminhhoang-seo.github.io
+# Cập nhật 2026-11-12. Toàn bộ site là nội dung công khai, cho phép mọi bot hợp lệ.
+
+User-agent: *
+Allow: /
+
+# Công cụ tìm kiếm
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: DuckDuckBot
+User-agent: YandexBot
+User-agent: coccocbot-web
+Allow: /
+
+# Bot của công cụ tìm kiếm AI và bot truy cập khi người dùng hỏi (trích dẫn, có link về site)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+Allow: /
+
+# Bot thu thập dữ liệu huấn luyện mô hình AI.
+# Đang cho phép để tên và chuyên môn được mô hình nhận diện.
+# Muốn chặn huấn luyện: đổi "Allow: /" bên dưới thành "Disallow: /".
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: meta-externalagent
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://phanminhhoang-seo.github.io/sitemap.xml

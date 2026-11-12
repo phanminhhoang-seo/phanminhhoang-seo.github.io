@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước – Phan Minh Hoàng</title>
+<meta name="description" content="Quy trình dọn dẹp chỉ mục trong Google Search Console: xử lý Crawled/Discovered – currently not indexed, 404, canonical, noindex và lỗi 5xx.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước – Phan Minh Hoàng">
+<meta property="og:description" content="Quy trình dọn dẹp chỉ mục trong Google Search Console: xử lý Crawled/Discovered – currently not indexed, 404, canonical, noindex và lỗi 5xx.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="vi_VN">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2025-06-12">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/"},{"@type":"ListItem","position":3,"name":"SEO Indexing Cleanup","item":"https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước","description":"Quy trình dọn dẹp chỉ mục trong Google Search Console: xử lý Crawled/Discovered – currently not indexed, 404, canonical, noindex và lỗi 5xx.","url":"https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/","inLanguage":"vi","datePublished":"2025-06-12","dateModified":"2026-11-12","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/blog/"}}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');</script>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="/dich-vu/">Dịch vụ</a></li><li><a href="/#kinh-nghiem">Kinh nghiệm</a></li><li><a href="/#du-an">Dự án</a></li><li><a href="/blog/" aria-current="page">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li><li><a class="lang" href="/index-en.html" hreflang="en" lang="en">English</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Trang chủ</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">SEO Indexing Cleanup</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước</h1>
+<p class="meta">Phan Minh Hoàng, <time datetime="2025-06-12">12/06/2025</time>. 9 phút đọc.</p></header>
+<div class="prose">
+<p>Trong SEO kỹ thuật, việc website không được index đúng cách là một trong những nguyên nhân khiến traffic tụt dốc mà nhiều quản trị viên không nhận ra cho đến khi quá muộn. Việc Google “đã crawl nhưng không index”, hay “không tìm thấy trang” thường liên quan đến cấu trúc site, kỹ thuật render, hoặc chiến lược nội dung chưa hiệu quả. Bài viết này sẽ giúp bạn hiểu và thực hiện quy trình dọn dẹp chỉ mục trong Google Search Console (GSC) một cách bài bản, có ví dụ thực tế để áp dụng ngay.</p>
+<h2>1. Kiểm tra xem Google/Bing/LLM có nhìn thấy nội dung của bạn không?</h2>
+<p>Đây là vấn đề cơ bản nhất nhưng lại thường bị bỏ qua – nếu Googlebot không thấy nội dung, thì mọi nỗ lực SEO khác gần như vô nghĩa.</p>
+<h3>Vấn đề:</h3>
+<p>Nhiều website hiện nay sử dụng JavaScript để hiển thị nội dung sau khi trang được tải (Client-side rendering – CSR).</p>
+<p>Tuy nhiên:</p>
+<ul>
+<li>Googlebot và các trình thu thập dữ liệu khác không luôn thực thi đầy đủ JS.</li>
+<li>Các LLM (Large Language Models) như ChatGPT, Gemini, Claude, v..v. chỉ đọc HTML gốc, không render nội dung động.</li>
+</ul>
+<h3>Cách kiểm tra:</h3>
+<ol>
+<li>Mở website cần kiểm tra.</li>
+<li>Bấm <code>F12</code> (hoặc <code>Ctrl+Shift+I</code>) để mở DevTools → chuyển sang tab Network.</li>
+<li>Refresh trang (<code>Ctrl+R</code>).</li>
+<li>Click vào request đầu tiên (thường là URL của trang).</li>
+<li>Vào tab Response để xem HTML mà server trả về.</li>
+<li>Nếu nội dung chính không có trong HTML (ví dụ như <code>&lt;div id="root"&gt;&lt;/div&gt;</code>) thì Google không thể thấy nội dung đó.</li>
+</ol>
+<h3>Ví dụ minh họa:</h3>
+<p>Trang web được xây bằng React:</p>
+<pre><code>&lt;body&gt;
+  &lt;div id="root"&gt;&lt;/div&gt;
+  &lt;script src="/bundle.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<p>Nội dung bài viết, hình ảnh, tiêu đề... đều nằm trong JS và không có trong HTML gốc. Google sẽ chỉ thấy khung trống – không có gì để index.</p>
+<h3>Hướng xử lý:</h3>
+<ul>
+<li>Dùng SSR (Server-side rendering) nếu bạn dùng framework như Next.js, Nuxt, SvelteKit...</li>
+<li>Hoặc sử dụng Pre-rendering tools như Prerender.io, Rendertron, hoặc Cloudflare Workers.</li>
+</ul>
+<h3>Một số tài liệu tham khảo:</h3>
+<ul>
+<li>Google: We render JavaScript but prefer raw HTML</li>
+<li>Case study: Technical SEO issue causes NFL.com to lose 84M visits</li>
+<li>JavaScript SEO basics – Google Search Central</li>
+</ul>
+<h2>2. Dọn dẹp vùng Excluded trong Google Search Console (GSC)</h2>
+<p>Tab “Pages” trong GSC là nơi bạn có thể biết những URL nào đã được Google thu thập, index, hoặc bị loại khỏi chỉ mục. Tuy nhiên, nhiều quản trị viên thường bỏ qua tab “Why pages aren’t indexed” (Tại sao không được lập chỉ mục). Mỗi loại lỗi “Excluded” có ý nghĩa khác nhau – và xử lý đúng từng loại sẽ giúp khôi phục index, cải thiện crawl budget và tăng organic traffic rõ rệt.</p>
+<h3>2.1. Crawled - Currently Not Indexed</h3>
+<p>Google đã crawl trang, nhưng quyết định không index nó – điều này thường là tín hiệu chất lượng trang quá thấp hoặc không đáng index.</p>
+<h4>Cách xử lý:</h4>
+<p>Xuất danh sách URL từ GSC → lọc ra các URL có status HTTP 200.</p>
+<p>Kiểm tra:</p>
+<ul>
+<li>Số lượng liên kết nội bộ trỏ đến (tối thiểu 5).</li>
+<li>Nội dung quá mỏng? (&lt;300 từ).</li>
+<li>Trang có bị trùng nội dung với trang khác không?</li>
+<li>Có phải trang dạng template, filter page, tag page không?</li>
+</ul>
+<p>Hành động:</p>
+<div aria-label="Bảng: Cách xử lý:" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Trường hợp</th>
+<th>Xử lý</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nội dung mỏng, cũ, không có traffic</td>
+<td>Gắn noindex hoặc xóa hoàn toàn (HTTP 410)</td>
+</tr>
+<tr>
+<td>Có giá trị tiềm năng</td>
+<td>Tăng độ dài nội dung, cập nhật lại nội dung, thêm internal link</td>
+</tr>
+<tr>
+<td>Quan trọng với chuyển đổi (e.g. trang dịch vụ)</td>
+<td>Submit lại URL trong GSC sau khi cải thiện</td>
+</tr>
+</tbody>
+</table></div>
+<h4>Ví dụ và tài liệu:</h4>
+<ul>
+<li>Hướng dẫn chính thức từ Google</li>
+<li>Case study: 200k URLs bị loại khỏi index và cách khắc phục</li>
+</ul>
+<h3>2.2. Discovered - Currently Not Indexed</h3>
+<p>Google đã biết tới URL, nhưng chưa crawl nó → thường do không có hoặc rất ít internal link, trang mồ côi (orphan).</p>
+<h4>Cách xử lý:</h4>
+<p>Tăng liên kết nội bộ đến trang đó từ:</p>
+<ul>
+<li>Menu, sidebar, footer</li>
+<li>Liên kết từ bài viết liên quan</li>
+<li>Sitemap XML (nếu chưa có)</li>
+</ul>
+<p>Mẹo:</p>
+<ul>
+<li>Dùng Screaming Frog để kiểm tra số lượng internal link trỏ đến URL đó</li>
+<li>Ưu tiên link từ các trang có PageRank nội bộ cao (trang chủ, category page)</li>
+</ul>
+<p>Tham khảo:</p>
+<ul>
+<li>Discovered but not indexed explained – Google Help</li>
+<li>Why your page is discovered but not indexed – Onely</li>
+</ul>
+<h3>2.3. Not Found (404)</h3>
+<p>Googlebot truy cập URL nhưng nhận lại mã lỗi 404 – Không tìm thấy. Nếu các URL này từng tồn tại, có backlink, hoặc được nội bộ liên kết đến, việc không xử lý sẽ dẫn đến mất traffic và điểm tín nhiệm từ Google.</p>
+<h4>Cách xử lý:</h4>
+<div aria-label="Bảng: Cách xử lý:" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Trường hợp</th>
+<th>Giải pháp đề xuất</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL không còn giá trị, không có backlink</td>
+<td>Gắn mã trạng thái HTTP 410 (Gone) để xóa nhanh khỏi chỉ mục</td>
+</tr>
+<tr>
+<td>URL có backlink từ bên ngoài</td>
+<td>Redirect 301 đến trang tương đương hoặc trang chủ đề gần nhất</td>
+</tr>
+<tr>
+<td>URL có liên kết nội bộ trỏ đến</td>
+<td>Cập nhật lại liên kết nội bộ hoặc redirect nếu không thể sửa link</td>
+</tr>
+</tbody>
+</table></div>
+<h4>Công cụ hỗ trợ:</h4>
+<ul>
+<li>Ahrefs: kiểm tra backlink trỏ về URL 404 (Batch Analysis)</li>
+<li>Screaming Frog: phát hiện liên kết nội bộ bị hỏng</li>
+</ul>
+<p>Tài liệu tham khảo:</p>
+<ul>
+<li><a href="https://www.searchenginejournal.com/google-410-status-code/460648/" rel="noopener" target="_blank">https://www.searchenginejournal.com/google-410-status-code/460648/</a></li>
+<li><a href="https://ahrefs.com/blog/broken-links/" rel="noopener" target="_blank">https://ahrefs.com/blog/broken-links/</a></li>
+</ul>
+<h3>2.4. Alternative Page with Proper Canonical</h3>
+<p>Google đánh dấu trang bị loại bỏ vì đã được canonical hóa về một URL khác. Điều này thường hợp lý, nhưng trong nhiều trường hợp cấu hình canonical sai hoặc internal link vẫn trỏ đến bản không chuẩn.</p>
+<h4>Các lỗi phổ biến:</h4>
+<ul>
+<li>URL có hoặc không có dấu slash cuối: <code>/page</code> vs <code>/page/</code></li>
+<li>URL có tham số theo dõi như <code>?utm_source=...</code></li>
+<li>Có hai trang nội dung giống nhau: một cho SEO, một cho quảng cáo trả phí</li>
+</ul>
+<h4>Giải pháp:</h4>
+<ul>
+<li>Kiểm tra canonical trong thẻ <code>&lt;head&gt;</code> và cập nhật chính xác</li>
+<li>Tránh internal link trỏ đến phiên bản không canonical</li>
+<li>Với các trang landing page chỉ dùng cho quảng cáo, nên đặt noindex hoặc đổi sang một đường dẫn riêng biệt (vd: <code>/lp/abc</code>)</li>
+</ul>
+<p>Tài liệu tham khảo:</p>
+<ul>
+<li><a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" rel="noopener" target="_blank">https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls</a></li>
+<li><a href="https://ahrefs.com/blog/canonical-tags/" rel="noopener" target="_blank">https://ahrefs.com/blog/canonical-tags/</a></li>
+</ul>
+<h3>2.5. Excluded by noindex tag</h3>
+<p>Google loại trang khỏi chỉ mục vì có thẻ <code>&lt;meta name="robots" content="noindex"&gt;</code>. Việc này có thể đúng hoặc sai tùy vào mục đích SEO, nhưng nếu gắn nhầm sẽ dẫn đến mất index những trang quan trọng.</p>
+<h4>Cách xử lý:</h4>
+<ul>
+<li>Dùng Screaming Frog để lọc các URL chứa noindex</li>
+<li>Dùng Ahrefs để kiểm tra URL đó có backlink không</li>
+<li>Dùng VLOOKUP giữa dữ liệu GSC và danh sách URL noindex để tìm ra trang có traffic bị loại bỏ</li>
+</ul>
+<p>Khuyến nghị:</p>
+<ul>
+<li>Tránh gắn noindex cho các trang có nhiều backlink hoặc từng có traffic</li>
+<li>Nếu trang bị trùng nội dung, có thể dùng canonical thay vì noindex</li>
+</ul>
+<p>Tài liệu tham khảo:</p>
+<ul>
+<li><a href="https://www.seroundtable.com/google-noindex-crawl-31260.html" rel="noopener" target="_blank">https://www.seroundtable.com/google-noindex-crawl-31260.html</a></li>
+<li><a href="https://moz.com/learn/seo/robot-meta-tag" rel="noopener" target="_blank">https://moz.com/learn/seo/robot-meta-tag</a></li>
+</ul>
+<h3>2.6. Server Error (5xx)</h3>
+<p>URL bị trả về lỗi server như 500, 502, 503... khiến Google không thể thu thập dữ liệu. Nếu lặp lại nhiều lần, Google có thể tạm dừng crawl phần còn lại của website.</p>
+<h4>Cách xử lý:</h4>
+<ul>
+<li>Kiểm tra file log của máy chủ hoặc dùng Screaming Frog để rà soát lỗi</li>
+<li>Kiểm tra URL có phải là trang tạo động từ bộ lọc hoặc phân trang (ví dụ: <code>/category/shoes?price=0-999999</code>) không</li>
+<li>Nếu là URL không cần thiết, có thể chặn bằng robots.txt hoặc redirect hợp lý</li>
+</ul>
+<p>Tài liệu tham khảo:</p>
+<ul>
+<li><a href="https://developers.google.com/search/docs/crawling-indexing/handling-server-errors" rel="noopener" target="_blank">https://developers.google.com/search/docs/crawling-indexing/handling-server-errors</a></li>
+<li><a href="https://www.oncrawl.com/technical-seo/5xx-server-errors-seo/" rel="noopener" target="_blank">https://www.oncrawl.com/technical-seo/5xx-server-errors-seo/</a></li>
+</ul>
+<h3>2.7. Duplicate Without User-selected Canonical</h3>
+<p>Google phát hiện hai hoặc nhiều trang có nội dung tương tự nhưng không được chỉ định canonical rõ ràng, dẫn đến việc Google tự quyết định URL chính.</p>
+<h4>Ví dụ:</h4>
+<ul>
+<li><code>/seo-checklist</code> và <code>/checklist-seo</code> có nội dung gần giống nhau</li>
+<li><code>/product</code> và <code>/product?ref=homepage</code></li>
+</ul>
+<h4>Cách xử lý:</h4>
+<ul>
+<li>Dùng các công cụ như Siteliner, Sitebulb hoặc Screaming Frog để xác định trùng lặp</li>
+<li>Gắn thẻ canonical trong thẻ <code>&lt;head&gt;</code> của mỗi trang</li>
+<li>Với các URL tạo bởi bộ lọc (filter, tag), nếu không cần index thì gắn noindex hoặc chặn bằng robots.txt</li>
+</ul>
+<p>Tài liệu tham khảo:</p>
+<ul>
+<li><a href="https://developers.google.com/search/docs/crawling-indexing/similar-pages" rel="noopener" target="_blank">https://developers.google.com/search/docs/crawling-indexing/similar-pages</a></li>
+<li><a href="https://moz.com/learn/seo/duplicate-content" rel="noopener" target="_blank">https://moz.com/learn/seo/duplicate-content</a></li>
+</ul>
+<h2>3. Bảng tổng hợp lỗi Excluded và hướng xử lý</h2>
+<div aria-label="Bảng: 3. Bảng tổng hợp lỗi Excluded và hướng xử lý" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Mã loại trừ trong GSC</th>
+<th>Nguyên nhân phổ biến</th>
+<th>Cách xử lý cụ thể</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crawled – Currently Not Indexed</td>
+<td>Trang đã crawl nhưng nội dung mỏng, không đủ liên kết nội bộ</td>
+<td>Tăng liên kết nội bộ, cập nhật nội dung, nếu vô giá trị thì xóa bằng HTTP 410</td>
+</tr>
+<tr>
+<td>Discovered – Currently Not Indexed</td>
+<td>Trang được phát hiện nhưng chưa crawl, thường do thiếu internal link</td>
+<td>Tạo thêm liên kết nội bộ, đẩy sitemap, liên kết từ menu hoặc các bài viết liên quan</td>
+</tr>
+<tr>
+<td>Not Found (404)</td>
+<td>Trang bị xóa, URL sai hoặc liên kết gãy</td>
+<td>Redirect 301 nếu có backlink, hoặc HTTP 410 nếu không còn giá trị</td>
+</tr>
+<tr>
+<td>Alternative Page with Proper Canonical</td>
+<td>Canonical được gắn không đúng hoặc thiếu nhất quán</td>
+<td>Kiểm tra lại thẻ canonical, đồng bộ nội dung và tránh liên kết nội bộ trỏ đến bản phụ</td>
+</tr>
+<tr>
+<td>Excluded by noindex tag</td>
+<td>Trang bị gắn thẻ meta robots noindex</td>
+<td>Gỡ noindex nếu trang có giá trị SEO, hoặc giữ nếu mục đích loại khỏi chỉ mục là chủ đích</td>
+</tr>
+<tr>
+<td>Server Error (5xx)</td>
+<td>Lỗi máy chủ tạm thời hoặc URL sinh sai từ bộ lọc</td>
+<td>Khắc phục lỗi kỹ thuật, xử lý redirect nếu URL không hợp lệ, chặn bằng robots.txt nếu cần</td>
+</tr>
+<tr>
+<td>Duplicate Without User-selected Canonical</td>
+<td>Trang trùng nội dung nhưng không có canonical rõ ràng</td>
+<td>Gắn canonical đúng, gộp nội dung nếu cần thiết, redirect bản trùng không cần thiết</td>
+</tr>
+</tbody>
+</table></div>
+<h2>4. Kết luận</h2>
+<p>Việc phân tích và xử lý các lỗi “Excluded” trong Google Search Console không chỉ giúp bạn tăng tỷ lệ index mà còn cải thiện chất lượng toàn bộ website trong mắt Google.</p>
+<p>Khi thực hiện đúng:</p>
+<ul>
+<li>Nội dung có giá trị sẽ được hiển thị nhiều hơn trong kết quả tìm kiếm.</li>
+<li>Crawl budget được phân bổ hợp lý, tập trung vào các trang có khả năng mang lại traffic hoặc chuyển đổi.</li>
+<li>Tránh các lỗi kỹ thuật gây ảnh hưởng đến tổng thể hiệu suất SEO.</li>
+</ul>
+<p>Khuyến nghị:</p>
+<ul>
+<li>Duy trì kiểm tra GSC định kỳ, đặc biệt là tab Coverage (Pages).</li>
+<li>Kết hợp các công cụ như Screaming Frog, Ahrefs, Sitebulb, hoặc URL Inspection API để thu thập và phân loại dữ liệu chính xác.</li>
+<li>Luôn đồng bộ với team nội dung và kỹ thuật khi thực hiện các thay đổi liên quan đến canonical, redirect hoặc robots.txt.</li>
+</ul>
+</div>
+<footer class="post-foot">
+<h2>Đọc tiếp</h2>
+<ul><li><a href="/blog/semantic-search-seo/">Semantic Search trong SEO: Hướng dẫn Thực chiến Toàn tập (2025)</a></li><li><a href="/blog/">Tất cả bài viết</a></li><li><a href="/#kinh-nghiem">Về tác giả</a></li></ul>
+</footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Mentor SEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

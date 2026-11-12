@@ -1,0 +1,29 @@
+# Phan Minh Hoàng – SEO Leader
+
+> Phan Minh Hoàng (Phan Minh Hoang) là SEO Leader tại Công ty Cổ phần Forza, TP. Hồ Chí Minh, Việt Nam. Hơn 4 năm làm technical SEO, semantic SEO và GEO; quản lý team SEO 5 người và hơn 10 tài khoản khách hàng.
+
+## Trang chính
+- [Portfolio (tiếng Việt)](https://phanminhhoang-seo.github.io/): kinh nghiệm, dự án có số liệu Search Console, kỹ năng, liên hệ
+- [Portfolio (English)](https://phanminhhoang-seo.github.io/index-en.html): same content in English
+
+## Bài viết
+- [Semantic Search trong SEO: Hướng dẫn Thực chiến Toàn tập (2025)](https://phanminhhoang-seo.github.io/blog/semantic-search-seo/): Hướng dẫn semantic search trong SEO: phân loại intent, dựng topic cluster theo entity, dùng schema và internal link, kèm checklist 30 ngày.
+- [SEO Indexing Cleanup: Hướng dẫn chi tiết và minh họa từng bước](https://phanminhhoang-seo.github.io/blog/seo-indexing-cleanup/): Quy trình dọn dẹp chỉ mục trong Google Search Console: xử lý Crawled/Discovered – currently not indexed, 404, canonical, noindex và lỗi 5xx.
+
+## Dịch vụ
+- [Dịch vụ SEO](https://phanminhhoang-seo.github.io/dich-vu/seo/): SEO tổng thể, KPI theo tháng
+- [Dịch vụ GEO](https://phanminhhoang-seo.github.io/dich-vu/geo/): tối ưu hiển thị trên ChatGPT, Gemini, Perplexity, AI Overviews
+- [Mentor SEO](https://phanminhhoang-seo.github.io/dich-vu/mentor-seo/): khoá kèm cặp 10 buổi trên website của học viên
+
+## Kinh nghiệm
+- 03/2026 – nay: SEO Leader, Công ty Cổ phần Forza
+- 08/2025 – 01/2026: SEO Specialist, Học viện RNI
+- 01/2025 – 07/2025: Leader SEO Freelance và giảng viên SEO
+- 11/2024 – 12/2024: SEO Specialist (thử việc), Golden Owl Solutions
+- 05/2023 – 11/2024: Chuyên viên SEO, Công ty Cổ phần Forza
+- 05/2023 – 04/2024: Leader SEO Freelance, Vietvape
+- 02/2022 – 04/2023: Nhân viên SEO, 5Vape
+
+## Liên hệ
+- Email: hoangphan.180197@gmail.com
+- LinkedIn: https://www.linkedin.com/in/phan-minh-hoang-lead
