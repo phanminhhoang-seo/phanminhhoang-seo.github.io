@@ -462,3 +462,4 @@ main > section { padding-block: 64px; }
 .svc thead th { background: #f0f3f7; font-weight: 600; }
 .svc tbody tr:last-child th, .svc tbody tr:last-child td { border-bottom: 0; }
 .svc table th[scope="row"] { white-space: normal; min-width: 120px; }
+.site-footer .foot-loc { color: var(--ink); font-weight: 500; margin-bottom: 4px; }

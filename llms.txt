@@ -15,6 +15,8 @@
 - [1-on-1 SEO course](https://phanminhhoang-seo.github.io/en/services/seo-mentoring/): A 10-session 1-on-1 SEO course taught on your own website: how Google indexes, search intent, internal links, content audits and Search Console.
 
 ## Bài viết
+- [llms.txt là gì? Có giúp website xuất hiện trên ChatGPT, Gemini không?](https://phanminhhoang-seo.github.io/blog/llms-txt-la-gi/): llms.txt là file Markdown đặt ở thư mục gốc, tóm tắt website cho mô hình AI. Ai đề xuất, cấu trúc ra sao, Google nói gì và dữ liệu thực tế cho thấy gì.
+- [What is llms.txt? Does it help you show up in ChatGPT and Gemini?](https://phanminhhoang-seo.github.io/en/blog/what-is-llms-txt/): llms.txt is a Markdown file at a site's root that summarises it for AI models. Who proposed it, its structure, what Google says and what the data shows.
 - [GEO là gì? Giải thích dễ hiểu về Generative Engine Optimization](https://phanminhhoang-seo.github.io/blog/geo-la-gi/): GEO (Generative Engine Optimization) là gì, khác SEO ở đâu, xuất hiện trên những nền tảng nào và vì sao doanh nghiệp Việt Nam cần quan tâm từ bây giờ.
 - [What is GEO? Generative Engine Optimization explained simply](https://phanminhhoang-seo.github.io/en/blog/what-is-geo/): What GEO (Generative Engine Optimization) is, how it differs from SEO, which platforms it covers and why businesses should pay attention now.
 - [Đo lường GEO khác đo lường SEO ở điểm nào?](https://phanminhhoang-seo.github.io/blog/do-luong-geo/): SEO đo bằng thứ hạng và lượt click. GEO đo bằng lượt được nhắc, được trích dẫn và traffic từ AI. So sánh chỉ số, nguồn dữ liệu và giới hạn của từng bên.
