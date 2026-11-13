@@ -463,3 +463,38 @@ main > section { padding-block: 64px; }
 .svc tbody tr:last-child th, .svc tbody tr:last-child td { border-bottom: 0; }
 .svc table th[scope="row"] { white-space: normal; min-width: 120px; }
 .site-footer .foot-loc { color: var(--ink); font-weight: 500; margin-bottom: 4px; }
+
+/* ---------- Trang blog: bộ lọc không cần JavaScript ---------- */
+.blog-head { padding: 28px 20px 8px; }
+.blog-head h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); letter-spacing: -.02em; }
+.blog-head .meta { color: var(--muted); max-width: 62ch; }
+.blog-filter { border: 0; padding: 0; margin: 20px 0 0; position: sticky; top: 64px; z-index: 5; }
+.blog-filter legend { font-size: .85rem; color: var(--muted); margin-bottom: 8px; padding: 0; }
+.blog-filter .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; background: var(--paper); }
+.blog-filter input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.blog-filter label { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px; border-radius: 999px;
+  background: var(--surface); box-shadow: 0 0 0 1px var(--rule) inset; font-weight: 500; cursor: pointer; user-select: none; }
+.blog-filter label span { font-size: .8rem; color: var(--muted); }
+.blog-filter label:hover { box-shadow: 0 0 0 1px var(--ink) inset; }
+.blog-filter input:checked + label { background: var(--ink); color: #fff; box-shadow: none; }
+.blog-filter input:checked + label span { color: #c9d1dc; }
+.blog-filter input:focus-visible + label { outline: 3px solid var(--clicks); outline-offset: 2px; }
+main:has(#f-news:checked) .blog-list:not([data-cl="news"]),
+main:has(#f-geo:checked) .blog-list:not([data-cl="geo"]),
+main:has(#f-seo:checked) .blog-list:not([data-cl="seo"]) { display: none; }
+
+/* Danh sách bài dạng lưới 2 cột cho đỡ phải cuộn */
+.blog-list { padding-top: 16px; }
+.blog-list .posts { max-width: none; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.blog-list .posts li { background: var(--surface); border-radius: 20px; padding: 18px 20px; border: 0;
+  box-shadow: 0 1px 2px rgb(23 32 44 / .05), 0 12px 32px -24px rgb(23 32 44 / .3); display: flex; flex-direction: column; }
+.blog-list .posts li:first-child { border-top: 0; }
+.blog-list .posts h3 { font-size: 1.08rem; line-height: 1.35; }
+.blog-list .posts p:last-child { font-size: .93rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 860px) { .blog-filter { top: 64px; } }
+.blog-filter { background: var(--paper); }
+@media (max-width: 600px) {
+  .blog-filter .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -20px; padding-inline: 20px; }
+  .blog-filter .chips::-webkit-scrollbar { display: none; }
+  .blog-filter label { flex: none; }
+}
