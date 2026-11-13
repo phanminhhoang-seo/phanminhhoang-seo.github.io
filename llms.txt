@@ -13,6 +13,7 @@
 - [GEO services](https://phanminhhoang-seo.github.io/en/services/geo/): GEO services that get your brand mentioned and cited by ChatGPT, Gemini, Perplexity and Google AI Overviews. Monthly commitments on real questions.
 - [Khoá học SEO 1 kèm 1](https://phanminhhoang-seo.github.io/dich-vu/mentor-seo/): Khoá học SEO 1 kèm 1, 10 buổi, học trên chính website của bạn: cách Google index, ý định tìm kiếm, internal link, audit nội dung, Search Console.
 - [1-on-1 SEO course](https://phanminhhoang-seo.github.io/en/services/seo-mentoring/): A 10-session 1-on-1 SEO course taught on your own website: how Google indexes, search intent, internal links, content audits and Search Console.
+- [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
 - [Search Console có báo cáo hiệu suất AI tạo sinh: lần đầu tách riêng AI Overviews, AI Mode](https://phanminhhoang-seo.github.io/blog/search-console-bao-cao-ai/): Từ 6/2026, Search Console thử nghiệm báo cáo AI tạo sinh: lượt hiển thị trên AI Overviews, AI Mode và Discover. Báo cáo có gì, còn thiếu gì.

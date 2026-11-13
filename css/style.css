@@ -509,3 +509,4 @@ main:has(#f-seo:checked) .blog-list:not([data-cl="seo"]) { display: none; }
 .svc-fig img{display:block;width:100%;height:auto;max-width:900px;border-radius:20px}
 .svc figure.svc-inline-fig{margin:4px 0 20px}
 .svc figure.svc-inline-fig img{display:block;width:100%;height:auto;border-radius:16px}
+.price-cards.price-single{grid-template-columns:minmax(0,420px)}
