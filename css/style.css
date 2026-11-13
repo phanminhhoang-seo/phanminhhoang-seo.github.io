@@ -498,3 +498,8 @@ main:has(#f-seo:checked) .blog-list:not([data-cl="seo"]) { display: none; }
   .blog-filter .chips::-webkit-scrollbar { display: none; }
   .blog-filter label { flex: none; }
 }
+
+/* Hình trong bài viết */
+.prose figure { margin: 24px 0; }
+.prose figure img { width: auto; max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 1px 2px rgb(23 32 44 / .06), 0 12px 32px -24px rgb(23 32 44 / .35); background: var(--surface); }
+.prose figcaption { font-size: .85rem; color: var(--muted); margin-top: 8px; }
