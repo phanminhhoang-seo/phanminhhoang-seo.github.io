@@ -255,7 +255,7 @@
     }
     function stop() { clearInterval(timer); timer = null; play.textContent = '▶ ' + T('Chạy hết', 'Play all'); }
     go(0);
-    if (!RM) run();
+    if (!RM) whenVisible(b, run);
     b.appendChild(h('p', { 'class': 'mh-note' }, T('Gạch Sao Mai và các trang .example là ví dụ giả định. Điểm số là độ gần giữa vector câu hỏi và vector đoạn văn.', 'Sao Mai and the .example sites are fictional. Scores show how close each chunk vector is to the query vector.')));
   };
 
@@ -732,7 +732,15 @@
     draw(); onResize(wrap, draw);
   };
 
-  /* ---------- khởi tạo khi minh hoạ sắp vào màn hình ---------- */
+  function whenVisible(el, fn) {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); fn(); }
+    }, { threshold: .35 });
+    io.observe(el);
+  }
+
+  /* ---------- khởi tạo ngay khi trang tải xong ---------- */
   function start(fig) {
     if (fig.__mh) return; fig.__mh = 1;
     var fn = C[fig.getAttribute('data-mh')];
@@ -743,12 +751,7 @@
     var figs = [].slice.call(document.querySelectorAll('figure.mh[data-mh]'));
     if (!figs.length) return;
     injectCSS();
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); start(e.target); } });
-      }, { rootMargin: '300px 0px' });
-      figs.forEach(function (f) { io.observe(f); });
-    } else figs.forEach(start);
+    figs.forEach(start);
   }
   window.MinhHoa = { start: start, list: Object.keys(C) };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
