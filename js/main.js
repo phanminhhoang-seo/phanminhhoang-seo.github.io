@@ -1,6 +1,8 @@
 // Phan Minh Hoàng – portfolio. Không dùng thư viện ngoài.
 // URL Web App của Google Apps Script (…/exec): nhận form liên hệ và chatbot AI. Để trống thì form/chatbot chưa chạy.
-const PMH_ENDPOINT = '';
+const PMH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyeQ1ru7z36mL4789uIH72LDd-T3uDJRJakMt10--N8w0qeYfDk74yZ81E5DLn1zouG/exec';
+// Bật chatbot AI khi Apps Script đã có GEMINI_API_KEY và chạy testChat thành công
+const PMH_CHAT = false;
 (() => {
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -154,7 +156,7 @@ const PMH_ENDPOINT = '';
 // Chatbot AI: trả lời bằng Gemini qua Apps Script, mỗi lượt chat được lưu vào Google Sheet
 (() => {
   'use strict';
-  if (!PMH_ENDPOINT) return;
+  if (!PMH_ENDPOINT || !PMH_CHAT) return;
   const en = document.documentElement.lang === 'en';
   const T = en ? {
     open: 'Ask the AI assistant', title: 'AI assistant', sub: 'Questions about SEO, GEO and courses',
