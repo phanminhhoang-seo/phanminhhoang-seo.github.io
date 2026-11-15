@@ -520,3 +520,28 @@ main:has(#f-seo:checked) .blog-list:not([data-cl="seo"]) { display: none; }
 .svc figure.svc-inline-fig{margin:4px 0 20px}
 .svc figure.svc-inline-fig img{display:block;width:100%;height:auto;border-radius:16px}
 .price-cards.price-single{grid-template-columns:minmax(0,420px)}
+
+/* Form liên hệ ở trang dịch vụ */
+.lead-form { max-width: 720px; margin: 20px 0 8px; }
+.lf-grid { display: grid; gap: 14px 18px; grid-template-columns: 1fr 1fr; }
+.lf-full { grid-column: 1 / -1; }
+@media (max-width: 600px) { .lf-grid { grid-template-columns: 1fr; } }
+.lf-field { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.lf-field label { font-weight: 600; font-size: .95rem; }
+.lf-field label span { color: #c5221f; }
+.lead-form input, .lead-form select, .lead-form textarea {
+  font: inherit; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; width: 100%;
+}
+.lead-form textarea { resize: vertical; min-height: 110px; }
+.lead-form input:focus, .lead-form select:focus, .lead-form textarea:focus { outline: 2px solid var(--clicks); outline-offset: 1px; border-color: var(--clicks); background: var(--surface); }
+.lead-form [aria-invalid="true"] { border-color: #c5221f; }
+.lf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.lf-note { color: var(--muted); font-size: .9rem; margin: 12px 0 0; }
+.lf-actions { margin: 14px 0 0; }
+.lead-form button { font: inherit; font-weight: 600; cursor: pointer; }
+.lead-form button[disabled] { opacity: .6; cursor: progress; }
+.lf-status { margin: 10px 0 0; font-weight: 500; min-height: 1.4em; }
+.lf-status.ok { color: #137333; }
+.lf-status.err { color: #c5221f; }
+.lf-or { color: var(--muted); margin: 18px 0 8px; }

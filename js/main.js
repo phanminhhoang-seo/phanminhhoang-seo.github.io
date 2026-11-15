@@ -106,3 +106,45 @@
   }, { passive: true });
   document.addEventListener('pointerleave', () => glow.classList.remove('on'));
 })();
+
+// Form liên hệ ở trang dịch vụ: gửi về Google Sheet + email qua Google Apps Script
+(() => {
+  'use strict';
+  const FORM_ENDPOINT = ''; // URL Web App của Google Apps Script (…/exec)
+  const form = document.querySelector('.lead-form');
+  if (!form) return;
+  const status = form.querySelector('.lf-status');
+  const submit = form.querySelector('button[type="submit"]');
+  const loadedAt = Date.now();
+  const say = (msg, cls) => { status.textContent = msg; status.className = 'lf-status' + (cls ? ' ' + cls : ''); };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = form.elements;
+    [f.name, f.email, f.phone, f.message].forEach((el) => el.removeAttribute('aria-invalid'));
+    const bad = (el, msg) => { el.setAttribute('aria-invalid', 'true'); el.focus(); say(msg, 'err'); };
+    if (!f.name.value.trim()) return bad(f.name, 'Vui lòng nhập họ tên.');
+    const email = f.email.value.trim(), phone = f.phone.value.trim();
+    if (!email && !phone) return bad(f.email, 'Vui lòng để lại email hoặc số điện thoại.');
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bad(f.email, 'Email chưa đúng định dạng.');
+    if (phone && phone.replace(/\D/g, '').length < 9) return bad(f.phone, 'Số điện thoại chưa đúng.');
+    if (!f.message.value.trim()) return bad(f.message, 'Vui lòng nhập nội dung.');
+    if (f.company_url.value) return; // bot
+    if (!FORM_ENDPOINT) return say('Form đang được thiết lập. Vui lòng liên hệ qua email hoặc Zalo bên dưới.', 'err');
+
+    const data = new URLSearchParams(new FormData(form));
+    data.set('page', location.href);
+    data.set('t', String(Date.now() - loadedAt));
+    submit.disabled = true; say('Đang gửi…');
+    try {
+      await fetch(FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: data });
+      form.reset();
+      say('Đã gửi. Tôi sẽ liên hệ lại với bạn sớm nhất, thường trong ngày làm việc.', 'ok');
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_service: data.get('service') });
+    } catch (err) {
+      say('Chưa gửi được. Vui lòng thử lại hoặc liên hệ qua email, Zalo bên dưới.', 'err');
+    } finally {
+      submit.disabled = false;
+    }
+  });
+})();
