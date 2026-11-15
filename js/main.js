@@ -256,7 +256,7 @@ const PMH_CHAT = false;
     if (hist.length === 1 && typeof gtag === 'function') gtag('event', 'chat_start');
     let reply = '';
     try {
-      const body = new URLSearchParams({ action: 'chat', sid, message: text, history: JSON.stringify(prev), page: location.href, lang: en ? 'en' : 'vi' });
+      const body = new URLSearchParams({ action: 'chat', cid: sid, message: text, history: JSON.stringify(prev), page: location.href, lang: en ? 'en' : 'vi' });
       const res = await fetch(PMH_ENDPOINT, { method: 'POST', body });
       const data = await res.json();
       reply = (data && data.reply) || '';
