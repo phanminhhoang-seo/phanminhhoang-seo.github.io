@@ -82,6 +82,7 @@
 <tr><td>Công ty A</td><td>cung cấp</td><td>Dịch vụ X</td></tr>
 <tr><td>Công ty A</td><td>cùng là</td><td>Mục Công ty A trên Wikidata</td></tr>
 </tbody></table></div>
+<figure class="mh" data-mh="kg"><figcaption>Đồ thị thực thể của một doanh nghiệp mẫu: mỗi đường nối là một triple chủ thể, quan hệ, đối tượng, kèm cách khai báo bằng thuộc tính schema.org tương ứng.</figcaption></figure>
 <p>Hai điểm làm triple khác một câu văn bình thường:</p>
 <ul>
 <li><strong>Mỗi thực thể có một mã định danh.</strong> “Công ty A” trên website, trên Wikidata và trong Knowledge Graph phải trỏ về cùng một mã thì máy mới biết đó là một đối tượng. Wikidata dùng mã dạng Q…, Google Knowledge Graph dùng mã dạng /m/… hoặc /g/….</li>
@@ -136,7 +137,7 @@
 <h2>6. Điều này có ý nghĩa gì với doanh nghiệp?</h2>
 <ul>
 <li><strong>Dữ kiện sai có thể đến tay người dùng mà không có link để đối chiếu.</strong> Nếu Knowledge Graph ghi sai năm thành lập hay trụ sở, AI Mode có thể nhắc lại, và người đọc không có trang nào để kiểm tra. Đây là một trong những nguyên nhân ở bài <a href="/blog/vi-sao-ai-tra-loi-sai-ve-thuong-hieu/">vì sao AI trả lời sai về thương hiệu</a>.</li>
-<li><strong>Được nhắc tên chưa chắc được dẫn link.</strong> Dữ kiện chỉ nằm trong đồ thị có thể xuất hiện trong câu trả lời mà không trỏ về website. Đó là lý do <a href="/blog/do-luong-geo/">đo lường GEO</a> phải tính cả lượt được nhắc, không chỉ lượt click.</li>
+<li><strong>Được nhắc tên chưa chắc được dẫn link.</strong> Dữ kiện chỉ nằm trong đồ thị có thể xuất hiện trong câu trả lời mà không trỏ về website. Điều này khác với quy trình <a href="/blog/rag-la-gi/">RAG</a> thông thường, nơi mỗi đoạn văn được lấy về đi kèm link của trang chứa nó. Đó là lý do <a href="/blog/do-luong-geo/">đo lường GEO</a> phải tính cả lượt được nhắc, không chỉ lượt click.</li>
 <li><strong>Không có schema còn hơn schema sai.</strong> Schema là nguyên liệu để tạo triple. Một giá trị sai, hoặc <code>sameAs</code> trỏ nhầm sang thực thể trùng tên, là đưa dữ kiện sai vào đồ thị. Ngay trong thử nghiệm của Petrovic, trích dẫn duy nhất mà AI Mode đưa ra lại trỏ tới trang Wikipedia của một người trùng tên.</li>
 <li><strong>Chặn bot AI có thể ảnh hưởng tới cả dữ kiện.</strong> Bản phân tích cho thấy dữ kiện có cờ loại trừ theo Google-Extended, nhưng tác giả dùng chữ “có thể” và Google chưa xác nhận. Xem thêm bài <a href="/blog/cac-loai-bot-ai/">các loại bot AI</a> và <a href="/blog/tin-hieu-ai-training-robots-txt/">tín hiệu AI training trong robots.txt</a>.</li>
 </ul>
@@ -150,5 +151,6 @@
 </article></main>
 <footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Khoá học SEO 1 kèm 1</a></li><li><a href="/dich-vu/khoa-hoc-geo/">Khoá học GEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p class="foot-loc">Phan Minh Hoàng SEO – TP. Hồ Chí Minh, Việt Nam</p><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
 <script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
 </body>
 </html>

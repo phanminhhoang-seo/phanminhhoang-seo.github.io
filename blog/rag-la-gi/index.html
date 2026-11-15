@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG là gì? Cách AI tìm nguồn web trước khi trả lời</title>
+<meta name="description" content="RAG là cách AI tìm và đọc tài liệu trước rồi mới trả lời. ChatGPT, Perplexity, Google AI Mode dùng RAG ra sao, và trang web bị bỏ qua ở những khâu nào.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/rag-la-gi/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/rag-la-gi/">
+<link rel="alternate" hreflang="en" href="https://phanminhhoang-seo.github.io/en/blog/what-is-rag/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/rag-la-gi/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:site_name" content="Phan Minh Hoàng SEO">
+<meta name="application-name" content="Phan Minh Hoàng SEO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG là gì? Cách AI tìm nguồn web trước khi trả lời">
+<meta property="og:description" content="RAG là cách AI tìm và đọc tài liệu trước rồi mới trả lời. ChatGPT, Perplexity, Google AI Mode dùng RAG ra sao, và trang web bị bỏ qua ở những khâu nào.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/rag-la-gi/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:locale:alternate" content="en_US">
+
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-16">
+<meta property="article:modified_time" content="2026-11-16">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/"},{"@type":"ListItem","position":3,"name":"RAG là gì","item":"https://phanminhhoang-seo.github.io/blog/rag-la-gi/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời","description":"RAG là cách AI tìm và đọc tài liệu trước rồi mới trả lời. ChatGPT, Perplexity, Google AI Mode dùng RAG ra sao, và trang web bị bỏ qua ở những khâu nào.","url":"https://phanminhhoang-seo.github.io/blog/rag-la-gi/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/blog/rag-la-gi/","inLanguage":"vi","datePublished":"2026-11-16","dateModified":"2026-11-16","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/blog/"},"about":[{"@type":"Thing","name":"Retrieval-augmented generation","sameAs":"https://en.wikipedia.org/wiki/Retrieval-augmented_generation"}],"mentions":[{"@type":"Thing","name":"Large language model","sameAs":"https://en.wikipedia.org/wiki/Large_language_model"},{"@type":"Thing","name":"Word embedding","sameAs":"https://en.wikipedia.org/wiki/Word_embedding"},{"@type":"Thing","name":"Vector database","sameAs":"https://en.wikipedia.org/wiki/Vector_database"},{"@type":"Thing","name":"ChatGPT","sameAs":"https://en.wikipedia.org/wiki/ChatGPT"},{"@type":"Thing","name":"Perplexity AI","sameAs":"https://en.wikipedia.org/wiki/Perplexity_AI"}],"wordCount":2043,"articleSection":"GEO"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"RAG là gì?","acceptedAnswer":{"@type":"Answer","text":"RAG (Retrieval-Augmented Generation) là cách cho mô hình ngôn ngữ tìm và đọc tài liệu liên quan trước, rồi mới viết câu trả lời dựa trên tài liệu đó. ChatGPT search, Perplexity và Google AI Mode đều tìm trên web trước khi trả lời theo cách này."}},{"@type":"Question","name":"RAG có phải là GEO không?","acceptedAnswer":{"@type":"Answer","text":"Không. RAG là kỹ thuật mà các nền tảng AI dùng để tìm tài liệu trước khi trả lời. GEO là việc doanh nghiệp làm để website và thương hiệu được các hệ thống đó tìm thấy, chọn dùng và trích dẫn."}},{"@type":"Question","name":"Chặn GPTBot có làm website biến mất khỏi ChatGPT search không?","acceptedAnswer":{"@type":"Answer","text":"Theo tài liệu của OpenAI thì không. GPTBot liên quan tới việc huấn luyện mô hình. Việc xuất hiện trong ChatGPT search phụ thuộc vào OAI-SearchBot; trang chặn OAI-SearchBot sẽ không được hiển thị trong câu trả lời của ChatGPT search."}},{"@type":"Question","name":"Có cần schema hay llms.txt để Google AI Mode lấy trang không?","acceptedAnswer":{"@type":"Answer","text":"Google cho biết không cần schema, tệp hay đánh dấu riêng nào để xuất hiện trong AI Overviews và AI Mode. Trang cần được index và đủ điều kiện hiển thị đoạn trích trên Google Search. Về llms.txt, xem bài llms.txt là gì."}}]}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7';document.head.appendChild(s)},1500)});</script>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="/dich-vu/">Dịch vụ</a></li><li><a href="/#kinh-nghiem">Kinh nghiệm</a></li><li><a href="/#du-an">Dự án</a></li><li><a href="/blog/" aria-current="page">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li><li><a class="lang" href="/en/blog/what-is-rag/" hreflang="en" lang="en">English</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Trang chủ</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">RAG là gì</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời</h1>
+<div class="author"><img src="/images/phan-minh-hoang-56.webp" width="44" height="44" alt=""><div>
+<p class="a-name"><a href="/" rel="author">Phan Minh Hoàng</a></p>
+<p class="a-role">Chuyên gia SEO và GEO, SEO Leader tại Forza</p>
+<p class="a-meta">Đăng <time datetime="2026-11-16">16/11/2026</time>. 9 phút đọc.</p>
+</div></div></header>
+<div class="prose">
+<p class="lead">Khi bạn hỏi ChatGPT về giá vé máy bay tuần sau, hay hỏi Google AI Mode một câu cần số liệu mới, mô hình không trả lời chỉ bằng những gì nó đã học. Nó tìm tài liệu trên web trước, đọc vài đoạn liên quan, rồi mới viết câu trả lời và gắn nguồn. Cách làm này gọi là RAG. Bài này giải thích RAG là gì, chạy qua những bước nào, ChatGPT, Perplexity và Google dùng nó ra sao, và một trang web có thể bị bỏ qua ở những khâu nào.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Mục lục</h2><ol><li><a href="#rag-la-gi">RAG là gì?</a></li><li><a href="#cach-hoat-dong">RAG hoạt động thế nào?</a></li><li><a href="#nen-tang">ChatGPT, Perplexity và Google dùng RAG ra sao?</a></li><li><a href="#huan-luyen">RAG khác dữ liệu huấn luyện thế nào?</a></li><li><a href="#cac-khau">Trang web có thể bị bỏ qua ở những khâu nào?</a></li><li><a href="#y-nghia">Điều này có ý nghĩa gì với doanh nghiệp?</a></li><li><a href="#faq">Câu hỏi thường gặp</a></li><li><a href="#refs">Tài liệu tham khảo</a></li></ol></nav>
+<section id="rag-la-gi">
+<h2>1. RAG là gì?</h2>
+<p><strong>RAG (Retrieval-Augmented Generation, tạm dịch: tạo câu trả lời có truy xuất tài liệu) là cách cho mô hình ngôn ngữ tìm và đọc tài liệu liên quan trước, rồi mới viết câu trả lời dựa trên tài liệu đó.</strong> Thuật ngữ này xuất hiện trong bài nghiên cứu của Patrick Lewis và cộng sự tại Facebook AI Research, University College London và New York University, đăng trên arXiv ngày 22/5/2020.</p>
+<p>Bài báo chia kiến thức của mô hình thành hai loại. <strong>Trí nhớ tham số</strong> là những gì đã nằm trong mô hình sau khi huấn luyện. <strong>Trí nhớ phi tham số</strong> là một kho tài liệu bên ngoài mà mô hình tra cứu được; trong thử nghiệm gốc, kho đó là chỉ mục vector của Wikipedia. Dễ hình dung nhất là hai kiểu thi: không có RAG là thi đóng sách, có RAG là thi được mở tài liệu.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="So sánh mô hình trả lời từ trí nhớ và mô hình dùng RAG">
+<table><thead><tr><th></th><th>Mô hình trả lời từ trí nhớ</th><th>Mô hình dùng RAG</th></tr></thead><tbody>
+<tr><td>Kiến thức lấy từ đâu</td><td>Dữ liệu huấn luyện</td><td>Dữ liệu huấn luyện và tài liệu tìm được lúc hỏi</td></tr>
+<tr><td>Thông tin mới đến đâu</td><td>Dừng ở thời điểm huấn luyện</td><td>Mới như chỉ mục được tra cứu</td></tr>
+<tr><td>Có dẫn nguồn không</td><td>Thường không</td><td>Có thể gắn link cho từng ý</td></tr>
+<tr><td>Khi không biết</td><td>Dễ đoán bừa</td><td>Có tài liệu để dựa vào, nhưng vẫn có thể đọc sai</td></tr>
+</tbody></table></div>
+<p>RAG không làm AI hết sai. Nó chuyển câu hỏi “mô hình có nhớ đúng không” thành hai câu hỏi khác: hệ thống có tìm đúng tài liệu không, và mô hình có đọc đúng tài liệu đó không. Với người làm SEO và GEO, đây là tin tốt: tài liệu được tìm thấy có thể chính là trang của bạn.</p>
+</section>
+
+<section id="cach-hoat-dong">
+<h2>2. RAG hoạt động thế nào?</h2>
+<p>Một hệ thống RAG chạy qua hai giai đoạn: chuẩn bị kho tài liệu từ trước, và truy xuất khi có người hỏi. Bấm “Bước tiếp” trong minh hoạ để xem từng bước với một câu hỏi mẫu.</p>
+<figure class="mh" data-mh="rag"><figcaption>RAG gồm hai giai đoạn. Giai đoạn chuẩn bị: thu thập trang web, cắt thành đoạn, đổi mỗi đoạn thành vector và lưu vào kho. Giai đoạn trả lời: đổi câu hỏi thành vector, lấy K đoạn gần nhất, ghép vào prompt và để LLM viết câu trả lời kèm nguồn.</figcaption></figure>
+<h3>Giai đoạn 1: chuẩn bị kho tài liệu</h3>
+<ol>
+<li><strong>Thu thập tài liệu:</strong> trang web, PDF, cơ sở dữ liệu. Với công cụ tìm kiếm bằng AI, đây là chỉ mục web do bot thu thập.</li>
+<li><strong>Cắt thành đoạn (chunk):</strong> mỗi trang được chia thành nhiều đoạn ngắn, thường theo đoạn văn hoặc theo mục. Hệ thống lấy về từng đoạn chứ không lấy cả trang.</li>
+<li><strong>Tạo embedding:</strong> mỗi đoạn được đổi thành một vector, tức một dãy số biểu diễn ý nghĩa của đoạn. Hai đoạn cùng ý thì vector nằm gần nhau, dù dùng chữ khác nhau.</li>
+<li><strong>Lưu vào kho:</strong> vector được lưu cùng đoạn văn gốc và đường link để sau này trích dẫn.</li>
+</ol>
+<h3>Giai đoạn 2: khi có người hỏi</h3>
+<ol start="5">
+<li><strong>Xử lý câu hỏi:</strong> câu hỏi được đổi thành vector bằng cùng mô hình embedding. Nhiều hệ thống còn viết lại câu hỏi, hoặc tách thành nhiều truy vấn nhỏ (query fan-out).</li>
+<li><strong>Truy xuất:</strong> lấy K đoạn có vector gần câu hỏi nhất. Các hệ thống tìm kiếm thực tế thường kết hợp thêm tìm theo từ khoá và một bước xếp hạng lại.</li>
+<li><strong>Ghép prompt:</strong> câu hỏi và các đoạn tìm được được đưa cho mô hình ngôn ngữ cùng lúc.</li>
+<li><strong>Viết câu trả lời:</strong> mô hình viết dựa trên các đoạn đó và gắn nguồn cho từng ý.</li>
+</ol>
+<p>Hai điều quan trọng rút ra từ quy trình này: <strong>thứ được chọn là đoạn văn chứ không phải cả trang</strong>, và <strong>một đoạn không lọt vào nhóm K đoạn được lấy về thì không có cơ hội được trích dẫn</strong>, dù trang chứa nó viết tốt đến đâu. Việc tìm theo nghĩa thay vì theo chữ là cùng tư duy với <a href="/blog/semantic-search-seo/">semantic search trong SEO</a>.</p>
+</section>
+
+<section id="nen-tang">
+<h2>3. ChatGPT, Perplexity và Google dùng RAG ra sao?</h2>
+<p>Cả ba đều tìm trên web trước khi trả lời, nhưng tra cứu những chỉ mục khác nhau và dùng bot khác nhau. Bảng dưới chỉ ghi những gì các nền tảng đã công bố trong tài liệu chính thức.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Cách ChatGPT, Perplexity và Google tìm nguồn">
+<table><thead><tr><th>Nền tảng</th><th>Tìm nguồn ở đâu</th><th>Bot cần được cho phép</th><th>Điểm đáng chú ý</th></tr></thead><tbody>
+<tr><td>ChatGPT search</td><td>Hệ thống tìm kiếm của OpenAI, đôi khi kết hợp đối tác tìm kiếm bên thứ ba (OpenAI không công bố danh sách đầy đủ)</td><td>OAI-SearchBot</td><td>Câu hỏi thường được viết lại thành một hoặc nhiều truy vấn cụ thể hơn trước khi gửi đi tìm</td></tr>
+<tr><td>Perplexity</td><td>Chỉ mục do PerplexityBot thu thập</td><td>PerplexityBot</td><td>Perplexity-User đọc trang theo yêu cầu của người dùng và nhìn chung không theo robots.txt</td></tr>
+<tr><td>Google AI Overviews, AI Mode</td><td>Chỉ mục Google Search</td><td>Googlebot</td><td>Có thể dùng query fan-out: chạy nhiều tìm kiếm liên quan theo chủ đề con và nguồn dữ liệu</td></tr>
+</tbody></table></div>
+<p>Với Google, điều kiện để được dẫn link khá rõ: trang phải được index và đủ điều kiện hiển thị đoạn trích trên Google Search. Google cũng nói không cần schema, tệp hay đánh dấu riêng nào cho AI. Hai tính năng có thể dùng mô hình và kỹ thuật khác nhau, nên bộ link hiển thị cũng khác nhau. Chi tiết ở bài <a href="/blog/ai-overviews-ai-mode/">AI Overviews và AI Mode là gì</a>.</p>
+<p>Không phải thông tin nào trong câu trả lời cũng đến từ một trang web có link. Google cho biết AI Mode dùng cả dữ kiện từ Knowledge Graph, và phân tích gần đây cho thấy các dữ kiện này có thể vào câu trả lời mà không kèm URL, như trong bài <a href="/blog/chuan-knowledge-graph/">Knowledge Graph vào thẳng câu trả lời AI Mode</a>.</p>
+</section>
+
+<section id="huan-luyen">
+<h2>4. RAG khác dữ liệu huấn luyện thế nào?</h2>
+<p>Một mô hình AI biết về thương hiệu của bạn theo hai đường: học từ dữ liệu huấn luyện, hoặc tìm thấy qua RAG lúc người dùng hỏi. Hai đường này dùng bot khác nhau, và chặn bot này không có nghĩa là chặn bot kia.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="So sánh dữ liệu huấn luyện và RAG">
+<table><thead><tr><th></th><th>Dữ liệu huấn luyện</th><th>RAG khi trả lời</th></tr></thead><tbody>
+<tr><td>Diễn ra khi nào</td><td>Trước khi mô hình ra mắt, theo từng đợt</td><td>Mỗi lần người dùng hỏi</td></tr>
+<tr><td>Thông tin mới đến đâu</td><td>Dừng ở thời điểm thu thập</td><td>Mới như chỉ mục được tra cứu</td></tr>
+<tr><td>Có link về website không</td><td>Không</td><td>Có, nếu trang được trích dẫn</td></tr>
+<tr><td>Bot liên quan (ví dụ OpenAI)</td><td>GPTBot</td><td>OAI-SearchBot, ChatGPT-User</td></tr>
+</tbody></table></div>
+<p>Theo tài liệu của OpenAI, chặn GPTBot chỉ báo rằng nội dung không nên được dùng để huấn luyện mô hình; muốn xuất hiện trong ChatGPT search thì cần cho phép OAI-SearchBot. Google cũng tách bạch: Google-Extended dùng để giới hạn việc huấn luyện và làm nguồn tham chiếu cho một số hệ thống AI khác của Google, còn quyền truy cập cho Search vẫn do Googlebot quyết định. Danh sách đầy đủ ở bài <a href="/blog/cac-loai-bot-ai/">các loại bot AI</a> và <a href="/blog/tin-hieu-ai-training-robots-txt/">tín hiệu AI training mới trong robots.txt</a>.</p>
+</section>
+
+<section id="cac-khau">
+<h2>5. Trang web có thể bị bỏ qua ở những khâu nào?</h2>
+<p>Nhìn theo quy trình RAG, có năm điểm mà một trang có thể rơi khỏi câu trả lời. Mỗi điểm là một nguyên nhân khác nhau, nên cách kiểm tra cũng khác nhau.</p>
+<ol>
+<li><strong>Bot không đọc được trang.</strong> Trang bị chặn trong robots.txt, bị tường lửa hoặc CDN chặn, hay nội dung chỉ hiện sau khi chạy JavaScript.</li>
+<li><strong>Trang không có trong chỉ mục mà nền tảng tra cứu.</strong> Với Google là trang chưa được index; với ChatGPT là trang không có trong chỉ mục của OpenAI hay của đối tác tìm kiếm. Cách đọc từng lý do trang chưa được index có trong bài <a href="/blog/seo-indexing-cleanup/">dọn dẹp chỉ mục</a>.</li>
+<li><strong>Có trong chỉ mục nhưng không lọt vào nhóm được lấy về.</strong> Đoạn văn không đủ gần với câu hỏi về nghĩa, hoặc ý trả lời rải rác ở nhiều đoạn nên không đoạn nào đủ mạnh.</li>
+<li><strong>Được lấy về nhưng không được dùng.</strong> Mô hình nhận nhiều đoạn hơn số đoạn nó dùng. Đoạn mơ hồ, thiếu ngữ cảnh hoặc trùng ý với nguồn khác dễ bị bỏ.</li>
+<li><strong>Được dùng nhưng không được gắn link.</strong> Thông tin vào câu trả lời mà không ghi nguồn, hoặc nguồn được ghi là một trang khác nói cùng ý.</li>
+</ol>
+<p>Khi khâu truy xuất lấy nhầm tài liệu cũ hoặc tài liệu của một thực thể trùng tên, câu trả lời sai theo. Đó là một trong các nguyên nhân ở bài <a href="/blog/vi-sao-ai-tra-loi-sai-ve-thuong-hieu/">vì sao AI trả lời sai về thương hiệu</a>. Và vì khâu thứ năm không để lại lượt click nào, <a href="/blog/do-luong-geo/">đo lường GEO</a> phải đếm cả lượt được nhắc tên, không chỉ traffic.</p>
+</section>
+
+<section id="y-nghia">
+<h2>6. Điều này có ý nghĩa gì với doanh nghiệp?</h2>
+<ul>
+<li><strong>SEO vẫn là cửa đầu tiên.</strong> Chỉ mục là nơi RAG tìm tài liệu. Trang không được thu thập và index thì không có mặt trong bất kỳ câu trả lời nào.</li>
+<li><strong>Mỗi đoạn được đọc riêng.</strong> AI lấy về đoạn văn chứ không lấy cả trang, nên một ý quan trọng cần được nói đủ trong cùng một đoạn, kèm tên sản phẩm hay thương hiệu đang nói tới.</li>
+<li><strong>Không nền tảng nào công bố đầy đủ cách chọn nguồn.</strong> Mọi kết luận về việc trang có được trích dẫn hay không cần kiểm chứng bằng cách hỏi lặp lại nhiều lần trên nhiều nền tảng, không dựa vào một lần thử.</li>
+</ul>
+<aside class="post-cta"><p>Website của bạn đang rơi ở khâu nào trong năm khâu trên? Kiểm tra lần lượt bot, chỉ mục và mức độ xuất hiện trên từng nền tảng AI là bước đầu của dịch vụ GEO.</p><a href="/dich-vu/geo/">Xem dịch vụ GEO</a></aside>
+<p>Nếu bạn làm SEO và muốn tự nắm cơ chế này trên chính website của mình, <a href="/dich-vu/khoa-hoc-geo/">khoá học GEO 1 kèm 1</a> bắt đầu từ đúng phần này: cách AI tìm và chọn nguồn. Bài nhập môn về khái niệm GEO nằm ở <a href="/blog/geo-la-gi/">GEO là gì</a>.</p>
+</section>
+<section id="faq" aria-labelledby="faq-t"><h2 id="faq-t">Câu hỏi thường gặp</h2><details><summary>RAG là gì?</summary><p>RAG (Retrieval-Augmented Generation) là cách cho mô hình ngôn ngữ tìm và đọc tài liệu liên quan trước, rồi mới viết câu trả lời dựa trên tài liệu đó. ChatGPT search, Perplexity và Google AI Mode đều tìm trên web trước khi trả lời theo cách này.</p></details><details><summary>RAG có phải là GEO không?</summary><p>Không. RAG là kỹ thuật mà các nền tảng AI dùng để tìm tài liệu trước khi trả lời. GEO là việc doanh nghiệp làm để website và thương hiệu được các hệ thống đó tìm thấy, chọn dùng và trích dẫn.</p></details><details><summary>Chặn GPTBot có làm website biến mất khỏi ChatGPT search không?</summary><p>Theo tài liệu của OpenAI thì không. GPTBot liên quan tới việc huấn luyện mô hình. Việc xuất hiện trong ChatGPT search phụ thuộc vào OAI-SearchBot; trang chặn OAI-SearchBot sẽ không được hiển thị trong câu trả lời của ChatGPT search.</p></details><details><summary>Có cần schema hay llms.txt để Google AI Mode lấy trang không?</summary><p>Google cho biết không cần schema, tệp hay đánh dấu riêng nào để xuất hiện trong AI Overviews và AI Mode. Trang cần được index và đủ điều kiện hiển thị đoạn trích trên Google Search. Về llms.txt, xem bài <a href="/blog/llms-txt-la-gi/">llms.txt là gì</a>.</p></details></section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">Tài liệu tham khảo</h2><ul><li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="nofollow noopener">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks – Lewis và cộng sự, arXiv (05/2020)</a></li><li><a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="nofollow noopener">AI features and your website – Google Search Central</a></li><li><a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="nofollow noopener">Overview of OpenAI Crawlers – OpenAI</a></li><li><a href="https://help.openai.com/en/articles/9237897" target="_blank" rel="nofollow noopener">Searching the web with ChatGPT – OpenAI Help Center</a></li><li><a href="https://docs.perplexity.ai/guides/bots" target="_blank" rel="nofollow noopener">Perplexity Crawlers – Perplexity</a></li></ul></section>
+</div>
+<footer class="post-foot"><h2>Đọc tiếp</h2><ul><li><a href="/blog/ai-overviews-ai-mode/">AI Overviews và AI Mode là gì? Khác gì kết quả tìm kiếm thường</a></li><li><a href="/blog/cac-loai-bot-ai/">Các loại bot AI: GPTBot, ClaudeBot, PerplexityBot khác nhau thế nào?</a></li><li><a href="/blog/semantic-search-seo/">Semantic Search trong SEO: tối ưu theo ý định tìm kiếm và thực thể</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/blog/">Tất cả bài viết</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Khoá học SEO 1 kèm 1</a></li><li><a href="/dich-vu/khoa-hoc-geo/">Khoá học GEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p class="foot-loc">Phan Minh Hoàng SEO – TP. Hồ Chí Minh, Việt Nam</p><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
+</body>
+</html>

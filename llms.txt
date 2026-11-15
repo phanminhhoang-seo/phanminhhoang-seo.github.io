@@ -16,6 +16,8 @@
 - [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
+- [RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời](https://phanminhhoang-seo.github.io/blog/rag-la-gi/): RAG là cách AI tìm và đọc tài liệu trước rồi mới trả lời. ChatGPT, Perplexity, Google AI Mode dùng RAG ra sao, và trang web bị bỏ qua ở những khâu nào.
+- [What is RAG? How ChatGPT, Perplexity and Google AI Mode find sources before answering](https://phanminhhoang-seo.github.io/en/blog/what-is-rag/): RAG is how AI finds and reads documents before it answers. How ChatGPT, Perplexity and Google AI Mode use it, and where a website can drop out.
 - [Knowledge Graph vào thẳng câu trả lời AI Mode: chuẩn triple, RDF và schema.org năm 2026](https://phanminhhoang-seo.github.io/blog/chuan-knowledge-graph/): Cuối 10/2026, phân tích mới cho thấy AI Mode nhận dữ kiện Knowledge Graph không kèm link. Chuẩn triple, RDF, schema.org là gì và năm 2026 đổi những gì.
 - [Knowledge Graph facts go straight into AI Mode answers: triples, RDF and schema.org in 2026](https://phanminhhoang-seo.github.io/en/blog/knowledge-graph-standards/): Late October 2026 analysis shows AI Mode receives Knowledge Graph facts with no link. What triples, RDF and schema.org are, and what changed in 2026.
 - [Search Console có báo cáo hiệu suất AI tạo sinh: lần đầu tách riêng AI Overviews, AI Mode](https://phanminhhoang-seo.github.io/blog/search-console-bao-cao-ai/): Từ 6/2026, Search Console thử nghiệm báo cáo AI tạo sinh: lượt hiển thị trên AI Overviews, AI Mode và Discover. Báo cáo có gì, còn thiếu gì.

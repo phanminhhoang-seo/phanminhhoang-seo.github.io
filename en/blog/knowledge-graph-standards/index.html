@@ -80,6 +80,7 @@
 <tr><td>Company A</td><td>offers</td><td>Service X</td></tr>
 <tr><td>Company A</td><td>is the same as</td><td>Company A’s Wikidata item</td></tr>
 </tbody></table></div>
+<figure class="mh" data-mh="kg"><figcaption>Entity graph of a sample company: every edge is a subject, predicate, object triple, shown with the matching schema.org property.</figcaption></figure>
 <p>Two things make a triple different from an ordinary sentence:</p>
 <ul>
 <li><strong>Every entity has an identifier.</strong> “Company A” on the website, on Wikidata and in the Knowledge Graph must point to the same ID for a machine to know it’s one thing. Wikidata uses IDs like Q…, Google’s Knowledge Graph uses IDs like /m/… or /g/….</li>
@@ -134,7 +135,7 @@
 <h2>6. What this means for businesses</h2>
 <ul>
 <li><strong>Wrong facts can reach users with no link to check them against.</strong> If the Knowledge Graph has the wrong founding year or headquarters, AI Mode may repeat it and readers have no page to verify it. This is one of the causes covered in <a href="/en/blog/why-ai-gets-your-brand-wrong/">why AI gets your brand wrong</a>.</li>
-<li><strong>Being mentioned doesn’t guarantee a link.</strong> Facts that live only in the graph can appear in answers without pointing to your website. That’s why <a href="/en/blog/measuring-geo/">measuring GEO</a> has to count mentions, not just clicks.</li>
+<li><strong>Being mentioned doesn’t guarantee a link.</strong> Facts that live only in the graph can appear in answers without pointing to your website. That differs from a standard <a href="/en/blog/what-is-rag/">RAG</a> pipeline, where every retrieved passage carries the URL of the page it came from. That’s why <a href="/en/blog/measuring-geo/">measuring GEO</a> has to count mentions, not just clicks.</li>
 <li><strong>No schema is better than wrong schema.</strong> Schema is raw material for triples. A wrong value, or a <code>sameAs</code> pointing to a namesake, puts a wrong fact into the graph. In Petrovic’s own test, the only citation AI Mode gave pointed to the Wikipedia page of a different person with the same name.</li>
 <li><strong>Blocking AI bots may affect facts too.</strong> The analysis shows facts can carry a Google-Extended opt-out flag, but the author says “may”, and Google hasn’t confirmed it. See <a href="/en/blog/ai-bots/">types of AI bots</a> and <a href="/en/blog/ai-training-signal-robots-txt/">the AI training signal in robots.txt</a>.</li>
 </ul>
@@ -148,5 +149,6 @@
 </article></main>
 <footer class="site-footer"><div class="wrap"><nav aria-label="Footer links"><ul class="foot-links"><li><a href="/en/services/seo/">SEO services</a></li><li><a href="/en/services/geo/">GEO services</a></li><li><a href="/en/services/seo-mentoring/">1-on-1 SEO course</a></li><li><a href="/en/blog/">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li></ul></nav><p class="foot-loc">Phan Minh Hoang SEO – Ho Chi Minh City, Vietnam</p><p>© 2026 Phan Minh Hoàng. Updated 11/2026.</p></div></footer>
 <script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
 </body>
 </html>

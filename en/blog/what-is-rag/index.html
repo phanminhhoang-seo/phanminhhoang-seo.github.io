@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is RAG? How AI finds web sources before answering</title>
+<meta name="description" content="RAG is how AI finds and reads documents before it answers. How ChatGPT, Perplexity and Google AI Mode use it, and where a website can drop out.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/en/blog/what-is-rag/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/rag-la-gi/">
+<link rel="alternate" hreflang="en" href="https://phanminhhoang-seo.github.io/en/blog/what-is-rag/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/rag-la-gi/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:site_name" content="Phan Minh Hoàng SEO">
+<meta name="application-name" content="Phan Minh Hoàng SEO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What is RAG? How AI finds web sources before answering">
+<meta property="og:description" content="RAG is how AI finds and reads documents before it answers. How ChatGPT, Perplexity and Google AI Mode use it, and where a website can drop out.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/en/blog/what-is-rag/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="vi_VN">
+
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-16">
+<meta property="article:modified_time" content="2026-11-16">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://phanminhhoang-seo.github.io/index-en.html"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/en/blog/"},{"@type":"ListItem","position":3,"name":"What is RAG","item":"https://phanminhhoang-seo.github.io/en/blog/what-is-rag/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"What is RAG? How ChatGPT, Perplexity and Google AI Mode find sources before answering","description":"RAG is how AI finds and reads documents before it answers. How ChatGPT, Perplexity and Google AI Mode use it, and where a website can drop out.","url":"https://phanminhhoang-seo.github.io/en/blog/what-is-rag/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/en/blog/what-is-rag/","inLanguage":"en","datePublished":"2026-11-16","dateModified":"2026-11-16","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/en/blog/"},"about":[{"@type":"Thing","name":"Retrieval-augmented generation","sameAs":"https://en.wikipedia.org/wiki/Retrieval-augmented_generation"}],"mentions":[{"@type":"Thing","name":"Large language model","sameAs":"https://en.wikipedia.org/wiki/Large_language_model"},{"@type":"Thing","name":"Word embedding","sameAs":"https://en.wikipedia.org/wiki/Word_embedding"},{"@type":"Thing","name":"Vector database","sameAs":"https://en.wikipedia.org/wiki/Vector_database"},{"@type":"Thing","name":"ChatGPT","sameAs":"https://en.wikipedia.org/wiki/ChatGPT"},{"@type":"Thing","name":"Perplexity AI","sameAs":"https://en.wikipedia.org/wiki/Perplexity_AI"}],"wordCount":1632,"articleSection":"GEO"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is RAG?","acceptedAnswer":{"@type":"Answer","text":"RAG (Retrieval-Augmented Generation) is a way of having a language model find and read relevant documents first, then write its answer based on them. ChatGPT search, Perplexity and Google AI Mode all search the web before answering in this way."}},{"@type":"Question","name":"Is RAG the same as GEO?","acceptedAnswer":{"@type":"Answer","text":"No. RAG is the technique AI platforms use to find documents before answering. GEO is the work a business does so its website and brand get found, used and cited by those systems."}},{"@type":"Question","name":"Does blocking GPTBot remove my site from ChatGPT search?","acceptedAnswer":{"@type":"Answer","text":"According to OpenAI’s documentation, no. GPTBot relates to model training. Appearing in ChatGPT search depends on OAI-SearchBot; sites that block OAI-SearchBot are not shown in ChatGPT search answers."}},{"@type":"Question","name":"Do I need schema or llms.txt for Google AI Mode to use my page?","acceptedAnswer":{"@type":"Answer","text":"Google says no special schema, files or markup are needed to appear in AI Overviews and AI Mode. The page needs to be indexed and eligible to show a snippet in Google Search. On llms.txt, see What is llms.txt."}}]}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7';document.head.appendChild(s)},1500)});</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/index-en.html">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Main navigation"><ul class="nav-list"><li><a href="/en/services/">Services</a></li><li><a href="/index-en.html#experience">Experience</a></li><li><a href="/index-en.html#projects">Projects</a></li><li><a href="/en/blog/" aria-current="page">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li><li><a class="lang" href="/blog/rag-la-gi/" hreflang="vi" lang="vi">Tiếng Việt</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/index-en.html">Home</a></li><li><a href="/en/blog/">Blog</a></li><li aria-current="page">What is RAG</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">What is RAG? How ChatGPT, Perplexity and Google AI Mode find sources before answering</h1>
+<div class="author"><img src="/images/phan-minh-hoang-56.webp" width="44" height="44" alt=""><div>
+<p class="a-name"><a href="/index-en.html" rel="author">Phan Minh Hoàng</a></p>
+<p class="a-role">SEO and GEO specialist, SEO Leader at Forza</p>
+<p class="a-meta">Published <time datetime="2026-11-16">16/11/2026</time>. 7 min read.</p>
+</div></div></header>
+<div class="prose">
+<p class="lead">When you ask ChatGPT about next week’s flight prices, or ask Google AI Mode something that needs fresh numbers, the model doesn’t answer from memory alone. It searches the web first, reads a few relevant passages, and only then writes an answer with sources attached. This approach is called RAG. This article explains what RAG is, the steps it runs through, how ChatGPT, Perplexity and Google use it, and where a website can drop out along the way.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Contents</h2><ol><li><a href="#what-is-rag">What is RAG?</a></li><li><a href="#how-it-works">How does RAG work?</a></li><li><a href="#platforms">How ChatGPT, Perplexity and Google use RAG</a></li><li><a href="#training">How is RAG different from training data?</a></li><li><a href="#drop-off">Where can a page drop out?</a></li><li><a href="#meaning">What this means for businesses</a></li><li><a href="#faq">FAQ</a></li><li><a href="#refs">References</a></li></ol></nav>
+<section id="what-is-rag">
+<h2>1. What is RAG?</h2>
+<p><strong>RAG (Retrieval-Augmented Generation) is a way of having a language model find and read relevant documents first, then write its answer based on those documents.</strong> The term comes from a paper by Patrick Lewis and colleagues at Facebook AI Research, University College London and New York University, posted on arXiv on 22 May 2020.</p>
+<p>The paper splits a model’s knowledge into two kinds. <strong>Parametric memory</strong> is what sits inside the model after training. <strong>Non-parametric memory</strong> is an external document store the model can look things up in; in the original experiments, that store was a vector index of Wikipedia. The easiest way to picture it is two kinds of exam: without RAG it’s closed-book, with RAG it’s open-book.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="A model answering from memory compared with a model using RAG">
+<table><thead><tr><th></th><th>Model answering from memory</th><th>Model using RAG</th></tr></thead><tbody>
+<tr><td>Where knowledge comes from</td><td>Training data</td><td>Training data plus documents retrieved at question time</td></tr>
+<tr><td>How fresh it is</td><td>Stops at the training cut-off</td><td>As fresh as the index it searches</td></tr>
+<tr><td>Cites sources</td><td>Usually not</td><td>Can link each claim to a source</td></tr>
+<tr><td>When it doesn’t know</td><td>Prone to guessing</td><td>Has documents to lean on, but can still misread them</td></tr>
+</tbody></table></div>
+<p>RAG doesn’t make AI error-free. It turns the question “does the model remember correctly?” into two different questions: did the system find the right documents, and did the model read them correctly? For SEO and GEO practitioners that’s good news: the document that gets found can be your page.</p>
+</section>
+
+<section id="how-it-works">
+<h2>2. How does RAG work?</h2>
+<p>A RAG system runs in two stages: preparing a document store in advance, and retrieving from it when someone asks. Tap “Next step” in the illustration to walk through each step with a sample question.</p>
+<figure class="mh" data-mh="rag"><figcaption>RAG has two stages. Indexing: collect web pages, split them into chunks, turn each chunk into a vector and store it. Answering: turn the question into a vector, fetch the K closest chunks, add them to the prompt and let the LLM write an answer with citations.</figcaption></figure>
+<h3>Stage 1: preparing the document store</h3>
+<ol>
+<li><strong>Collect documents:</strong> web pages, PDFs, databases. For AI search engines, this is the web index their bots build.</li>
+<li><strong>Split into chunks:</strong> each page is divided into short passages, usually by paragraph or section. The system retrieves passages, not whole pages.</li>
+<li><strong>Create embeddings:</strong> each chunk is turned into a vector, a list of numbers that represents its meaning. Two chunks that say the same thing sit close together, even if they use different words.</li>
+<li><strong>Store them:</strong> vectors are saved alongside the original text and its URL so they can be cited later.</li>
+</ol>
+<h3>Stage 2: when someone asks</h3>
+<ol start="5">
+<li><strong>Process the question:</strong> the question is embedded with the same model. Many systems also rewrite it, or split it into several smaller queries (query fan-out).</li>
+<li><strong>Retrieve:</strong> fetch the K chunks whose vectors are closest to the question. Real search systems usually combine this with keyword matching and a re-ranking step.</li>
+<li><strong>Build the prompt:</strong> the question and the retrieved chunks are handed to the language model together.</li>
+<li><strong>Write the answer:</strong> the model writes from those chunks and attaches a source to each claim.</li>
+</ol>
+<p>Two things follow from this: <strong>what gets selected is a passage, not a whole page</strong>, and <strong>a passage that doesn’t make the top K has no chance of being cited</strong>, however good the page around it is. Searching by meaning rather than by exact words is the same idea as <a href="/en/blog/semantic-search-seo/">semantic search in SEO</a>.</p>
+</section>
+
+<section id="platforms">
+<h2>3. How ChatGPT, Perplexity and Google use RAG</h2>
+<p>All three search the web before answering, but they query different indexes and rely on different bots. The table only lists what each platform has published in its official documentation.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="How ChatGPT, Perplexity and Google find sources">
+<table><thead><tr><th>Platform</th><th>Where it looks</th><th>Bot you need to allow</th><th>Worth knowing</th></tr></thead><tbody>
+<tr><td>ChatGPT search</td><td>OpenAI’s search systems, sometimes combined with third-party search providers (OpenAI doesn’t publish a full list)</td><td>OAI-SearchBot</td><td>Your question is usually rewritten into one or more more specific queries before it is sent out</td></tr>
+<tr><td>Perplexity</td><td>The index PerplexityBot builds</td><td>PerplexityBot</td><td>Perplexity-User fetches pages on a user’s request and generally ignores robots.txt</td></tr>
+<tr><td>Google AI Overviews, AI Mode</td><td>The Google Search index</td><td>Googlebot</td><td>May use query fan-out: several related searches across subtopics and data sources</td></tr>
+</tbody></table></div>
+<p>For Google, the eligibility rule is clear: a page must be indexed and eligible to show a snippet in Google Search. Google also says no special schema, files or markup are needed for its AI features. The two features may use different models and techniques, so the links they show differ too. More in <a href="/en/blog/ai-overviews-ai-mode/">What are AI Overviews and AI Mode</a>.</p>
+<p>Not everything in an answer comes from a web page with a link. Google says AI Mode also uses facts from the Knowledge Graph, and recent analysis suggests those facts can enter answers with no URL attached, as covered in <a href="/en/blog/knowledge-graph-standards/">Knowledge Graph facts go straight into AI Mode answers</a>.</p>
+</section>
+
+<section id="training">
+<h2>4. How is RAG different from training data?</h2>
+<p>An AI model can know about your brand in two ways: it learned it from training data, or it finds it through RAG when someone asks. The two routes use different bots, and blocking one doesn’t block the other.</p>
+<div class="table-wrap" role="region" tabindex="0" aria-label="Training data compared with RAG">
+<table><thead><tr><th></th><th>Training data</th><th>RAG at answer time</th></tr></thead><tbody>
+<tr><td>When it happens</td><td>Before a model launches, in batches</td><td>Every time a user asks</td></tr>
+<tr><td>How fresh it is</td><td>Stops at collection time</td><td>As fresh as the index it searches</td></tr>
+<tr><td>Links back to your site</td><td>No</td><td>Yes, if your page is cited</td></tr>
+<tr><td>Bots involved (OpenAI example)</td><td>GPTBot</td><td>OAI-SearchBot, ChatGPT-User</td></tr>
+</tbody></table></div>
+<p>According to OpenAI’s documentation, disallowing GPTBot only signals that content shouldn’t be used to train models; to appear in ChatGPT search you need to allow OAI-SearchBot. Google separates them too: Google-Extended limits training and grounding in some of Google’s other AI systems, while access for Search is still governed by Googlebot. The full list is in <a href="/en/blog/ai-bots/">AI bots explained</a> and <a href="/en/blog/ai-training-signal-robots-txt/">the new AI training signal in robots.txt</a>.</p>
+</section>
+
+<section id="drop-off">
+<h2>5. Where can a page drop out?</h2>
+<p>Following the RAG pipeline, there are five points where a page can fall out of an answer. Each has a different cause, so each is checked differently.</p>
+<ol>
+<li><strong>The bot can’t read the page.</strong> It’s blocked in robots.txt, blocked by a firewall or CDN, or the content only appears after JavaScript runs.</li>
+<li><strong>The page isn’t in the index the platform searches.</strong> For Google, that means it isn’t indexed; for ChatGPT, it isn’t in OpenAI’s index or its search providers’. How to read each “not indexed” reason is covered in <a href="/en/blog/seo-indexing-cleanup/">indexing cleanup</a>.</li>
+<li><strong>It’s indexed but doesn’t make the retrieved set.</strong> The passage isn’t close enough in meaning to the question, or the answer is spread over several passages so none of them is strong enough.</li>
+<li><strong>It’s retrieved but not used.</strong> The model receives more passages than it uses. Vague passages, ones missing context, or ones that repeat another source are easy to drop.</li>
+<li><strong>It’s used but not linked.</strong> The information makes it into the answer without a citation, or the citation goes to another page saying the same thing.</li>
+</ol>
+<p>When retrieval picks up an outdated document, or one about a different entity with the same name, the answer goes wrong with it. That’s one of the causes in <a href="/en/blog/why-ai-gets-your-brand-wrong/">why AI gets your brand wrong</a>. And because the fifth point leaves no click behind, <a href="/en/blog/measuring-geo/">measuring GEO</a> has to count mentions, not just traffic.</p>
+</section>
+
+<section id="meaning">
+<h2>6. What this means for businesses</h2>
+<ul>
+<li><strong>SEO is still the front door.</strong> The index is where RAG looks for documents. A page that isn’t crawled and indexed isn’t in any answer.</li>
+<li><strong>Every passage is read on its own.</strong> AI retrieves passages, not pages, so an important point needs to be fully stated within one passage, including the product or brand it is about.</li>
+<li><strong>No platform fully publishes how it picks sources.</strong> Any conclusion about whether a page gets cited needs to be checked by asking repeatedly across several platforms, not from a single test.</li>
+</ul>
+<aside class="post-cta"><p>Which of these five points is your website falling out at? Checking bots, indexing and presence on each AI platform, one by one, is where GEO work starts.</p><a href="/en/services/geo/">See GEO services</a></aside>
+<p>For the basics of the concept itself, start with <a href="/en/blog/what-is-geo/">What is GEO</a>.</p>
+</section>
+<section id="faq" aria-labelledby="faq-t"><h2 id="faq-t">FAQ</h2><details><summary>What is RAG?</summary><p>RAG (Retrieval-Augmented Generation) is a way of having a language model find and read relevant documents first, then write its answer based on them. ChatGPT search, Perplexity and Google AI Mode all search the web before answering in this way.</p></details><details><summary>Is RAG the same as GEO?</summary><p>No. RAG is the technique AI platforms use to find documents before answering. GEO is the work a business does so its website and brand get found, used and cited by those systems.</p></details><details><summary>Does blocking GPTBot remove my site from ChatGPT search?</summary><p>According to OpenAI’s documentation, no. GPTBot relates to model training. Appearing in ChatGPT search depends on OAI-SearchBot; sites that block OAI-SearchBot are not shown in ChatGPT search answers.</p></details><details><summary>Do I need schema or llms.txt for Google AI Mode to use my page?</summary><p>Google says no special schema, files or markup are needed to appear in AI Overviews and AI Mode. The page needs to be indexed and eligible to show a snippet in Google Search. On llms.txt, see <a href="/en/blog/what-is-llms-txt/">What is llms.txt</a>.</p></details></section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">References</h2><ul><li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="nofollow noopener">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks – Lewis et al., arXiv (05/2020)</a></li><li><a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="nofollow noopener">AI features and your website – Google Search Central</a></li><li><a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="nofollow noopener">Overview of OpenAI Crawlers – OpenAI</a></li><li><a href="https://help.openai.com/en/articles/9237897" target="_blank" rel="nofollow noopener">Searching the web with ChatGPT – OpenAI Help Center</a></li><li><a href="https://docs.perplexity.ai/guides/bots" target="_blank" rel="nofollow noopener">Perplexity Crawlers – Perplexity</a></li></ul></section>
+</div>
+<footer class="post-foot"><h2>Read next</h2><ul><li><a href="/en/blog/ai-overviews-ai-mode/">What are AI Overviews and AI Mode?</a></li><li><a href="/en/blog/ai-bots/">AI bots explained: GPTBot, ClaudeBot, PerplexityBot</a></li><li><a href="/en/blog/semantic-search-seo/">Semantic search in SEO: optimising for search intent and entities</a></li><li><a href="/en/services/geo/">GEO services</a></li><li><a href="/en/blog/">All articles</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Footer links"><ul class="foot-links"><li><a href="/en/services/seo/">SEO services</a></li><li><a href="/en/services/geo/">GEO services</a></li><li><a href="/en/services/seo-mentoring/">1-on-1 SEO course</a></li><li><a href="/en/blog/">Blog</a></li><li><a href="/index-en.html#contact">Contact</a></li></ul></nav><p class="foot-loc">Phan Minh Hoang SEO – Ho Chi Minh City, Vietnam</p><p>© 2026 Phan Minh Hoàng. Updated 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
+</body>
+</html>
