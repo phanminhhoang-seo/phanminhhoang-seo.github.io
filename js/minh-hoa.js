@@ -7,7 +7,7 @@
  *   (Google, bot AI và trình đọc màn hình đọc phần chữ này),
  *   và một thẻ script nạp /js/minh-hoa.js (defer) ở cuối bài.
  *
- * Các minh hoạ: rag, vector, fanout, chunk, kg, entity-link, som, variance
+ * Các minh hoạ: rag, vector, fanout, chunk, kg, entity-link, som, variance, bm25, geo-paper, grounding
  * Bản tiếng Anh: chữ tự đổi khi <html lang="en">.
  * Mọi thương hiệu (Gạch Sao Mai, Bình Minh…) và tên miền .example đều là giả định.
  */
@@ -44,6 +44,7 @@
   }
   function pressGroup(btns, i) { btns.forEach(function (b, j) { b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); }); }
   function pct(x) { return Math.round(x * 100) + '%'; }
+  function nf(x, d) { var t = x.toFixed(d); return EN ? t : t.replace('.', ','); }
   function fake() { return h('span', { 'class': 'mh-fake' }, T('Minh hoạ, số liệu giả định', 'Illustrative, made-up data')); }
   function onResize(el, fn) {
     var last = el.clientWidth, t;
@@ -223,7 +224,7 @@
     function extra(i) {
       if (i === 6 || i === 7) {
         return h('div', { 'class': 'mh-chunks' }, CH.map(function (c, k) {
-          return h('div', { 'class': 'mh-chunk' }, [h('span', { 'class': 'mh-score' }, c[0].toFixed(2)),
+          return h('div', { 'class': 'mh-chunk' }, [h('span', { 'class': 'mh-score' }, nf(c[0], 2)),
             h('span', null, [c[2], ' ', h('span', { 'class': 'mh-src' }, c[1])]), h('span', { 'class': 'mh-cite' }, String(k + 1))]);
         }));
       }
@@ -341,7 +342,7 @@
       clear(list);
       list.appendChild(h('div', { 'class': 'mh-lbl' }, T('Top-' + K + ' đoạn được lấy về', 'Top-' + K + ' retrieved chunks')));
       top.forEach(function (r2, k) {
-        list.appendChild(h('div', { 'class': 'mh-chunk' }, [h('span', { 'class': 'mh-score' }, r2.sim.toFixed(2)),
+        list.appendChild(h('div', { 'class': 'mh-chunk' }, [h('span', { 'class': 'mh-score' }, nf(r2.sim, 2)),
           h('span', null, [h('span', { 'class': 'mh-num', style: 'background:var(--ctr,#00897b)' }, String(r2.i + 1)), P[r2.i][2]])]));
       });
       note.textContent = pin > -1 ? (pin + 1) + '. ' + P[pin][2] : q.n;
@@ -730,6 +731,124 @@
         : T('Khoảng càng rộng, kết luận càng kém chắc chắn. Muốn so sánh trước và sau, hai khoảng không nên chồng lên nhau.', 'The wider the band, the weaker the conclusion. To claim a before/after change, the two intervals should not overlap.')));
     }
     draw(); onResize(wrap, draw);
+  };
+
+  /* =====================================================================
+     9. BM25 — độ bão hoà của tần suất từ, độ dài trang và hybrid search
+     ===================================================================== */
+  C.bm25 = function (fig) {
+    var b = box(fig, T('BM25: lặp từ khoá có giới hạn, trang dài bị trừ điểm', 'BM25: repetition saturates, long pages are penalised'), true);
+    var k1 = 1.2, tf = 3, len = 1, bb = .75;
+    function tfPart(f, L) { return f * (k1 + 1) / (f + k1 * (1 - bb + bb * L)); }
+    var tfOut = h('b', null, '3'), lenOut = h('b', null, '1×');
+    var tfIn = h('input', { type: 'range', min: 0, max: 20, value: 3, 'aria-label': T('Số lần từ xuất hiện', 'Term frequency'), oninput: function () { tf = +tfIn.value; tfOut.textContent = tf; draw(); } });
+    var lenIn = h('input', { type: 'range', min: 25, max: 300, step: 25, value: 100, 'aria-label': T('Độ dài trang so với trung bình', 'Page length vs average'), oninput: function () { len = +lenIn.value / 100; lenOut.textContent = len + '×'; draw(); } });
+    b.appendChild(h('div', { 'class': 'mh-bar' }, [h('label', { 'class': 'mh-range' }, [T('Số lần từ xuất hiện', 'Times the term appears'), tfIn, tfOut])]));
+    b.appendChild(h('div', { 'class': 'mh-bar' }, [h('label', { 'class': 'mh-range' }, [T('Độ dài trang so với trung bình', 'Page length vs average'), lenIn, lenOut])]));
+    var wrap = h('div'), out = h('div', { 'class': 'mh-panel', 'aria-live': 'polite' });
+    b.appendChild(wrap); b.appendChild(out);
+    function draw() {
+      var W = Math.max(280, wrap.clientWidth || 600), H = 220, L = 40, R = 14, Tp = 12, B = 30, max = (k1 + 1);
+      var X = function (f) { return L + f / 20 * (W - L - R); }, Y = function (v) { return Tp + (1 - v / max) * (H - Tp - B); };
+      var svg = s('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, role: 'img', 'aria-label': T('Đường điểm tần suất từ của BM25', 'BM25 term-frequency curve') });
+      [0, 5, 10, 15, 20].forEach(function (f) { svg.appendChild(s('text', { x: X(f), y: H - 10, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--muted,#586371)' }, String(f))); });
+      [0, 1, 2].forEach(function (v) {
+        svg.appendChild(s('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: 'var(--rule,#dce1e8)' }));
+        svg.appendChild(s('text', { x: L - 6, y: Y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: 'var(--muted,#586371)' }, String(v)));
+      });
+      function path(Ln) { var d = ''; for (var f = 0; f <= 20; f += .25) d += (f ? 'L' : 'M') + X(f).toFixed(1) + ' ' + Y(tfPart(f, Ln)).toFixed(1); return d; }
+      svg.appendChild(s('path', { d: path(1), fill: 'none', stroke: 'var(--rule,#dce1e8)', 'stroke-width': 2, 'stroke-dasharray': '4 4' }));
+      svg.appendChild(s('path', { d: path(len), fill: 'none', stroke: 'var(--impr,#5e35b1)', 'stroke-width': 2.5 }));
+      svg.appendChild(s('line', { x1: L, x2: W - R, y1: Y(max), y2: Y(max), stroke: 'var(--pos,#e8710a)', 'stroke-dasharray': '5 4' }));
+      svg.appendChild(s('text', { x: L + 6, y: Y(max) - 4, 'text-anchor': 'start', 'font-size': 11, fill: 'var(--pos,#e8710a)' }, T('mức trần', 'ceiling')));
+      svg.appendChild(s('circle', { cx: X(tf), cy: Y(tfPart(tf, len)), r: 5, fill: 'var(--impr,#5e35b1)' }));
+      clear(wrap); wrap.appendChild(svg);
+      var v = tfPart(tf, len), v1 = tf ? tfPart(tf - 1, len) : 0;
+      clear(out);
+      out.appendChild(h('p', null, [T('Điểm phần tần suất: ', 'Term-frequency score: '), h('b', null, nf(v, 2)), T(' (tối đa ', ' (max '), nf(max, 1), '). ',
+        tf ? T('Lần xuất hiện thứ ' + tf + ' chỉ cộng thêm ' + nf(v - v1, 2) + ' điểm.', 'Occurrence #' + tf + ' adds only ' + nf(v - v1, 2) + '.') : T('Từ không xuất hiện thì không có điểm.', 'No occurrences, no score.')]));
+      out.appendChild(h('p', { 'class': 'mh-note', style: 'margin:4px 0 0' }, T('Đường nét đứt là trang có độ dài trung bình. Tham số mặc định của Lucene và Elasticsearch: k1 = 1,2; b = 0,75. Điểm cuối cùng còn nhân với độ hiếm của từ (IDF).', 'The dashed curve is an average-length page. Lucene and Elasticsearch defaults: k1 = 1.2, b = 0.75. The final score is also multiplied by how rare the term is (IDF).')));
+    }
+    draw(); onResize(wrap, draw);
+
+    // hybrid search: trộn điểm từ khoá và điểm ngữ nghĩa
+    var D = [
+      [T('Bảng giá gạch Sao Mai 60×60', 'Sao Mai 60×60 price list'), .92, .70],
+      [T('Gạch Sao Mai 60×60 giá bao nhiêu một mét vuông', 'How much is Sao Mai 60×60 per square metre'), .80, .95],
+      [T('Chi phí lát nền phòng khách 30 m²', 'Cost of tiling a 30 m² living room'), .20, .82],
+      [T('Sao Mai tuyển nhân viên bán hàng', 'Sao Mai is hiring sales staff'), .55, .15]
+    ];
+    var a = .5, aOut = h('b', null, '50%');
+    var aIn = h('input', { type: 'range', min: 0, max: 100, step: 10, value: 50, 'aria-label': T('Trọng số từ khoá', 'Keyword weight'), oninput: function () { a = +aIn.value / 100; aOut.textContent = Math.round(a * 100) + '%'; rank(); } });
+    b.appendChild(h('div', { 'class': 'mh-lbl', style: 'margin-top:16px' }, T('Hybrid search · câu hỏi: “gạch sao mai 60x60 giá”', 'Hybrid search · query: “sao mai 60x60 price”')));
+    b.appendChild(h('div', { 'class': 'mh-bar', style: 'margin-top:6px' }, [h('label', { 'class': 'mh-range' }, [T('Ngữ nghĩa', 'Semantic'), aIn, T('Từ khoá', 'Keyword'), aOut])]));
+    var list = h('div', { 'class': 'mh-chunks', 'aria-live': 'polite' }); b.appendChild(list);
+    function rank() {
+      clear(list);
+      D.map(function (d) { return [d[0], a * d[1] + (1 - a) * d[2], d[1], d[2]]; }).sort(function (x, y) { return y[1] - x[1]; }).forEach(function (r, i) {
+        list.appendChild(h('div', { 'class': 'mh-chunk' }, [h('span', { 'class': 'mh-score' }, nf(r[1], 2)), h('span', null, [h('span', { 'class': 'mh-num', style: i === 0 ? 'background:var(--ctr,#00897b)' : '' }, String(i + 1)), r[0],
+          h('span', { 'class': 'mh-src' }, T('  · từ khoá ', '  · keyword ') + nf(r[2], 2) + T(' · ngữ nghĩa ', ' · semantic ') + nf(r[3], 2))])]));
+      });
+    }
+    rank();
+    b.appendChild(h('p', { 'class': 'mh-note' }, T('Điểm trong ví dụ là giả định, đã đưa về thang 0–1. Hệ thống thật thường trộn bằng thứ hạng (ví dụ reciprocal rank fusion) chứ không cộng thẳng điểm.', 'Scores are made up and normalised to 0–1. Real systems often fuse by rank (e.g. reciprocal rank fusion) rather than adding raw scores.')));
+  };
+
+  /* =====================================================================
+     10. GEO-PAPER — cách bài nghiên cứu GEO đo "độ hiển thị"
+     ===================================================================== */
+  C['geo-paper'] = function (fig) {
+    var b = box(fig, T('Bài nghiên cứu GEO đo độ hiển thị thế nào', 'How the GEO paper measures visibility'), true);
+    // mỗi câu trong câu trả lời: [số chữ, nguồn được trích]
+    var BASE = [[18, 'A'], [14, 'B'], [22, 'A'], [12, 'C'], [16, 'B'], [10, 'C']];
+    var BOOST = [[18, 'A'], [20, 'B'], [22, 'A'], [12, 'C'], [16, 'B'], [10, 'C']];
+    var mode = 0;
+    var mb = [btn(T('Bản gốc', 'Original'), function () { mode = 0; pressGroup(mb, 0); draw(); }),
+      btn(T('Nguồn B thêm số liệu', 'Source B adds statistics'), function () { mode = 1; pressGroup(mb, 1); draw(); })];
+    pressGroup(mb, 0);
+    b.appendChild(h('div', { 'class': 'mh-bar' }, mb));
+    var ans = h('div', { 'class': 'mh-doc' }), out = h('div', { 'class': 'mh-bars', 'aria-live': 'polite', style: 'margin-top:12px' });
+    b.appendChild(ans); b.appendChild(out);
+    function draw() {
+      var S = mode ? BOOST.slice() : BASE.slice();
+      if (mode) { S = [S[1], S[0], S[2], S[3], S[4], S[5]]; }
+      clear(ans); clear(out);
+      var n = S.length, tot = { A: 0, B: 0, C: 0 }, wc = { A: 0, B: 0, C: 0 }, all = 0;
+      S.forEach(function (x, i) {
+        var w = x[0] * Math.exp(-i / n); tot[x[1]] += w; wc[x[1]] += x[0]; all += x[0];
+        ans.appendChild(h('span', null, [T('Câu ', 'Sentence ') + (i + 1) + ' (' + x[0] + T(' chữ) ', ' words) '), h('span', { 'class': 'mh-cite' }, x[1]), '  ']));
+      });
+      var sum = tot.A + tot.B + tot.C;
+      ['A', 'B', 'C'].forEach(function (k) {
+        var v = tot[k] / sum, i1 = h('i', { style: 'width:0' });
+        out.appendChild(h('div', { 'class': 'mh-brow' }, [T('Nguồn ', 'Source ') + k, h('div', { 'class': 'mh-btrack' }, i1), h('b', null, pct(v))]));
+        setTimeout(function () { i1.style.width = pct(v); }, 30);
+      });
+    }
+    draw();
+    b.appendChild(h('p', { 'class': 'mh-note' }, T('Chỉ số chính của bài báo là “position-adjusted word count”: phần chữ trong câu trả lời được gán cho một nguồn, câu càng ở đầu càng được tính nặng. Các con số ở đây là ví dụ giả định để thấy cách tính, không phải số liệu của bài báo.', 'The paper’s main metric is position-adjusted word count: the share of the answer’s words attributed to a source, weighted more heavily the earlier the sentence appears. Numbers here are made up to show the calculation, not the paper’s results.')));
+  };
+
+  /* =====================================================================
+     11. GROUNDING — trang top Google và nguồn AI trích dẫn (số liệu Ahrefs)
+     ===================================================================== */
+  C.grounding = function (fig) {
+    var b = box(fig, T('Bao nhiêu nguồn AI trích dẫn nằm trong top 10 Google?', 'How many AI citations rank in Google’s top 10?'), false);
+    var D = [
+      [T('AI Overviews (7/2025)', 'AI Overviews (Jul 2025)'), 76],
+      [T('AI Overviews (3/2026)', 'AI Overviews (Mar 2026)'), 38],
+      ['Perplexity', 28.6],
+      [T('Trung bình 4 trợ lý AI', '4-assistant average'), 12],
+      [T('ChatGPT (trích dẫn trong câu)', 'ChatGPT (in-text citations)'), 8]
+    ];
+    var out = h('div', { 'class': 'mh-bars' }); b.appendChild(out);
+    D.forEach(function (d) {
+      var i1 = h('i', { style: 'width:0;background:var(--' + (/AI Overviews/.test(d[0]) ? 'clicks,#1a73e8' : 'impr,#5e35b1') + ')' });
+      out.appendChild(h('div', { 'class': 'mh-brow', style: 'grid-template-columns:minmax(120px,190px) 1fr 52px' }, [d[0], h('div', { 'class': 'mh-btrack' }, i1), h('b', null, String(d[1]).replace('.', EN ? '.' : ',') + '%')]));
+      whenVisible(b, function () { i1.style.width = d[1] + '%'; });
+      if (!('IntersectionObserver' in window)) i1.style.width = d[1] + '%';
+    });
+    b.appendChild(h('p', { 'class': 'mh-note' }, T('Tỉ lệ URL được AI trích dẫn cũng nằm trong top 10 Google cho cùng truy vấn. Nguồn: Ahrefs, nghiên cứu 15.000 câu hỏi (8/2025) và nghiên cứu 863.000 từ khoá AI Overviews (3/2026). Bốn trợ lý: ChatGPT, Gemini, Copilot, Perplexity.', 'Share of AI-cited URLs that also rank in Google’s top 10 for the same query. Source: Ahrefs, 15,000-prompt study (Aug 2025) and 863,000-keyword AI Overviews study (Mar 2026). Four assistants: ChatGPT, Gemini, Copilot, Perplexity.')));
   };
 
   function whenVisible(el, fn) {
