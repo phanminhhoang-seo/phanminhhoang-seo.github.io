@@ -1,4 +1,6 @@
 // Phan Minh Hoàng – portfolio. Không dùng thư viện ngoài.
+// URL Web App của Google Apps Script (…/exec): nhận form liên hệ và chatbot AI. Để trống thì form/chatbot chưa chạy.
+const PMH_ENDPOINT = '';
 (() => {
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -110,7 +112,7 @@
 // Form liên hệ ở trang dịch vụ: gửi về Google Sheet + email qua Google Apps Script
 (() => {
   'use strict';
-  const FORM_ENDPOINT = ''; // URL Web App của Google Apps Script (…/exec)
+  const FORM_ENDPOINT = PMH_ENDPOINT;
   const form = document.querySelector('.lead-form');
   if (!form) return;
   const status = form.querySelector('.lf-status');
@@ -147,4 +149,133 @@
       submit.disabled = false;
     }
   });
+})();
+
+// Chatbot AI: trả lời bằng Gemini qua Apps Script, mỗi lượt chat được lưu vào Google Sheet
+(() => {
+  'use strict';
+  if (!PMH_ENDPOINT) return;
+  const en = document.documentElement.lang === 'en';
+  const T = en ? {
+    open: 'Ask the AI assistant', title: 'AI assistant', sub: 'Questions about SEO, GEO and courses',
+    close: 'Close chat', placeholder: 'Type your question…', send: 'Send',
+    hello: 'Hi! I am the AI assistant on Hoàng\'s website. Ask me about SEO, GEO services or the 1-on-1 courses.',
+    note: 'AI answers may be wrong. Chats are saved so Hoàng can follow up.',
+    err: 'Sorry, something went wrong. Please try again, or email hoangphan.180197@gmail.com.',
+    chips: ['What does the GEO service include?', 'How much is the SEO course?', 'How is SEO priced?'],
+  } : {
+    open: 'Hỏi trợ lý AI', title: 'Trợ lý AI', sub: 'Hỏi về dịch vụ SEO, GEO và khoá học',
+    close: 'Đóng khung chat', placeholder: 'Nhập câu hỏi của bạn…', send: 'Gửi',
+    hello: 'Chào bạn! Mình là trợ lý AI trên website của Hoàng. Bạn cứ hỏi về dịch vụ SEO, GEO hoặc các khoá học 1 kèm 1 nhé.',
+    note: 'Trợ lý AI có thể trả lời chưa chính xác. Nội dung chat được lưu lại để Hoàng hỗ trợ bạn.',
+    err: 'Xin lỗi, có lỗi khi gửi. Bạn thử lại hoặc liên hệ Zalo 0382 65 7845 nhé.',
+    chips: ['Dịch vụ GEO gồm những gì?', 'Học phí khoá học SEO?', 'Báo giá SEO thế nào?'],
+  };
+  const ss = {
+    get: (k) => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { /* bỏ qua */ } },
+  };
+  let sid = ss.get('pmh-sid');
+  if (!sid) {
+    sid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+    ss.set('pmh-sid', sid);
+  }
+  let hist = [];
+  try { hist = JSON.parse(ss.get('pmh-chat') || '[]'); } catch (e) { hist = []; }
+
+  const h = (tag, attrs = {}, kids = []) => {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+    for (const c of [].concat(kids)) el.append(c);
+    return el;
+  };
+  const icon = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm3 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm5 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>';
+
+  const btn = h('button', { class: 'cb-btn', type: 'button', 'aria-expanded': 'false', 'aria-controls': 'cb-panel' });
+  btn.innerHTML = icon + '<span>' + T.open + '</span>';
+  const closeBtn = h('button', { class: 'cb-close', type: 'button', 'aria-label': T.close }, '×');
+  const log = h('div', { class: 'cb-log', role: 'log', 'aria-live': 'polite' });
+  const chips = h('div', { class: 'cb-chips' });
+  const input = h('textarea', { class: 'cb-input', rows: '1', maxlength: '800', placeholder: T.placeholder, 'aria-label': T.placeholder });
+  const send = h('button', { class: 'cb-send', type: 'submit' }, T.send);
+  const form = h('form', { class: 'cb-form' }, [input, send]);
+  const panel = h('section', { class: 'cb-panel', id: 'cb-panel', role: 'dialog', 'aria-labelledby': 'cb-title', hidden: '' }, [
+    h('header', { class: 'cb-head' }, [h('div', {}, [h('p', { class: 'cb-title', id: 'cb-title' }, T.title), h('p', { class: 'cb-sub' }, T.sub)]), closeBtn]),
+    log, chips, form, h('p', { class: 'cb-note' }, T.note),
+  ]);
+  document.body.append(btn, panel);
+
+  // Hiển thị chữ an toàn: xuống dòng + tự tạo link cho URL
+  const render = (text) => {
+    const frag = document.createDocumentFragment();
+    text.split(/(https?:\/\/[^\s<>"')]+[^\s<>"').,;:!?])/g).forEach((part, i) => {
+      if (i % 2) {
+        const internal = part.startsWith(location.origin) || /^https:\/\/phanminhhoang-seo\.github\.io\//.test(part);
+        const a = h('a', internal ? { href: part } : { href: part, rel: 'nofollow noopener', target: '_blank' }, part);
+        frag.append(a);
+      } else {
+        part.split('\n').forEach((line, j) => { if (j) frag.append(h('br')); frag.append(line); });
+      }
+    });
+    return frag;
+  };
+  const bubble = (role, text) => {
+    const b = h('div', { class: 'cb-msg cb-' + role });
+    b.append(render(text));
+    log.append(b);
+    log.scrollTop = log.scrollHeight;
+    return b;
+  };
+  const drawChips = () => {
+    chips.replaceChildren();
+    if (hist.length) return;
+    T.chips.forEach((c) => {
+      const b = h('button', { type: 'button', class: 'cb-chip' }, c);
+      b.addEventListener('click', () => ask(c));
+      chips.append(b);
+    });
+  };
+  bubble('model', T.hello);
+  hist.forEach((m) => bubble(m.role, m.text));
+  drawChips();
+
+  let busy = false;
+  const ask = async (text) => {
+    text = text.trim().slice(0, 800);
+    if (!text || busy) return;
+    busy = true; send.disabled = true;
+    const prev = hist.slice(-24);
+    bubble('user', text);
+    hist.push({ role: 'user', text });
+    chips.replaceChildren();
+    input.value = ''; input.style.height = '';
+    const wait = bubble('model', '…');
+    wait.classList.add('cb-wait');
+    if (hist.length === 1 && typeof gtag === 'function') gtag('event', 'chat_start');
+    let reply = '';
+    try {
+      const body = new URLSearchParams({ action: 'chat', sid, message: text, history: JSON.stringify(prev), page: location.href, lang: en ? 'en' : 'vi' });
+      const res = await fetch(PMH_ENDPOINT, { method: 'POST', body });
+      const data = await res.json();
+      reply = (data && data.reply) || '';
+    } catch (e) { reply = ''; }
+    wait.remove();
+    if (reply) { hist.push({ role: 'model', text: reply }); ss.set('pmh-chat', JSON.stringify(hist.slice(-40))); }
+    else { hist.pop(); }
+    bubble('model', reply || T.err);
+    busy = false; send.disabled = false; input.focus();
+  };
+
+  const setOpen = (open) => {
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.classList.toggle('cb-hide', open);
+    if (open) { input.focus(); log.scrollTop = log.scrollHeight; } else btn.focus();
+  };
+  btn.addEventListener('click', () => setOpen(true));
+  closeBtn.addEventListener('click', () => setOpen(false));
+  panel.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  form.addEventListener('submit', (e) => { e.preventDefault(); ask(input.value); });
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask(input.value); } });
+  input.addEventListener('input', () => { input.style.height = ''; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; });
 })();
