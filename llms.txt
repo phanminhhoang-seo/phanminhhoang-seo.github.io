@@ -16,6 +16,8 @@
 - [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
+- [Checklist SEO audit website: 86 đầu việc chia theo 9 nhóm, kiểm tra gì và làm gì trước](https://phanminhhoang-seo.github.io/blog/checklist-seo-audit/): Checklist audit SEO 86 đầu việc chia 9 nhóm: crawl, JavaScript, tốc độ, internal link, Search Console, nội dung, backlink, thương hiệu. Kiểm tra gì, làm gì trước.
+- [SEO audit checklist: 86 tasks in 9 areas, what to check and what to fix first](https://phanminhhoang-seo.github.io/en/blog/seo-audit-checklist/): An 86-task SEO audit checklist in 9 areas: crawling, JavaScript, speed, internal links, Search Console, content, backlinks and brand. What to check, what first.
 - [RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời](https://phanminhhoang-seo.github.io/blog/rag-la-gi/): RAG là cách AI tìm và đọc tài liệu trước rồi mới trả lời. ChatGPT, Perplexity, Google AI Mode dùng RAG ra sao, và trang web bị bỏ qua ở những khâu nào.
 - [What is RAG? How ChatGPT, Perplexity and Google AI Mode find sources before answering](https://phanminhhoang-seo.github.io/en/blog/what-is-rag/): RAG is how AI finds and reads documents before it answers. How ChatGPT, Perplexity and Google AI Mode use it, and where a website can drop out.
 - [Knowledge Graph vào thẳng câu trả lời AI Mode: chuẩn triple, RDF và schema.org năm 2026](https://phanminhhoang-seo.github.io/blog/chuan-knowledge-graph/): Cuối 10/2026, phân tích mới cho thấy AI Mode nhận dữ kiện Knowledge Graph không kèm link. Chuẩn triple, RDF, schema.org là gì và năm 2026 đổi những gì.
