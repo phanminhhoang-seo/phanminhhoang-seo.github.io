@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chunking là gì? AI cắt trang web thành đoạn ra sao</title>
+<meta name="description" content="Trước khi tìm, hệ thống AI cắt trang thành từng đoạn nhỏ. Các cách cắt phổ biến, vì sao đoạn mất ngữ cảnh khó được lấy về, và cấu trúc trang giúp được gì.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/chunking-la-gi/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/chunking-la-gi/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/chunking-la-gi/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:site_name" content="Phan Minh Hoàng SEO">
+<meta name="application-name" content="Phan Minh Hoàng SEO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chunking là gì? AI cắt trang web thành đoạn ra sao">
+<meta property="og:description" content="Trước khi tìm, hệ thống AI cắt trang thành từng đoạn nhỏ. Các cách cắt phổ biến, vì sao đoạn mất ngữ cảnh khó được lấy về, và cấu trúc trang giúp được gì.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/chunking-la-gi/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="vi_VN">
+
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-20">
+<meta property="article:modified_time" content="2026-11-20">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/"},{"@type":"ListItem","position":3,"name":"Chunking là gì","item":"https://phanminhhoang-seo.github.io/blog/chunking-la-gi/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Chunking là gì? AI cắt trang web thành từng đoạn như thế nào","description":"Trước khi tìm, hệ thống AI cắt trang thành từng đoạn nhỏ. Các cách cắt phổ biến, vì sao đoạn mất ngữ cảnh khó được lấy về, và cấu trúc trang giúp được gì.","url":"https://phanminhhoang-seo.github.io/blog/chunking-la-gi/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/blog/chunking-la-gi/","inLanguage":"vi","datePublished":"2026-11-20","dateModified":"2026-11-20","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/blog/"},"wordCount":850,"articleSection":"GEO","about":[{"@type":"Thing","name":"Retrieval-augmented generation","sameAs":"https://en.wikipedia.org/wiki/Retrieval-augmented_generation"}],"mentions":[{"@type":"Thing","name":"Word embedding","sameAs":"https://en.wikipedia.org/wiki/Word_embedding"}]}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7';document.head.appendChild(s)},1500)});</script>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="/dich-vu/">Dịch vụ</a></li><li><a href="/#kinh-nghiem">Kinh nghiệm</a></li><li><a href="/#du-an">Dự án</a></li><li><a href="/blog/" aria-current="page">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li><li><a class="lang" href="/en/blog/" hreflang="en" lang="en">English</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Trang chủ</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">Chunking là gì</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">Chunking là gì? AI cắt trang web thành từng đoạn như thế nào</h1>
+<div class="author"><img src="/images/phan-minh-hoang-56.webp" width="44" height="44" alt=""><div>
+<p class="a-name"><a href="/" rel="author">Phan Minh Hoàng</a></p>
+<p class="a-role">Chuyên gia SEO và GEO, SEO Leader tại Forza</p>
+<p class="a-meta">Đăng <time datetime="2026-11-20">20/11/2026</time>. 4 phút đọc.</p>
+</div></div></header>
+<div class="prose">
+<p class="lead">Chunking là bước cắt một trang hay một tài liệu thành nhiều đoạn nhỏ trước khi đưa vào kho tìm kiếm. Hệ thống AI lấy về từng đoạn chứ không lấy cả trang. Vì vậy một ý bị cắt đôi, hoặc một đoạn không nói rõ nó đang nói về cái gì, có thể không bao giờ được chọn dù cả trang viết đúng.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Mục lục</h2><ol><li><a href="#vi-sao-cat">Vì sao phải cắt trang thành đoạn?</a></li><li><a href="#cach-cat">Các cách cắt thường gặp</a></li><li><a href="#mat-ngu-canh">Đoạn mất ngữ cảnh thì sao?</a></li><li><a href="#website">Cấu trúc trang giúp được gì?</a></li><li><a href="#refs">Nguồn tham khảo</a></li></ol></nav>
+<section id="vi-sao-cat">
+<h2>1. Vì sao phải cắt trang thành đoạn?</h2>
+<p>Có hai lý do. Thứ nhất, mô hình ngôn ngữ chỉ đọc được một lượng chữ giới hạn cho mỗi câu trả lời, nên không thể nạp nguyên hàng chục trang. Thứ hai, một trang dài nói nhiều chuyện sẽ cho ra một vector “trung bình” của tất cả các chuyện đó, không gần hẳn với câu hỏi nào, như đã giải thích trong bài <a href="/blog/embedding-vector-search/">embedding và vector search</a>. Cắt nhỏ giúp mỗi đoạn mang một ý rõ ràng hơn.</p>
+<p>Đổi lại, mỗi đoạn mất đi phần còn lại của trang. Đó là gốc của hầu hết vấn đề trong bài này.</p>
+</section>
+
+<section id="cach-cat">
+<h2>2. Các cách cắt thường gặp</h2>
+<ul>
+<li><strong>Theo độ dài cố định:</strong> cứ một số ký tự hoặc một số token thì cắt, thường có phần chồng lấn giữa hai đoạn liền nhau để giảm việc cắt ngang câu. Cách này dễ làm nhưng không biết đâu là chỗ hết ý.</li>
+<li><strong>Theo cấu trúc:</strong> cắt theo đoạn văn, theo heading hoặc theo thẻ HTML. Đoạn cắt ra khớp với cách người viết chia ý.</li>
+<li><strong>Theo ngữ nghĩa:</strong> so độ gần nghĩa giữa các câu liên tiếp và cắt ở chỗ chủ đề đổi.</li>
+</ul>
+<p>Không nền tảng AI nào công bố họ cắt trang theo cách nào hay mỗi đoạn dài bao nhiêu. Minh hoạ dưới đây so sánh hai cách đầu trên cùng một trang sản phẩm giả định.</p>
+<figure class="mh" data-mh="chunk"><figcaption>Cùng một trang sản phẩm gạch, cắt theo số ký tự thì câu trả lời về kích thước bị chia sang hai đoạn và đoạn về bảo hành không có tên sản phẩm; cắt theo heading thì mỗi đoạn trả lời trọn một câu hỏi và mang theo tên trang.</figcaption></figure>
+</section>
+
+<section id="mat-ngu-canh">
+<h2>3. Đoạn mất ngữ cảnh thì sao?</h2>
+<p>Thử đọc riêng câu “Sản phẩm được bảo hành 10 năm cho lỗi men”. Câu đó đúng, nhưng sản phẩm nào? Của hãng nào? Khi đứng một mình trong kho tìm kiếm, nó cạnh tranh với mọi câu “bảo hành 10 năm” khác trên mạng, và hệ thống khó biết nó trả lời được câu hỏi “gạch Sao Mai bảo hành bao lâu”.</p>
+<p>Anthropic đo được ảnh hưởng của chuyện này. Trong thử nghiệm “Contextual Retrieval” công bố tháng 9/2024, họ dùng mô hình viết thêm một câu ngữ cảnh ngắn vào đầu mỗi đoạn trước khi đưa vào kho, kiểu “Đoạn này thuộc trang sản phẩm gạch X, phần bảo hành”. Chỉ riêng việc đó làm tỉ lệ tìm hụt đoạn cần thiết giảm 35%. Kết hợp thêm tìm theo từ khoá thì giảm 49%, thêm bước xếp hạng lại thì giảm 67%.</p>
+<p>Website không điều khiển được hệ thống AI có làm bước bổ sung ngữ cảnh đó hay không. Nhưng website kiểm soát được việc mỗi đoạn có tự mang ngữ cảnh của nó hay không.</p>
+</section>
+
+<section id="website">
+<h2>4. Cấu trúc trang giúp được gì?</h2>
+<p>Hướng dẫn quản trị web của Bing, bản viết lại tháng 2/2026 để áp dụng cho cả Copilot, nói khá thẳng: nội dung nên dễ hiểu mà không cần ngữ cảnh bên ngoài, các dữ kiện và định nghĩa phải được nói rõ, thông tin quan trọng nên nằm gần đầu trang. Đặt cạnh chuyện chunking, các yêu cầu đó có lý do cụ thể:</p>
+<ul>
+<li><strong>Heading đúng thứ bậc, mỗi mục một ý.</strong> Nếu hệ thống cắt theo cấu trúc, mỗi mục sẽ thành một đoạn gọn gàng.</li>
+<li><strong>Câu đầu của mỗi mục gọi đúng tên chủ thể.</strong> “Gạch Sao Mai 60×60 được bảo hành 10 năm” tự đứng được; “Sản phẩm được bảo hành 10 năm” thì không.</li>
+<li><strong>Câu trả lời nằm trọn trong một đoạn.</strong> Một dữ kiện bị tách ra hai đoạn, một nửa ở bảng và một nửa ở chú thích, dễ bị lấy về thiếu.</li>
+<li><strong>Thông tin nằm ở chữ trên trang.</strong> Bing lưu ý ảnh và video nên bổ sung cho phần chữ, không nên là nơi duy nhất chứa thông tin.</li>
+</ul>
+<p>Không có cách cắt nào là đúng cho mọi nền tảng, và cũng không cần đoán. Một trang viết rõ ràng cho người đọc thì cắt theo kiểu nào cũng ít bị hỏng hơn. Bước cắt đoạn nằm ở giai đoạn chuẩn bị của <a href="/blog/rag-la-gi/">quy trình RAG</a>, trước cả khi có người hỏi.</p>
+<aside class="post-cta"><p>Trang quan trọng trên website của bạn có đoạn nào đứng một mình mà không rõ đang nói về ai, về sản phẩm nào không? Rà soát nội dung theo từng đoạn là một phần của dịch vụ GEO.</p><a href="/dich-vu/geo/">Xem dịch vụ GEO</a></aside>
+</section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">Nguồn tham khảo</h2><ul><li>Anthropic, “Introducing Contextual Retrieval”, 9/2024.</li><li>Microsoft, Bing Webmaster Guidelines, bản cập nhật tháng 2/2026.</li></ul></section>
+</div>
+<footer class="post-foot"><h2>Đọc tiếp</h2><ul><li><a href="/blog/rag-la-gi/">RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời</a></li><li><a href="/blog/bm25-hybrid-search/">BM25 và hybrid search: vì sao từ khoá vẫn quan trọng khi AI tìm kiếm</a></li><li><a href="/blog/query-fan-out-la-gi/">Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/blog/">Tất cả bài viết</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Khoá học SEO 1 kèm 1</a></li><li><a href="/dich-vu/khoa-hoc-geo/">Khoá học GEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p class="foot-loc">Phan Minh Hoàng SEO – TP. Hồ Chí Minh, Việt Nam</p><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
+</body>
+</html>
