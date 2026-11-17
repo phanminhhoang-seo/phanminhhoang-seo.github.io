@@ -82,13 +82,13 @@
 <ol>
 <li><strong>Thu thập tài liệu:</strong> trang web, PDF, cơ sở dữ liệu. Với công cụ tìm kiếm bằng AI, đây là chỉ mục web do bot thu thập.</li>
 <li><strong>Cắt thành đoạn (chunk):</strong> mỗi trang được chia thành nhiều đoạn ngắn, thường theo đoạn văn hoặc theo mục. Hệ thống lấy về từng đoạn chứ không lấy cả trang.</li>
-<li><strong>Tạo embedding:</strong> mỗi đoạn được đổi thành một vector, tức một dãy số biểu diễn ý nghĩa của đoạn. Hai đoạn cùng ý thì vector nằm gần nhau, dù dùng chữ khác nhau.</li>
+<li><strong>Tạo <a href="/blog/embedding-vector-search/">embedding</a>:</strong> mỗi đoạn được đổi thành một vector, tức một dãy số biểu diễn ý nghĩa của đoạn. Hai đoạn cùng ý thì vector nằm gần nhau, dù dùng chữ khác nhau.</li>
 <li><strong>Lưu vào kho:</strong> vector được lưu cùng đoạn văn gốc và đường link để sau này trích dẫn.</li>
 </ol>
 <h3>Giai đoạn 2: khi có người hỏi</h3>
 <ol start="5">
-<li><strong>Xử lý câu hỏi:</strong> câu hỏi được đổi thành vector bằng cùng mô hình embedding. Nhiều hệ thống còn viết lại câu hỏi, hoặc tách thành nhiều truy vấn nhỏ (query fan-out).</li>
-<li><strong>Truy xuất:</strong> lấy K đoạn có vector gần câu hỏi nhất. Các hệ thống tìm kiếm thực tế thường kết hợp thêm tìm theo từ khoá và một bước xếp hạng lại.</li>
+<li><strong>Xử lý câu hỏi:</strong> câu hỏi được đổi thành vector bằng cùng mô hình embedding. Nhiều hệ thống còn viết lại câu hỏi, hoặc tách thành nhiều truy vấn nhỏ (<a href="/blog/query-fan-out-la-gi/">query fan-out</a>).</li>
+<li><strong>Truy xuất:</strong> lấy K đoạn có vector gần câu hỏi nhất. Các hệ thống tìm kiếm thực tế thường kết hợp thêm <a href="/blog/bm25-hybrid-search/">tìm theo từ khoá</a> và một bước xếp hạng lại.</li>
 <li><strong>Ghép prompt:</strong> câu hỏi và các đoạn tìm được được đưa cho mô hình ngôn ngữ cùng lúc.</li>
 <li><strong>Viết câu trả lời:</strong> mô hình viết dựa trên các đoạn đó và gắn nguồn cho từng ý.</li>
 </ol>

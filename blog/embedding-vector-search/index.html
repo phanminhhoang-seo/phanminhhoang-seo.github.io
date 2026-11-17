@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embedding và vector search là gì? Cách AI tìm theo nghĩa</title>
+<meta name="description" content="Embedding biến đoạn văn thành dãy số thể hiện ý nghĩa, vector search tìm các đoạn gần nghĩa nhất với câu hỏi. Cách hai bước này quyết định AI lấy đoạn nào.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/embedding-vector-search/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/embedding-vector-search/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/embedding-vector-search/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:site_name" content="Phan Minh Hoàng SEO">
+<meta name="application-name" content="Phan Minh Hoàng SEO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Embedding và vector search là gì? Cách AI tìm theo nghĩa">
+<meta property="og:description" content="Embedding biến đoạn văn thành dãy số thể hiện ý nghĩa, vector search tìm các đoạn gần nghĩa nhất với câu hỏi. Cách hai bước này quyết định AI lấy đoạn nào.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/embedding-vector-search/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="vi_VN">
+
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/"},{"@type":"ListItem","position":3,"name":"Embedding và vector search","item":"https://phanminhhoang-seo.github.io/blog/embedding-vector-search/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Embedding và vector search: vì sao AI tìm theo nghĩa chứ không chỉ theo từ khoá","description":"Embedding biến đoạn văn thành dãy số thể hiện ý nghĩa, vector search tìm các đoạn gần nghĩa nhất với câu hỏi. Cách hai bước này quyết định AI lấy đoạn nào.","url":"https://phanminhhoang-seo.github.io/blog/embedding-vector-search/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/blog/embedding-vector-search/","inLanguage":"vi","datePublished":"2026-11-17","dateModified":"2026-11-17","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/blog/"},"wordCount":832,"articleSection":"GEO","about":[{"@type":"Thing","name":"Word embedding","sameAs":"https://en.wikipedia.org/wiki/Word_embedding"}],"mentions":[{"@type":"Thing","name":"Vector database","sameAs":"https://en.wikipedia.org/wiki/Vector_database"},{"@type":"Thing","name":"Cosine similarity","sameAs":"https://en.wikipedia.org/wiki/Cosine_similarity"},{"@type":"Thing","name":"Word2vec","sameAs":"https://en.wikipedia.org/wiki/Word2vec"}]}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7';document.head.appendChild(s)},1500)});</script>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="/dich-vu/">Dịch vụ</a></li><li><a href="/#kinh-nghiem">Kinh nghiệm</a></li><li><a href="/#du-an">Dự án</a></li><li><a href="/blog/" aria-current="page">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li><li><a class="lang" href="/en/blog/" hreflang="en" lang="en">English</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Trang chủ</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">Embedding và vector search</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">Embedding và vector search: vì sao AI tìm theo nghĩa chứ không chỉ theo từ khoá</h1>
+<div class="author"><img src="/images/phan-minh-hoang-56.webp" width="44" height="44" alt=""><div>
+<p class="a-name"><a href="/" rel="author">Phan Minh Hoàng</a></p>
+<p class="a-role">Chuyên gia SEO và GEO, SEO Leader tại Forza</p>
+<p class="a-meta">Đăng <time datetime="2026-11-17">17/11/2026</time>. 4 phút đọc.</p>
+</div></div></header>
+<div class="prose">
+<p class="lead">Embedding là cách biến một đoạn văn thành một dãy số, sao cho hai đoạn cùng ý thì hai dãy số nằm gần nhau. Vector search là bước tìm những dãy số gần nhất với câu hỏi. Nhờ hai thứ này, khi bạn hỏi “lỡ gạch hỏng thì sao”, hệ thống vẫn tìm ra đoạn nói về bảo hành dù câu hỏi không có chữ “bảo hành” nào.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Mục lục</h2><ol><li><a href="#embedding">Embedding là gì?</a></li><li><a href="#vector-search">Vector search tìm như thế nào?</a></li><li><a href="#tu-khoa">Tìm theo nghĩa và tìm theo từ khoá khác nhau ở đâu?</a></li><li><a href="#noi-dung">Điều này liên quan gì tới nội dung trên website?</a></li><li><a href="#refs">Nguồn tham khảo</a></li></ol></nav>
+<section id="embedding">
+<h2>1. Embedding là gì?</h2>
+<p>Máy tính không so được ý nghĩa của hai câu văn, nó chỉ so được số. Mô hình embedding làm việc chuyển đổi đó: đọc một đoạn văn rồi trả về một vector, thường dài vài trăm đến vài nghìn con số. Từng con số riêng lẻ không mang ý nghĩa gì mà người đọc hiểu được. Thứ có ý nghĩa là khoảng cách giữa các vector với nhau.</p>
+<p>Ý tưởng này đã có từ lâu. Word2vec, do nhóm của Tomas Mikolov tại Google công bố năm 2013, là mô hình phổ biến đầu tiên biểu diễn từng từ thành vector. Các mô hình bây giờ biểu diễn được cả câu và cả đoạn, nên hai cách nói khác nhau cho cùng một ý vẫn cho ra hai vector gần nhau.</p>
+<p>Trong quy trình <a href="/blog/rag-la-gi/">RAG</a> mà ChatGPT, Perplexity hay Google AI Mode dùng để tìm nguồn, embedding xuất hiện hai lần: một lần khi đưa các đoạn văn vào kho, một lần khi đổi câu hỏi của người dùng thành vector. Hai lần đó phải dùng cùng một mô hình thì mới so sánh được với nhau.</p>
+</section>
+
+<section id="vector-search">
+<h2>2. Vector search tìm như thế nào?</h2>
+<p>Khi có câu hỏi, hệ thống tìm K vector gần với vector câu hỏi nhất. Độ gần thường được đo bằng cosine similarity: góc giữa hai vector càng nhỏ thì hai đoạn càng gần nghĩa. Chọn một câu hỏi trong minh hoạ dưới đây và kéo thanh K để xem đoạn nào được lấy về.</p>
+<figure class="mh" data-mh="vector"><figcaption>Mỗi chấm là một đoạn văn trên website của một hãng gạch giả định. Đoạn cùng chủ đề nằm gần nhau. Ngôi sao là câu hỏi, các đường nối chỉ K đoạn gần câu hỏi nhất.</figcaption></figure>
+<p>Bản đồ chỉ có hai chiều cho dễ nhìn. Trong thực tế, kho có thể chứa hàng triệu vector và hệ thống không đo khoảng cách tới từng cái. Nó dùng các thuật toán tìm gần đúng (approximate nearest neighbor) để trả kết quả trong vài mili giây, đổi lại đôi khi bỏ sót một đoạn đáng ra phải được chọn.</p>
+</section>
+
+<section id="tu-khoa">
+<h2>3. Tìm theo nghĩa và tìm theo từ khoá khác nhau ở đâu?</h2>
+<div class="table-wrap" role="region" tabindex="0" aria-label="So sánh tìm theo nghĩa và tìm theo từ khoá">
+<table><thead><tr><th>Câu hỏi</th><th>Tìm theo từ khoá</th><th>Tìm theo nghĩa</th></tr></thead><tbody>
+<tr><td>“Lỡ gạch hỏng thì sao?”</td><td>Dễ trượt đoạn bảo hành vì không có chữ nào trùng</td><td>Tìm ra đoạn bảo hành</td></tr>
+<tr><td>“Gạch mã SM-602”</td><td>Tìm đúng mã sản phẩm</td><td>Có thể trả về cả SM-603, SM-604 vì nhìn gần giống nhau</td></tr>
+</tbody></table></div>
+<p>Mỗi cách có chỗ mạnh riêng. Tìm theo nghĩa tốt khi người hỏi dùng từ khác với người viết. Tìm theo từ khoá tốt với tên riêng, mã sản phẩm và con số, những thứ mà embedding thường khó phân biệt. Vì vậy phần lớn hệ thống tìm kiếm thực tế dùng cả hai cùng lúc, gọi là hybrid search, được giải thích trong bài <a href="/blog/bm25-hybrid-search/">BM25 và hybrid search</a>.</p>
+<p>Với người làm SEO, đây không phải chuyện mới. Google đi theo hướng hiểu nghĩa từ nhiều năm trước, như trong bài <a href="/blog/semantic-search-seo/">semantic search trong SEO</a>. Điểm khác là bây giờ cả câu trả lời của AI cũng được dựng từ những đoạn văn tìm theo cách này.</p>
+</section>
+
+<section id="noi-dung">
+<h2>4. Điều này liên quan gì tới nội dung trên website?</h2>
+<p>Vector của một đoạn phản ánh toàn bộ những gì đoạn đó nói. Một đoạn chỉ bàn một ý sẽ có vector rõ ràng. Một đoạn vừa nói giá, vừa nói bảo hành, vừa kể lịch sử công ty sẽ cho ra một vector nằm lưng chừng giữa ba ý, và không thật gần với câu hỏi nào. Cách một trang được cắt thành đoạn vì thế ảnh hưởng tới việc đoạn nào được lấy về, xem bài chunking là gì.</p>
+<p>Cũng vì vậy mà nhồi từ khoá gần như không giúp gì cho tìm theo nghĩa. Viết “gạch giá rẻ” năm lần trong một đoạn không đổi ý nghĩa của đoạn đó, chỉ làm nó khó đọc hơn. Hướng dẫn quản trị web của Bing năm 2026 còn xếp việc lặp từ quá mức và câu chữ thiếu tự nhiên vào nhóm hành vi có thể bị giảm hiển thị.</p>
+<aside class="post-cta"><p>Nếu bạn làm SEO và muốn nắm cách AI tìm và chọn nguồn trên chính website của mình, khoá học GEO 1 kèm 1 bắt đầu từ đúng phần này.</p><a href="/dich-vu/khoa-hoc-geo/">Xem khoá học GEO</a></aside>
+</section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">Nguồn tham khảo</h2><ul><li>Mikolov và cộng sự, “Efficient Estimation of Word Representations in Vector Space”, arXiv, 2013.</li><li>Microsoft, Bing Webmaster Guidelines, bản cập nhật tháng 2/2026.</li></ul></section>
+</div>
+<footer class="post-foot"><h2>Đọc tiếp</h2><ul><li><a href="/blog/rag-la-gi/">RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời</a></li><li><a href="/blog/query-fan-out-la-gi/">Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn</a></li><li><a href="/blog/bm25-hybrid-search/">BM25 và hybrid search: vì sao từ khoá vẫn quan trọng khi AI tìm kiếm</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/blog/">Tất cả bài viết</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Khoá học SEO 1 kèm 1</a></li><li><a href="/dich-vu/khoa-hoc-geo/">Khoá học GEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p class="foot-loc">Phan Minh Hoàng SEO – TP. Hồ Chí Minh, Việt Nam</p><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
+</body>
+</html>

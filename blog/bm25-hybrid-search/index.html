@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BM25 là gì? Vì sao từ khoá vẫn quan trọng với AI search</title>
+<meta name="description" content="BM25 là công thức chấm điểm theo từ khoá có từ năm 1994, vẫn là mặc định của Elasticsearch và là một nửa của hybrid search trong nhiều hệ thống AI.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:site_name" content="Phan Minh Hoàng SEO">
+<meta name="application-name" content="Phan Minh Hoàng SEO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BM25 là gì? Vì sao từ khoá vẫn quan trọng với AI search">
+<meta property="og:description" content="BM25 là công thức chấm điểm theo từ khoá có từ năm 1994, vẫn là mặc định của Elasticsearch và là một nửa của hybrid search trong nhiều hệ thống AI.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="vi_VN">
+
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/"},{"@type":"ListItem","position":3,"name":"BM25 và hybrid search","item":"https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"BM25 và hybrid search: vì sao từ khoá vẫn quan trọng khi AI tìm kiếm","description":"BM25 là công thức chấm điểm theo từ khoá có từ năm 1994, vẫn là mặc định của Elasticsearch và là một nửa của hybrid search trong nhiều hệ thống AI.","url":"https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/","inLanguage":"vi","datePublished":"2026-11-17","dateModified":"2026-11-17","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/blog/"},"wordCount":842,"articleSection":"GEO","about":[{"@type":"Thing","name":"Okapi BM25","sameAs":"https://en.wikipedia.org/wiki/Okapi_BM25"}],"mentions":[{"@type":"Thing","name":"tf–idf","sameAs":"https://en.wikipedia.org/wiki/Tf%E2%80%93idf"},{"@type":"Thing","name":"Elasticsearch","sameAs":"https://en.wikipedia.org/wiki/Elasticsearch"},{"@type":"Thing","name":"Apache Lucene","sameAs":"https://en.wikipedia.org/wiki/Apache_Lucene"}]}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7';document.head.appendChild(s)},1500)});</script>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="/dich-vu/">Dịch vụ</a></li><li><a href="/#kinh-nghiem">Kinh nghiệm</a></li><li><a href="/#du-an">Dự án</a></li><li><a href="/blog/" aria-current="page">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li><li><a class="lang" href="/en/blog/" hreflang="en" lang="en">English</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Trang chủ</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">BM25 và hybrid search</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">BM25 và hybrid search: vì sao từ khoá vẫn quan trọng khi AI tìm kiếm</h1>
+<div class="author"><img src="/images/phan-minh-hoang-56.webp" width="44" height="44" alt=""><div>
+<p class="a-name"><a href="/" rel="author">Phan Minh Hoàng</a></p>
+<p class="a-role">Chuyên gia SEO và GEO, SEO Leader tại Forza</p>
+<p class="a-meta">Đăng <time datetime="2026-11-17">17/11/2026</time>. 4 phút đọc.</p>
+</div></div></header>
+<div class="prose">
+<p class="lead">BM25 là công thức chấm điểm mức liên quan giữa câu hỏi và tài liệu dựa trên từ khoá: từ có xuất hiện không, xuất hiện bao nhiêu lần, có hiếm không, và tài liệu dài hay ngắn. Nó được công bố năm 1994 từ hệ thống Okapi của City University London. Hơn 30 năm sau, BM25 vẫn là cách chấm điểm mặc định của Lucene và Elasticsearch, và vẫn chạy song song với vector search trong nhiều hệ thống AI.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Mục lục</h2><ol><li><a href="#cham-diem">BM25 chấm điểm dựa trên những gì?</a></li><li><a href="#vi-sao-con-dung">Vì sao hệ thống AI vẫn cần BM25?</a></li><li><a href="#hybrid">Hybrid search trộn hai cách tìm thế nào?</a></li><li><a href="#viet-noi-dung">Người viết nội dung nên hiểu điều gì?</a></li><li><a href="#refs">Nguồn tham khảo</a></li></ol></nav>
+<section id="cham-diem">
+<h2>1. BM25 chấm điểm dựa trên những gì?</h2>
+<p>Với mỗi từ trong câu hỏi, BM25 nhìn vào ba thứ:</p>
+<ul>
+<li><strong>Từ xuất hiện bao nhiêu lần trong tài liệu.</strong> Càng nhiều càng được cộng điểm, nhưng có giới hạn. Lần xuất hiện thứ nhất và thứ hai cộng nhiều, đến lần thứ mười thì gần như không cộng thêm gì. Tham số k1 quyết định điểm bão hoà nhanh hay chậm.</li>
+<li><strong>Từ đó hiếm hay phổ biến.</strong> Trên website của một hãng gạch, chữ “gạch” có ở gần như mọi trang nên ít giá trị khi phân biệt. Chữ “chống trơn” hiếm hơn nên nặng ký hơn. Phần này gọi là IDF.</li>
+<li><strong>Tài liệu dài hay ngắn so với trung bình.</strong> Trang dài tự nhiên chứa nhiều từ hơn, nên BM25 trừ bớt điểm cho trang dài để không ưu tiên trang chỉ vì dài. Tham số b quyết định mức trừ.</li>
+</ul>
+<p>Kéo hai thanh trong minh hoạ để thấy điểm thay đổi ra sao. Lucene và Elasticsearch đặt mặc định k1 = 1,2 và b = 0,75. Elasticsearch chuyển sang dùng BM25 làm mặc định từ phiên bản 5.0 năm 2016.</p>
+<figure class="mh" data-mh="bm25"><figcaption>Đường cong cho thấy điểm tần suất của BM25 tăng chậm dần khi một từ lặp lại nhiều lần, và thấp hơn với trang dài hơn trung bình. Phần dưới so sánh thứ tự bốn tài liệu khi trộn điểm từ khoá với điểm ngữ nghĩa theo các tỉ lệ khác nhau.</figcaption></figure>
+</section>
+
+<section id="vi-sao-con-dung">
+<h2>2. Vì sao hệ thống AI vẫn cần BM25?</h2>
+<p>Tìm theo nghĩa bằng embedding, như trong bài <a href="/blog/embedding-vector-search/">embedding và vector search</a>, giỏi hiểu những câu hỏi dùng từ khác với tài liệu. Nhưng nó yếu ở chỗ BM25 mạnh: tên riêng, mã sản phẩm, số hiệu, thuật ngữ hiếm. Hai mã sản phẩm chỉ khác nhau một chữ số có thể cho ra hai vector gần như trùng nhau, trong khi BM25 phân biệt chúng ngay.</p>
+<p>Một con số cụ thể đến từ Anthropic. Tháng 9/2024, công ty này công bố thử nghiệm “Contextual Retrieval” trên nhiều loại tài liệu: mã nguồn, bài báo khoa học, tiểu thuyết. Chỉ dùng embedding có thêm ngữ cảnh thì tỉ lệ tìm hụt đoạn cần thiết trong 20 đoạn đầu giảm 35%, từ 5,7% xuống 3,7%. Khi cộng thêm BM25, tỉ lệ đó giảm 49%, xuống 2,9%. Nghĩa là phần từ khoá vẫn gánh một phần việc mà embedding làm sót.</p>
+</section>
+
+<section id="hybrid">
+<h2>3. Hybrid search trộn hai cách tìm thế nào?</h2>
+<p>Hybrid search chạy cả hai cách tìm rồi gộp kết quả. Cách gộp đơn giản là cộng điểm theo một tỉ lệ, như thanh trượt trong minh hoạ ở trên. Nhưng điểm BM25 và điểm cosine nằm trên hai thang khác nhau, nên nhiều hệ thống gộp theo thứ hạng thay vì theo điểm. Phương pháp phổ biến là reciprocal rank fusion, do Cormack, Clarke và Büttcher đề xuất năm 2009: tài liệu đứng cao ở cả hai danh sách sẽ đứng cao trong danh sách gộp.</p>
+<p>Các nền tảng AI không công bố họ trộn hai cách tìm theo tỉ lệ nào. Điều chắc chắn hơn là bước truy xuất trong <a href="/blog/rag-la-gi/">quy trình RAG</a> hiếm khi chỉ dùng một cách duy nhất.</p>
+</section>
+
+<section id="viet-noi-dung">
+<h2>4. Người viết nội dung nên hiểu điều gì?</h2>
+<p>Từ khoá chưa hết vai trò, nhưng vai trò của nó khác với thời nhồi từ. Ba điều rút ra từ cách BM25 chấm điểm:</p>
+<ul>
+<li><strong>Gọi đúng tên thứ người ta tìm.</strong> Tên sản phẩm, mã, tên dịch vụ, địa danh nên được viết rõ trong đoạn văn, thay vì “sản phẩm này” hay “dịch vụ của chúng tôi”. Hướng dẫn của Bing năm 2026 cũng yêu cầu gọi tên người, tổ chức, sản phẩm, địa điểm một cách rõ ràng và nhất quán.</li>
+<li><strong>Lặp từ khoá không giúp được bao nhiêu.</strong> Điểm bão hoà sau vài lần xuất hiện, còn lặp quá mức thì bị cả Google lẫn Bing coi là spam.</li>
+<li><strong>Không phải chọn giữa từ khoá và ngữ nghĩa.</strong> Một đoạn viết tự nhiên, đúng chủ đề và gọi đúng tên thường đạt điểm tốt ở cả hai cách tìm. Đây cũng là tinh thần của <a href="/blog/semantic-search-seo/">semantic search trong SEO</a>.</li>
+</ul>
+<aside class="post-cta"><p>Khoá học GEO 1 kèm 1 đi từ cách AI tìm và chọn nguồn tới những việc cần làm trên chính website của bạn.</p><a href="/dich-vu/khoa-hoc-geo/">Xem khoá học GEO</a></aside>
+</section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">Nguồn tham khảo</h2><ul><li>Robertson và cộng sự, “Okapi at TREC-3”, Third Text REtrieval Conference (TREC 1994).</li><li>Apache Lucene, tài liệu lớp BM25Similarity.</li><li>Anthropic, “Introducing Contextual Retrieval”, 9/2024.</li><li>Cormack, Clarke và Büttcher, “Reciprocal Rank Fusion outperforms Condorcet and individual rank learning methods”, SIGIR 2009.</li><li>Microsoft, Bing Webmaster Guidelines, bản cập nhật tháng 2/2026.</li></ul></section>
+</div>
+<footer class="post-foot"><h2>Đọc tiếp</h2><ul><li><a href="/blog/rag-la-gi/">RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời</a></li><li><a href="/blog/query-fan-out-la-gi/">Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn</a></li><li><a href="/blog/embedding-vector-search/">Embedding và vector search: vì sao AI tìm theo nghĩa chứ không chỉ theo từ khoá</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/blog/">Tất cả bài viết</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Khoá học SEO 1 kèm 1</a></li><li><a href="/dich-vu/khoa-hoc-geo/">Khoá học GEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p class="foot-loc">Phan Minh Hoàng SEO – TP. Hồ Chí Minh, Việt Nam</p><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
+</body>
+</html>

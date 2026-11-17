@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Query fan-out là gì? AI Mode tách câu hỏi thế nào</title>
+<meta name="description" content="Query fan-out là cách AI Mode tách một câu hỏi thành nhiều truy vấn chạy cùng lúc. Google đã nói gì về kỹ thuật này và nó thay đổi gì với một trang web.">
+<link rel="canonical" href="https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="alternate" hreflang="vi" href="https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/">
+<link rel="alternate" hreflang="x-default" href="https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/">
+<meta name="author" content="Phan Minh Hoàng">
+<meta name="google-site-verification" content="jV5T6tBim5ONz3laX3moZ_DpcAECrd0kBBYcekpnZpQ">
+<meta property="og:site_name" content="Phan Minh Hoàng SEO">
+<meta name="application-name" content="Phan Minh Hoàng SEO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Query fan-out là gì? AI Mode tách câu hỏi thế nào">
+<meta property="og:description" content="Query fan-out là cách AI Mode tách một câu hỏi thành nhiều truy vấn chạy cùng lúc. Google đã nói gì về kỹ thuật này và nó thay đổi gì với một trang web.">
+<meta property="og:url" content="https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/">
+<meta property="og:image" content="https://phanminhhoang-seo.github.io/phan-minh-hoang.png">
+<meta property="og:locale" content="vi_VN">
+
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-vietnamese-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://phanminhhoang-seo.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://phanminhhoang-seo.github.io/blog/"},{"@type":"ListItem","position":3,"name":"Query fan-out là gì","item":"https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn","description":"Query fan-out là cách AI Mode tách một câu hỏi thành nhiều truy vấn chạy cùng lúc. Google đã nói gì về kỹ thuật này và nó thay đổi gì với một trang web.","url":"https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/","mainEntityOfPage":"https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/","inLanguage":"vi","datePublished":"2026-11-17","dateModified":"2026-11-17","image":"https://phanminhhoang-seo.github.io/phan-minh-hoang.png","author":{"@type":"Person","@id":"https://phanminhhoang-seo.github.io/#person","name":"Phan Minh Hoàng","url":"https://phanminhhoang-seo.github.io/"},"publisher":{"@id":"https://phanminhhoang-seo.github.io/#person"},"isPartOf":{"@type":"Blog","url":"https://phanminhhoang-seo.github.io/blog/"},"wordCount":858,"articleSection":"GEO","about":[{"@type":"Thing","name":"Query expansion","sameAs":"https://en.wikipedia.org/wiki/Query_expansion"}],"mentions":[{"@type":"Thing","name":"Google Search","sameAs":"https://en.wikipedia.org/wiki/Google_Search"},{"@type":"Thing","name":"ChatGPT","sameAs":"https://en.wikipedia.org/wiki/ChatGPT"}]}</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-WF7PFV41D7');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-WF7PFV41D7';document.head.appendChild(s)},1500)});</script>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/">Phan Minh Hoàng <span>SEO</span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"><span class="bars" aria-hidden="true"><span></span></span>Menu</button>
+<nav class="site-nav" id="site-nav" aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="/dich-vu/">Dịch vụ</a></li><li><a href="/#kinh-nghiem">Kinh nghiệm</a></li><li><a href="/#du-an">Dự án</a></li><li><a href="/blog/" aria-current="page">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li><li><a class="lang" href="/en/blog/" hreflang="en" lang="en">English</a></li></ul></nav>
+</div>
+</header>
+<main id="main"><nav class="crumbs wrap" aria-label="Breadcrumb"><ol><li><a href="/">Trang chủ</a></li><li><a href="/blog/">Blog</a></li><li aria-current="page">Query fan-out là gì</li></ol></nav><article class="wrap" aria-labelledby="post-t">
+<header class="post-head"><h1 id="post-t">Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn</h1>
+<div class="author"><img src="/images/phan-minh-hoang-56.webp" width="44" height="44" alt=""><div>
+<p class="a-name"><a href="/" rel="author">Phan Minh Hoàng</a></p>
+<p class="a-role">Chuyên gia SEO và GEO, SEO Leader tại Forza</p>
+<p class="a-meta">Đăng <time datetime="2026-11-17">17/11/2026</time>. 4 phút đọc.</p>
+</div></div></header>
+<div class="prose">
+<p class="lead">Query fan-out là việc hệ thống AI tự tách câu hỏi của người dùng thành nhiều truy vấn nhỏ, chạy cùng lúc, rồi gộp kết quả lại để viết một câu trả lời. Google dùng tên này khi giới thiệu AI Mode ngày 5/3/2025. Đây cũng là lý do một trang không xếp hạng cho câu hỏi gốc vẫn có thể được AI Mode trích dẫn.</p>
+<nav class="toc" aria-labelledby="toc-t"><h2 id="toc-t">Mục lục</h2><ol><li><a href="#google-noi-gi">Google đã nói gì về query fan-out?</a></li><li><a href="#vi-du">Một câu hỏi được tách ra thế nào?</a></li><li><a href="#query-expansion">Fan-out khác query expansion ở đâu?</a></li><li><a href="#website">Website bị ảnh hưởng ra sao?</a></li><li><a href="#refs">Nguồn tham khảo</a></li></ol></nav>
+<section id="google-noi-gi">
+<h2>1. Google đã nói gì về query fan-out?</h2>
+<p>Trong bài giới thiệu AI Mode ngày 5/3/2025, Robby Stein, Phó chủ tịch sản phẩm của Google Search, mô tả AI Mode chạy nhiều tìm kiếm liên quan cùng lúc, trải qua các chủ đề con và nhiều nguồn dữ liệu, rồi gom lại thành một câu trả lời dễ hiểu. Đến Google I/O ngày 20/5/2025, Google giới thiệu Deep Search, dùng cùng kỹ thuật này nhưng ở quy mô lớn hơn, có thể chạy hàng trăm lượt tìm kiếm cho một câu hỏi.</p>
+<p>Tài liệu Search Central của Google nói rõ hơn về phía website: cả AI Overviews và AI Mode “có thể” dùng query fan-out, và trong lúc viết câu trả lời, mô hình tìm thêm các trang hỗ trợ. Google không công bố mỗi lần tách ra bao nhiêu truy vấn hay các truy vấn được tạo theo quy tắc nào.</p>
+</section>
+
+<section id="vi-du">
+<h2>2. Một câu hỏi được tách ra thế nào?</h2>
+<p>Minh hoạ dưới đây cho thấy hình dạng của quá trình đó với ba câu hỏi mẫu. Các truy vấn con do tôi tự đặt để minh hoạ, không phải truy vấn thật của Google.</p>
+<figure class="mh" data-mh="fanout"><figcaption>Câu hỏi “Nên học SEO ở đâu?” được tách thành năm truy vấn con: khoá học online, học phí, review, học 1 kèm 1 và lộ trình. Mỗi truy vấn mang về nguồn riêng trước khi AI tổng hợp thành một câu trả lời.</figcaption></figure>
+<p>ChatGPT cũng làm việc tương tự dù không gọi bằng tên này. Trang trợ giúp của OpenAI viết rằng khi tìm trên web, ChatGPT thường viết lại câu hỏi thành một hoặc nhiều truy vấn cụ thể hơn rồi mới gửi đi tìm. Ai làm việc với Gemini API cũng thấy được điều này: khi bật tính năng grounding với Google Search, phần phản hồi trả về kèm danh sách truy vấn mà mô hình đã chạy.</p>
+</section>
+
+<section id="query-expansion">
+<h2>3. Fan-out khác query expansion ở đâu?</h2>
+<p>Query expansion là kỹ thuật cũ của ngành truy xuất thông tin: thêm từ đồng nghĩa hoặc từ liên quan vào một truy vấn để tìm được nhiều tài liệu hơn. Kết quả vẫn là một danh sách.</p>
+<p>Fan-out tạo ra nhiều truy vấn riêng biệt, mỗi truy vấn ứng với một khía cạnh của nhu cầu, và mỗi truy vấn trả về danh sách kết quả của riêng nó. Mô hình ngôn ngữ đọc qua tất cả rồi chọn đoạn nào dùng cho ý nào trong câu trả lời. Nó gần với cách một người cẩn thận tự tra cứu: tìm học phí ở một nơi, đọc review ở chỗ khác, rồi mới kết luận.</p>
+</section>
+
+<section id="website">
+<h2>4. Website bị ảnh hưởng ra sao?</h2>
+<p><strong>Trang được chọn theo truy vấn con chứ không chỉ theo câu hỏi gốc.</strong> Một trang trả lời thật tốt một khía cạnh hẹp, ví dụ học phí, có thể được trích dẫn cho câu hỏi chung “nên học SEO ở đâu” dù không xếp hạng cho câu đó. Ahrefs đo được tỉ lệ nguồn của AI Overviews nằm trong top 10 Google cho cùng từ khoá giảm từ khoảng 76% (7/2025) xuống còn khoảng 38% (3/2026), và họ cho rằng fan-out là một phần lý do. Chi tiết về khoảng cách giữa top Google và nguồn được trích dẫn có trong bài grounding là gì.</p>
+<p><strong>Khó đo hơn.</strong> Truy vấn con không phải câu người dùng gõ, nên không hiện thành một truy vấn riêng trong báo cáo hiệu suất. Mỗi lần hỏi lại có thể tạo ra bộ truy vấn khác, nên kết quả kiểm tra một lần không nói lên nhiều.</p>
+<p><strong>Không phải lý do để viết thật nhiều trang nhỏ.</strong> Fan-out tìm trên chỉ mục Google Search, và Google vẫn yêu cầu trang phải được index và đủ điều kiện hiển thị đoạn trích, như trong bài <a href="/blog/ai-overviews-ai-mode/">AI Overviews và AI Mode là gì</a>. Tách một chủ đề thành hàng chục trang mỏng chỉ tạo thêm trang trùng lặp. Cả Google lẫn Bing đều coi nội dung mỏng và trùng lặp là tín hiệu xấu.</p>
+<p>Fan-out là bước số 5 trong quy trình tìm nguồn đã mô tả ở bài <a href="/blog/rag-la-gi/">RAG là gì</a>. Mỗi truy vấn con sau đó lại đi qua bước truy xuất và chọn đoạn như bình thường.</p>
+<aside class="post-cta"><p>Khách hàng hỏi AI về ngành của bạn theo những khía cạnh nào, và website của bạn có trang nào trả lời được từng khía cạnh đó không? Đó là một trong những việc tôi kiểm tra khi đo hiện trạng GEO.</p><a href="/dich-vu/geo/">Xem dịch vụ GEO</a></aside>
+</section>
+<section id="refs" aria-labelledby="refs-t"><h2 id="refs-t">Nguồn tham khảo</h2><ul><li>Google, “Expanding AI Overviews and introducing AI Mode”, Robby Stein, 5/3/2025.</li><li><a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="nofollow noopener">Google Search Central, “AI features and your website”</a>.</li><li>OpenAI Help Center, “Searching the web with ChatGPT”.</li><li>Ahrefs, “Update: 38% of AI Overview Citations Pull From the Top 10”, 3/2026.</li></ul></section>
+</div>
+<footer class="post-foot"><h2>Đọc tiếp</h2><ul><li><a href="/blog/rag-la-gi/">RAG là gì? Cách ChatGPT, Perplexity và Google AI Mode tìm nguồn trước khi trả lời</a></li><li><a href="/blog/embedding-vector-search/">Embedding và vector search: vì sao AI tìm theo nghĩa chứ không chỉ theo từ khoá</a></li><li><a href="/blog/bm25-hybrid-search/">BM25 và hybrid search: vì sao từ khoá vẫn quan trọng khi AI tìm kiếm</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/blog/">Tất cả bài viết</a></li></ul></footer>
+</article></main>
+<footer class="site-footer"><div class="wrap"><nav aria-label="Liên kết cuối trang"><ul class="foot-links"><li><a href="/dich-vu/seo/">Dịch vụ SEO</a></li><li><a href="/dich-vu/geo/">Dịch vụ GEO</a></li><li><a href="/dich-vu/mentor-seo/">Khoá học SEO 1 kèm 1</a></li><li><a href="/dich-vu/khoa-hoc-geo/">Khoá học GEO</a></li><li><a href="/blog/">Blog</a></li><li><a href="/#lien-he">Liên hệ</a></li></ul></nav><p class="foot-loc">Phan Minh Hoàng SEO – TP. Hồ Chí Minh, Việt Nam</p><p>© 2026 Phan Minh Hoàng. Cập nhật 11/2026.</p></div></footer>
+<script src="/js/main.js" defer></script>
+<script src="/js/minh-hoa.js" defer></script>
+</body>
+</html>
