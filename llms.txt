@@ -16,6 +16,7 @@
 - [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
+- [Share of Model là gì? Cách tính tỉ lệ thương hiệu được AI nhắc tên](https://phanminhhoang-seo.github.io/blog/share-of-model/): Share of Model đo thương hiệu xuất hiện trong bao nhiêu câu trả lời AI trên một bộ câu hỏi. Thuật ngữ từ đâu ra, cách tính, khác share of voice ở đâu và giới hạn.
 - [Chunking là gì? AI cắt trang web thành từng đoạn như thế nào](https://phanminhhoang-seo.github.io/blog/chunking-la-gi/): Trước khi tìm, hệ thống AI cắt trang thành từng đoạn nhỏ. Các cách cắt phổ biến, vì sao đoạn mất ngữ cảnh khó được lấy về, và cấu trúc trang giúp được gì.
 - [Embedding và vector search: vì sao AI tìm theo nghĩa chứ không chỉ theo từ khoá](https://phanminhhoang-seo.github.io/blog/embedding-vector-search/): Embedding biến đoạn văn thành dãy số thể hiện ý nghĩa, vector search tìm các đoạn gần nghĩa nhất với câu hỏi. Cách hai bước này quyết định AI lấy đoạn nào.
 - [Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn](https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/): Query fan-out là cách AI Mode tách một câu hỏi thành nhiều truy vấn chạy cùng lúc. Google đã nói gì về kỹ thuật này và nó thay đổi gì với một trang web.
