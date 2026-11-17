@@ -16,6 +16,7 @@
 - [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
+- [Grounding là gì? Vì sao trang top Google vẫn không được AI trích dẫn](https://phanminhhoang-seo.github.io/blog/grounding-trich-dan-nguon/): Grounding là việc AI dựa câu trả lời vào nguồn tìm được và gắn trích dẫn. Số liệu cho thấy phần lớn nguồn AI trích dẫn không nằm trong top 10 Google, và lý do.
 - [Bài nghiên cứu GEO gốc nói gì, và những chỗ hay bị hiểu sai](https://phanminhhoang-seo.github.io/blog/nghien-cuu-geo-princeton/): Bài báo GEO của Princeton và cộng sự (KDD 2024) đo được gì, con số 40% có nghĩa là gì, và nghiên cứu lặp lại năm 2025 cho kết quả khác ra sao.
 - [Share of Model là gì? Cách tính tỉ lệ thương hiệu được AI nhắc tên](https://phanminhhoang-seo.github.io/blog/share-of-model/): Share of Model đo thương hiệu xuất hiện trong bao nhiêu câu trả lời AI trên một bộ câu hỏi. Thuật ngữ từ đâu ra, cách tính, khác share of voice ở đâu và giới hạn.
 - [Chunking là gì? AI cắt trang web thành từng đoạn như thế nào](https://phanminhhoang-seo.github.io/blog/chunking-la-gi/): Trước khi tìm, hệ thống AI cắt trang thành từng đoạn nhỏ. Các cách cắt phổ biến, vì sao đoạn mất ngữ cảnh khó được lấy về, và cấu trúc trang giúp được gì.
