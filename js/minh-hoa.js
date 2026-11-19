@@ -1,16 +1,3 @@
-/*!
- * minh-hoa.js — minh hoạ tương tác cho blog phanminhhoang-seo.github.io
- * Tác giả: Phan Minh Hoàng. Không dùng thư viện ngoài.
- *
- * Cách dùng trong bài:
- *   <figure class="mh" data-mh="rag"> chứa một <figcaption> mô tả bằng chữ
- *   (Google, bot AI và trình đọc màn hình đọc phần chữ này),
- *   và một thẻ script nạp /js/minh-hoa.js (defer) ở cuối bài.
- *
- * Các minh hoạ: rag, vector, fanout, chunk, kg, entity-link, som, variance, bm25, geo-paper, grounding
- * Bản tiếng Anh: chữ tự đổi khi <html lang="en">.
- * Mọi thương hiệu (Gạch Sao Mai, Bình Minh…) và tên miền .example đều là giả định.
- */
 (function () {
   'use strict';
 
@@ -19,7 +6,6 @@
   var RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var SVGNS = 'http://www.w3.org/2000/svg';
 
-  /* ---------- tiện ích dựng phần tử ---------- */
   function build(ns, tag, a, kids) {
     var el = ns ? document.createElementNS(ns, tag) : document.createElement(tag);
     if (a) for (var k in a) {
@@ -52,7 +38,7 @@
     if (window.ResizeObserver) new ResizeObserver(function () { clearTimeout(t); t = setTimeout(check, 80); }).observe(el);
     else window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(check, 120); });
   }
-  function rng(seed) { // mulberry32
+  function rng(seed) {
     return function () {
       seed |= 0; seed = seed + 0x6D2B79F5 | 0;
       var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
@@ -61,7 +47,6 @@
     };
   }
 
-  /* ---------- CSS dùng chung, lấy biến màu của site ---------- */
   var CSS = [
     '.mh{margin:28px 0}',
     '.mh-box{--a:var(--impr,#5e35b1);--b:var(--clicks,#1a73e8);--c:var(--ctr,#00897b);--d:var(--pos,#e8710a);background:var(--surface,#fff);border:1px solid var(--rule,#dce1e8);border-radius:14px;padding:16px;font-size:.95rem;line-height:1.5;color:var(--ink,#17202c)}',
@@ -86,7 +71,6 @@
     '.mh svg text{font-family:inherit}',
     '.mh-range{display:flex;align-items:center;gap:8px;font-size:.88rem}',
     '.mh-range input{accent-color:var(--a);width:120px}',
-    /* RAG + fan-out: thẻ dạng luồng */
     '.mh-lane{margin-bottom:12px}',
     '.mh-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin-top:6px}',
     '.mh-node{flex:1 1 0;min-width:96px;border:1.5px solid var(--rule,#dce1e8);border-radius:10px;padding:8px 10px;font-size:.85rem;background:var(--surface,#fff);transition:border-color .25s,background .25s,transform .25s}',
@@ -102,7 +86,6 @@
     '.mh-score{font-variant-numeric:tabular-nums;font-weight:600;color:var(--a);min-width:3.2em}',
     '.mh-src{color:var(--c);font-size:.8rem}',
     '.mh-cite{display:inline-block;min-width:1.4em;text-align:center;border-radius:4px;background:color-mix(in srgb,var(--b) 14%,#fff);color:var(--b);font-size:.75rem;font-weight:700;padding:0 4px;margin-left:2px}',
-    /* fan-out */
     '.mh-fan{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:center}',
     '@media (max-width:640px){.mh-fan{grid-template-columns:1fr}}',
     '.mh-q{border:2px solid var(--a);border-radius:12px;padding:12px;font-weight:600;background:color-mix(in srgb,var(--a) 7%,#fff)}',
@@ -112,7 +95,6 @@
     '.mh-sub small{display:block;color:var(--muted,#586371);font-size:.76rem}',
     '.mh-ans{border:2px dashed var(--rule,#dce1e8);border-radius:12px;padding:12px;font-size:.88rem;color:var(--muted,#586371);transition:all .4s}',
     '.mh-ans.in{border-style:solid;border-color:var(--c);color:var(--ink,#17202c);background:color-mix(in srgb,var(--c) 7%,#fff)}',
-    /* chunking */
     '.mh-doc{border:1px solid var(--rule,#dce1e8);border-radius:10px;padding:12px;font-size:.88rem;line-height:1.75;background:var(--surface,#fff)}',
     '.mh-doc .h{font-weight:700}',
     '.mh-ck{border-radius:4px;padding:2px 0;box-decoration-break:clone;-webkit-box-decoration-break:clone}',
@@ -124,7 +106,6 @@
     '.mh-sec.pick{border:2px solid var(--d)}',
     '.mh mark{background:color-mix(in srgb,var(--d) 30%,#fff);color:inherit;border-radius:3px;padding:0 1px}',
     '.mh-ok{color:var(--c);font-weight:600}.mh-bad{color:#c5221f;font-weight:600}.mh-warn{color:#b45309;font-weight:600}',
-    /* knowledge graph */
     '.mh-hit{cursor:pointer}',
     '.mh-triple{display:flex;flex-wrap:wrap;gap:6px;align-items:center}',
     '.mh-triple span{border-radius:8px;padding:4px 10px;font-size:.88rem;font-weight:600}',
@@ -139,7 +120,6 @@
     '.mh-sent{font-size:1.02rem;margin:8px 0}',
     '.mh-sent .men{border-bottom:2px solid var(--a);font-weight:700}',
     '.mh-sent .cue{background:color-mix(in srgb,var(--d) 25%,#fff);border-radius:3px}',
-    /* share of model */
     '.mh-tbl{width:100%;border-collapse:collapse;font-size:.84rem;min-width:0!important}',
     '.mh-tbl th,.mh-tbl td{padding:6px 6px;border-bottom:1px solid var(--rule,#dce1e8);text-align:center;vertical-align:middle}',
     '.mh-tbl th:first-child,.mh-tbl td:first-child{text-align:left}',
@@ -167,9 +147,6 @@
 
   var C = {};
 
-  /* =====================================================================
-     1. RAG — luồng 2 giai đoạn, chạy từng bước
-     ===================================================================== */
   C.rag = function (fig) {
     var b = box(fig, T('RAG: AI tìm tài liệu trước, rồi mới viết câu trả lời', 'RAG: the AI retrieves first, then writes'), true);
     var Q = T('Gạch Sao Mai bảo hành bao lâu?', 'How long is the Sao Mai tile warranty?');
@@ -260,12 +237,9 @@
     b.appendChild(h('p', { 'class': 'mh-note' }, T('Gạch Sao Mai và các trang .example là ví dụ giả định. Điểm số là độ gần giữa vector câu hỏi và vector đoạn văn.', 'Sao Mai and the .example sites are fictional. Scores show how close each chunk vector is to the query vector.')));
   };
 
-  /* =====================================================================
-     2. VECTOR — bản đồ 2 chiều, top-K
-     ===================================================================== */
   C.vector = function (fig) {
     var b = box(fig, T('Vector search: tìm đoạn gần nghĩa nhất với câu hỏi', 'Vector search: find the chunks closest in meaning'), true);
-    var P = [ // x, y (0–1), chữ
+    var P = [
       [.12, .20, T('Giá gạch 60×60: 245.000 đ/m²', '60×60 tile price: 245,000 VND/m²')],
       [.24, .11, T('Bảng giá gạch ốp tường 2026', '2026 wall tile price list')],
       [.16, .36, T('Mua từ 100 m² được giảm 5%', '5% off orders over 100 m²')],
@@ -350,9 +324,6 @@
     draw(); onResize(wrap, draw);
   };
 
-  /* =====================================================================
-     3. QUERY FAN-OUT
-     ===================================================================== */
   C.fanout = function (fig) {
     var b = box(fig, T('Query fan-out: một câu hỏi, nhiều truy vấn con', 'Query fan-out: one question, many sub-queries'), true);
     var SRC = { w: T('trang doanh nghiệp', 'company site'), f: T('diễn đàn', 'forum'), n: T('báo', 'news'), v: 'video', g: T('hướng dẫn chính thức', 'official docs'), r: T('trang review', 'review site') };
@@ -408,9 +379,6 @@
     play();
   };
 
-  /* =====================================================================
-     4. CHUNKING — cắt theo số ký tự và cắt theo heading
-     ===================================================================== */
   C.chunk = function (fig) {
     var b = box(fig, T('Chunking: cùng một bài, hai cách cắt', 'Chunking: one page, two ways to split it'), true);
     var TITLE = T('Gạch ốp lát Sao Mai 60×60', 'Sao Mai 60×60 tiles');
@@ -438,7 +406,6 @@
     var doc = h('div', { 'class': 'mh-doc' }), out = h('div', { 'class': 'mh-panel', 'aria-live': 'polite' });
     b.appendChild(doc); b.appendChild(out);
 
-    // văn bản phẳng dùng cho cách cắt theo ký tự
     var FLAT = TITLE + '. ' + SECS.map(function (x) { return x[0] + '. ' + x[1]; }).join(' ');
     function fixedChunks() {
       var res = [], i = 0;
@@ -490,12 +457,9 @@
     b.appendChild(h('p', { 'class': 'mh-note' }, T('Ở chế độ cắt theo heading, mỗi đoạn được gắn kèm tiêu đề bài và tên mục. Đây là cách nhiều hệ thống RAG làm, nhưng mỗi nền tảng AI cắt theo cách riêng và không công khai.', 'In heading mode each chunk is prefixed with the page title and section name. Many RAG systems do this, but each AI platform uses its own undisclosed method.')));
   };
 
-  /* =====================================================================
-     5. KNOWLEDGE GRAPH — triple và JSON-LD
-     ===================================================================== */
   C.kg = function (fig) {
     var b = box(fig, T('Knowledge graph: mỗi đường nối là một triple', 'Knowledge graph: every edge is a triple'), true);
-    var N = { // id: [nhãn, loại, vị trí rộng x,y, vị trí hẹp x,y, màu]
+    var N = {
       A: [T('Gạch Sao Mai', 'Sao Mai Tiles'), T('Tổ chức', 'Organization'), .50, .44, .50, .40, '--impr'],
       H: [T('TP. Hồ Chí Minh', 'Ho Chi Minh City'), T('Thành phố', 'City'), .14, .14, .15, .08, '--ctr'],
       V: [T('Việt Nam', 'Vietnam'), T('Quốc gia', 'Country'), .06, .80, .13, .64, '--ctr'],
@@ -572,9 +536,6 @@
     draw(); showEdge(0); onResize(wrap, draw);
   };
 
-  /* =====================================================================
-     6. ENTITY LINKING — cùng một tên, nhiều thực thể
-     ===================================================================== */
   C['entity-link'] = function (fig) {
     var b = box(fig, T('Entity linking: ngữ cảnh quyết định “Sao Mai” là ai', 'Entity linking: context decides which “Sao Mai”'), true);
     var CAND = [
@@ -614,9 +575,6 @@
     draw();
   };
 
-  /* =====================================================================
-     7. SHARE OF MODEL
-     ===================================================================== */
   C.som = function (fig) {
     var b = box(fig, T('Share of Model: thương hiệu được AI nhắc trong bao nhiêu câu trả lời', 'Share of Model: how many AI answers mention a brand'), true);
     var BR = ['Sao Mai', T('Bình Minh', 'Binh Minh'), T('Hoàng Hôn', 'Hoang Hon'), T('Ánh Dương', 'Anh Duong')];
@@ -631,7 +589,6 @@
       T('gạch ốp bếp dễ lau chùi', 'easy-clean kitchen tiles'),
       T('bảng giá gạch ốp lát 2026', '2026 tile price list')
     ];
-    // D[prompt][platform] = các thương hiệu (chỉ số) được nhắc
     var D = [
       [[0, 1], [0, 1, 2], [1, 3]],
       [[1, 2, 3], [0, 1, 2], [1, 2]],
@@ -680,9 +637,6 @@
     draw();
   };
 
-  /* =====================================================================
-     8. VARIANCE — hỏi một lần không đo được GEO
-     ===================================================================== */
   C.variance = function (fig) {
     var b = box(fig, T('Hỏi AI cùng một câu nhiều lần: tỉ lệ nhắc tên dao động thế nào', 'Ask the same prompt many times: how the mention rate moves'), true);
     var p = .4, N = 30, seed = 15;
@@ -733,9 +687,6 @@
     draw(); onResize(wrap, draw);
   };
 
-  /* =====================================================================
-     9. BM25 — độ bão hoà của tần suất từ, độ dài trang và hybrid search
-     ===================================================================== */
   C.bm25 = function (fig) {
     var b = box(fig, T('BM25: lặp từ khoá có giới hạn, trang dài bị trừ điểm', 'BM25: repetition saturates, long pages are penalised'), true);
     var k1 = 1.2, tf = 3, len = 1, bb = .75;
@@ -771,7 +722,6 @@
     }
     draw(); onResize(wrap, draw);
 
-    // hybrid search: trộn điểm từ khoá và điểm ngữ nghĩa
     var D = [
       [T('Bảng giá gạch Sao Mai 60×60', 'Sao Mai 60×60 price list'), .92, .70],
       [T('Gạch Sao Mai 60×60 giá bao nhiêu một mét vuông', 'How much is Sao Mai 60×60 per square metre'), .80, .95],
@@ -794,12 +744,8 @@
     b.appendChild(h('p', { 'class': 'mh-note' }, T('Điểm trong ví dụ là giả định, đã đưa về thang 0–1. Hệ thống thật thường trộn bằng thứ hạng (ví dụ reciprocal rank fusion) chứ không cộng thẳng điểm.', 'Scores are made up and normalised to 0–1. Real systems often fuse by rank (e.g. reciprocal rank fusion) rather than adding raw scores.')));
   };
 
-  /* =====================================================================
-     10. GEO-PAPER — cách bài nghiên cứu GEO đo "độ hiển thị"
-     ===================================================================== */
   C['geo-paper'] = function (fig) {
     var b = box(fig, T('Bài nghiên cứu GEO đo độ hiển thị thế nào', 'How the GEO paper measures visibility'), true);
-    // mỗi câu trong câu trả lời: [số chữ, nguồn được trích]
     var BASE = [[18, 'A'], [14, 'B'], [22, 'A'], [12, 'C'], [16, 'B'], [10, 'C']];
     var BOOST = [[18, 'A'], [20, 'B'], [22, 'A'], [12, 'C'], [16, 'B'], [10, 'C']];
     var mode = 0;
@@ -829,9 +775,6 @@
     b.appendChild(h('p', { 'class': 'mh-note' }, T('Chỉ số chính của bài báo là “position-adjusted word count”: phần chữ trong câu trả lời được gán cho một nguồn, câu càng ở đầu càng được tính nặng. Các con số ở đây là ví dụ giả định để thấy cách tính, không phải số liệu của bài báo.', 'The paper’s main metric is position-adjusted word count: the share of the answer’s words attributed to a source, weighted more heavily the earlier the sentence appears. Numbers here are made up to show the calculation, not the paper’s results.')));
   };
 
-  /* =====================================================================
-     11. GROUNDING — trang top Google và nguồn AI trích dẫn (số liệu Ahrefs)
-     ===================================================================== */
   C.grounding = function (fig) {
     var b = box(fig, T('Bao nhiêu nguồn AI trích dẫn nằm trong top 10 Google?', 'How many AI citations rank in Google’s top 10?'), false);
     var D = [
@@ -859,7 +802,6 @@
     io.observe(el);
   }
 
-  /* ---------- khởi tạo ngay khi trang tải xong ---------- */
   function start(fig) {
     if (fig.__mh) return; fig.__mh = 1;
     var fn = C[fig.getAttribute('data-mh')];

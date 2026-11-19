@@ -1,4 +1,3 @@
-/* Color Palette (Root Variables) */
 :root {
     --color-dark-blue: #2c3e50;
     --color-background: #f0f2f5;
@@ -14,15 +13,11 @@
 
     --color-animated-line: #2ecc71;
     --color-label: #555;
-
-    /* Responsive Layout Dimensions (Default for large screens) */
-    --box-min-width: 180px; /* Slightly reduced default width */
-    --box-min-height: 90px; /* Slightly reduced default height */
-    --gap-horizontal: 5vw; /* Use viewport width for gaps */
-    --gap-vertical: 60px; 
+    --box-min-width: 180px;
+    --box-min-height: 90px;
+    --gap-horizontal: 5vw;
+    --gap-vertical: 60px;
 }
-
-/* Base styles for body and overall container */
 body {
     font-family: 'Inter', sans-serif;
     display: flex;
@@ -32,41 +27,39 @@ body {
     background-color: var(--color-background);
     margin: 0;
     color: var(--color-text-dark);
-    overflow-x: hidden; /* Crucial: Prevent horizontal scroll for overflow */
-    overflow-y: auto; /* Allow vertical scroll if content overflows */
-    padding: 15px; /* Reduced overall padding */
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 15px;
     box-sizing: border-box;
 }
 
 .pipeline-container {
     position: relative;
-    padding: 30px 20px; /* Reduced container padding */
+    padding: 30px 20px;
     background-color: var(--color-box-bg-white);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    max-width: 1300px; 
+    max-width: 1300px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 500px; /* Adjusted min-height */
+    min-height: 500px;
 }
 
 .pipeline-title {
-    font-size: 2.2em; /* Slightly smaller title */
+    font-size: 2.2em;
     color: var(--color-dark-blue);
-    margin-bottom: 30px; /* Reduced margin */
+    margin-bottom: 30px;
     font-weight: 700;
 }
-
-/* Zoom Controls Styling */
 .zoom-controls {
     position: absolute;
-    top: 20px; /* Adjust as needed */
-    right: 20px; /* Adjust as needed */
-    z-index: 20; /* Ensure it's above other elements */
+    top: 20px;
+    right: 20px;
+    z-index: 20;
     display: flex;
-    gap: 8px; /* Space between buttons */
+    gap: 8px;
 }
 
 .zoom-controls button {
@@ -94,65 +87,51 @@ body {
     background-color: var(--color-box-border-light);
     transform: translateY(1px);
 }
-
-
-/* Grid container for precise layout */
 .pipeline-flow-grid {
     display: grid;
-    /* Use minmax to allow columns to shrink but not below a certain point */
-    grid-template-columns: 
-        minmax(var(--box-min-width), 1fr) /* Col 1 */
-        var(--gap-horizontal) /* Col 2 (Gap) */
-        minmax(var(--box-min-width), 1fr) /* Col 3 */
-        var(--gap-horizontal) /* Col 4 (Gap) */
-        minmax(var(--box-min-width), 1fr) /* Col 5 */
-        var(--gap-horizontal) /* Col 6 (Gap) */
-        minmax(var(--box-min-width), 1fr) /* Col 7 */
-        var(--gap-horizontal) /* Col 8 (Gap) */
-        minmax(var(--box-min-width), 1fr) /* Col 9 */
-        var(--gap-horizontal) /* Col 10 (Gap) */
-        minmax(var(--box-min-width), 1fr) /* Col 11 */
-        var(--gap-horizontal) /* Col 12 (Gap) */
-        minmax(var(--box-min-width), 1fr); /* Col 13 */
-    
-    grid-template-rows: 
-        auto 
-        var(--gap-vertical) 
-        auto 
-        var(--gap-vertical) 
+    grid-template-columns:
+        minmax(var(--box-min-width), 1fr)
+        var(--gap-horizontal)
+        minmax(var(--box-min-width), 1fr)
+        var(--gap-horizontal)
+        minmax(var(--box-min-width), 1fr)
+        var(--gap-horizontal)
+        minmax(var(--box-min-width), 1fr)
+        var(--gap-horizontal)
+        minmax(var(--box-min-width), 1fr)
+        var(--gap-horizontal)
+        minmax(var(--box-min-width), 1fr)
+        var(--gap-horizontal)
+        minmax(var(--box-min-width), 1fr);
+
+    grid-template-rows:
+        auto
+        var(--gap-vertical)
+        auto
+        var(--gap-vertical)
         auto;
-        
+
     position: relative;
-    width: 100%; 
-    min-width: 1000px; /* **NEW:** Reduce min-width for grid itself, more flexible */
+    width: 100%;
+    min-width: 1000px;
     align-items: start;
     justify-content: center;
-    
+
     transform-origin: top left;
     transition: transform 0.2s ease-out;
-    overflow: hidden; /* **NEW:** Hide overflow within the grid to prevent visual overlap */
+    overflow: hidden;
 }
-
-/* Specific Grid Placements (adjust row/column spans as needed) */
-/* Main flow on Row 3 */
 #stage-wrapper-document { grid-column: 1; grid-row: 3; }
 #stage-wrapper-parsing { grid-column: 3; grid-row: 3; }
 #stage-wrapper-segment-annotation { grid-column: 5; grid-row: 3; }
-
-/* Branching Top Row (Row 1) */
 #stage-wrapper-tokenization { grid-column: 7; grid-row: 1; }
 #stage-wrapper-token-indexing { grid-column: 9; grid-row: 1; }
 #stage-wrapper-search { grid-column: 11; grid-row: 1; }
 #stage-wrapper-ranking { grid-column: 13; grid-row: 1; }
-
-/* Branching Middle Row (Row 3 for main flow) */
 #stage-wrapper-element-annotation { grid-column: 7; grid-row: 3; }
 #stage-wrapper-text-segmentation { grid-column: 9; grid-row: 3; }
 #stage-wrapper-generate-embeddings { grid-column: 11; grid-row: 3; }
 #stage-wrapper-vector-indexing { grid-column: 13; grid-row: 3; }
-
-
-/* Base style for all pipeline boxes */
 .pipeline-box {
     padding: 15px 20px;
     border-radius: 10px;
@@ -178,8 +157,6 @@ body {
     font-size: 1em;
     line-height: 1.3;
 }
-
-/* Specific styles for different box types */
 .document-box {
     background-color: var(--color-dark-blue);
     color: #fff;
@@ -231,10 +208,8 @@ body {
 .data-box.yellow-box {
     background-color: var(--color-yellow-primary);
     border: 1px solid var(--color-yellow-secondary);
-    color: var(--color-text-dark); /* Dark text for readability on yellow */
+    color: var(--color-text-dark);
 }
-
-/* Icon Styling */
 .box-icon {
     font-size: 1.8em;
     margin-bottom: 8px;
@@ -251,14 +226,10 @@ body {
 .data-box.yellow-box .box-icon {
     color: var(--color-text-dark);
 }
-
-/* Apply icon animation when box is faded in (via its wrapper) */
 .pipeline-stage-wrapper.faded-in .box-icon {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* SVG for lines and arrows */
 .pipeline-lines {
     position: absolute;
     top: 0;
@@ -267,7 +238,7 @@ body {
     height: 100%;
     pointer-events: none;
     overflow: visible;
-    z-index: 1; /* Lines are below boxes but above background */
+    z-index: 1;
 }
 
 .pipeline-line {
@@ -280,8 +251,6 @@ body {
     stroke-dasharray: 0;
     transition: stroke-dashoffset 1s ease-out;
 }
-
-/* Animation for the data flow effect */
 .pipeline-line.animate {
     stroke: var(--color-animated-line);
     opacity: 1;
@@ -293,8 +262,6 @@ body {
     50% { opacity: 1; stroke-width: 4; }
     100% { opacity: 0.6; stroke-width: 3; }
 }
-
-/* SVG Arrowhead Styling */
 .pipeline-lines defs {
     pointer-events: none;
 }
@@ -308,14 +275,12 @@ body {
     stroke: none;
     transition: fill 0.5s ease-in-out;
 }
-
-/* Deterministic Ranking Label */
 .deterministic-ranking-label {
     position: absolute;
-    bottom: 20px; /* Reduced bottom margin */
+    bottom: 20px;
     font-weight: 700;
     color: var(--color-label);
-    font-size: 1.2em; /* Slightly smaller label font */
+    font-size: 1.2em;
     white-space: nowrap;
     opacity: 0;
     transform: translateY(30px);
@@ -323,28 +288,23 @@ body {
     z-index: 10;
 }
 
-/* Responsive Adjustments */
-/* Default values already set to be more compact */
-
 @media (max-width: 1300px) {
-    /* Main container max-width already handles this */
 }
 
 @media (max-width: 1100px) {
     .pipeline-flow-grid {
-        /* Allow columns to shrink more */
-        grid-template-columns: 
+        grid-template-columns:
             minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px
             minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px minmax(140px, 1fr) 30px minmax(140px, 1fr);
     }
     :root {
-        --box-min-width: 140px; /* Further reduced min width */
+        --box-min-width: 140px;
         --box-min-height: 70px;
-        --gap-horizontal: 30px; /* Further reduced horizontal gap */
+        --gap-horizontal: 30px;
         --gap-vertical: 40px;
     }
     .document-box {
-        min-width: 160px; /* Adjusted document box size */
+        min-width: 160px;
         min-height: 120px;
     }
     .box-icon {
@@ -360,26 +320,25 @@ body {
         font-size: 2em;
         margin-bottom: 20px;
     }
-    /* Switch to vertical stacking on smaller screens */
     .pipeline-flow-grid {
-        display: flex; /* Switch to flexbox for vertical stacking */
+        display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
         padding-bottom: 0;
-        transform: none !important; /* Reset zoom transform in vertical mode */
-        transform-origin: center center !important; /* Reset origin */
-        min-width: auto; /* Remove min-width in vertical mode */
+        transform: none !important;
+        transform-origin: center center !important;
+        min-width: auto;
     }
     .pipeline-stage-wrapper {
         position: static !important;
         transform: none !important;
-        opacity: 1 !important; /* Always visible in vertical layout for animations to start */
+        opacity: 1 !important;
         margin-bottom: 30px;
         width: auto;
     }
     .pipeline-box {
-        min-width: 180px; /* Ensure boxes are readable in vertical stack */
+        min-width: 180px;
         min-height: 90px;
         padding: 15px 20px;
     }
@@ -393,10 +352,9 @@ body {
     .box-label {
         font-size: 1em;
     }
-    /* Display SVG lines on vertical layout (simplified paths) */
     .pipeline-lines {
-        display: block !important; /* **Changed:** Display SVG on mobile */
-        position: absolute; /* Maintain absolute positioning for SVG */
+        display: block !important;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
@@ -405,25 +363,24 @@ body {
         overflow: visible;
         z-index: 1;
     }
-    /* Simple vertical line styling for mobile */
     .pipeline-line {
-        stroke-width: 2.5 !important; /* Thinner lines on mobile */
-        opacity: 0.8 !important; /* Start with higher opacity */
+        stroke-width: 2.5 !important;
+        opacity: 0.8 !important;
     }
     .pipeline-line.animate {
-        animation: flow-pulse-mobile 1s infinite ease-in-out; /* Faster, lighter pulse for mobile */
+        animation: flow-pulse-mobile 1s infinite ease-in-out;
     }
     @keyframes flow-pulse-mobile {
-        0% { opacity: 0.6; stroke-width: 2.5; } /* Base state */
-        50% { opacity: 1; stroke-width: 3.5; } /* Peak state */
-        100% { opacity: 0.6; stroke-width: 2.5; } /* Back to base */
+        0% { opacity: 0.6; stroke-width: 2.5; }
+        50% { opacity: 1; stroke-width: 3.5; }
+        100% { opacity: 0.6; stroke-width: 2.5; }
     }
     .arrowhead {
-        fill: var(--color-text-dark) !important; /* Ensure default color on mobile */
-        transition: none !important; /* No color transition on mobile */
+        fill: var(--color-text-dark) !important;
+        transition: none !important;
     }
 
-    .zoom-controls { /* Hide zoom controls in vertical layout */
+    .zoom-controls {
         display: none !important;
     }
     .deterministic-ranking-label {

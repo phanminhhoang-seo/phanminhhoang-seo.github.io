@@ -1,13 +1,9 @@
-// Phan Minh Hoàng – portfolio. Không dùng thư viện ngoài.
-// URL Web App của Google Apps Script (…/exec): nhận form liên hệ và chatbot AI. Để trống thì form/chatbot chưa chạy.
 const PMH_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyeQ1ru7z36mL4789uIH72LDd-T3uDJRJakMt10--N8w0qeYfDk74yZ81E5DLn1zouG/exec';
-// Bật/tắt chatbot AI (Claude, dự phòng Gemini) trên toàn site
 const PMH_CHAT = true;
 (() => {
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 1. Menu điện thoại
   const btn = document.querySelector('.menu-btn');
   const nav = document.getElementById('site-nav');
   if (btn && nav) {
@@ -24,7 +20,6 @@ const PMH_CHAT = true;
     matchMedia('(min-width: 861px)').addEventListener('change', (m) => { if (m.matches) setOpen(false); });
   }
 
-  // 2. Hoạt cảnh hành trình khách hàng: Google -> ChatGPT -> Claude -> Gemini -> sau khi tối ưu
   const jr = document.querySelector('.journey');
   if (jr) {
     const scenes = [...jr.querySelectorAll('.scene')];
@@ -80,7 +75,6 @@ const PMH_CHAT = true;
     };
     tabs.forEach((t, n) => t.addEventListener('click', () => { paused = true; setPaused(true); show(n); }));
     pauseBtn.addEventListener('click', () => setPaused(!paused));
-    // chỉ chạy khi khối đang nằm trong màn hình
     if (reduce) { pauseBtn.hidden = true; show(0); }
     else if ('IntersectionObserver' in window) {
       let first = true;
@@ -91,7 +85,6 @@ const PMH_CHAT = true;
     } else show(0);
   }
 
-  // 3. Hiệu ứng con trỏ: một quầng sáng mềm đi theo chuột, nằm dưới nội dung nên không che chữ
   if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const glow = document.createElement('div');
   glow.id = 'glow';
@@ -111,7 +104,6 @@ const PMH_CHAT = true;
   document.addEventListener('pointerleave', () => glow.classList.remove('on'));
 })();
 
-// Form liên hệ ở trang dịch vụ: gửi về Google Sheet + email qua Google Apps Script
 (() => {
   'use strict';
   const FORM_ENDPOINT = PMH_ENDPOINT;
@@ -133,7 +125,7 @@ const PMH_CHAT = true;
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return bad(f.email, 'Email chưa đúng định dạng.');
     if (phone && phone.replace(/\D/g, '').length < 9) return bad(f.phone, 'Số điện thoại chưa đúng.');
     if (!f.message.value.trim()) return bad(f.message, 'Vui lòng nhập nội dung.');
-    if (f.company_url.value) return; // bot
+    if (f.company_url.value) return;
     if (!FORM_ENDPOINT) return say('Form đang được thiết lập. Vui lòng liên hệ qua email hoặc Zalo bên dưới.', 'err');
 
     const data = new URLSearchParams(new FormData(form));
@@ -153,7 +145,6 @@ const PMH_CHAT = true;
   });
 })();
 
-// Chatbot AI: trả lời bằng Gemini qua Apps Script, mỗi lượt chat được lưu vào Google Sheet
 (() => {
   'use strict';
   if (!PMH_ENDPOINT || !PMH_CHAT) return;
@@ -175,7 +166,7 @@ const PMH_CHAT = true;
   };
   const ss = {
     get: (k) => { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-    set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { /* bỏ qua */ } },
+    set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { } },
   };
   let sid = ss.get('pmh-sid');
   if (!sid) {
@@ -207,7 +198,6 @@ const PMH_CHAT = true;
   ]);
   document.body.append(btn, panel);
 
-  // Hiển thị chữ an toàn: xuống dòng + tự tạo link cho URL
   const render = (text) => {
     const frag = document.createDocumentFragment();
     text.split(/(https?:\/\/[^\s<>"')]+[^\s<>"').,;:!?])/g).forEach((part, i) => {
