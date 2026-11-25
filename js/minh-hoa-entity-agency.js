@@ -37,7 +37,7 @@
     '.ea-tag.n{background:var(--paper,#f7f8fa);color:var(--muted,#586371)}'
   ].join('');
 
-  var AG = ['Kalicube', 'WordLift', 'Schema App', 'iPullRank', 'Holistic SEO & Digital'];
+  var AG = ['Kalicube', 'WordLift', 'Schema App', 'iPullRank', 'Holistic SEO & Digital', T('Phan Minh Hoàng (người viết bài)', 'Phan Minh Hoàng (author)')];
 
   var L = [
     {
@@ -45,28 +45,28 @@
       what: T('Một trang gốc (thường là trang Giới thiệu) nói rõ doanh nghiệp là ai, cùng một mã định danh ổn định trong Knowledge Graph của Google và trên Wikidata.',
               'One entity home (usually the About page) that states who the business is, plus a stable ID in Google’s Knowledge Graph and on Wikidata.'),
       tri: [T('Gạch Sao Mai', 'Sao Mai Tiles'), T('giống với', 'same as'), T('mục Wikidata Q…', 'Wikidata item Q…')],
-      fit: [2, 0, 0, 0, 1]
+      fit: [2, 0, 0, 0, 1, 1]
     },
     {
       label: T('2. Đồ thị trên website', '2. On-site graph'),
       what: T('Schema trên các trang được nối với nhau bằng @id: tổ chức, người sáng lập, sản phẩm, dịch vụ trỏ vào nhau thay vì mỗi trang một khối riêng lẻ.',
               'Schema across pages joined by @id: the organisation, founder, products and services point to each other instead of sitting in isolated blocks.'),
       tri: [T('Gạch Sao Mai', 'Sao Mai Tiles'), T('sản xuất', 'makes'), T('Gạch 60×60 men mờ', '60×60 matt tile')],
-      fit: [1, 2, 2, 0, 0]
+      fit: [1, 2, 2, 0, 0, 2]
     },
     {
       label: T('3. Nội dung và internal link', '3. Content and links'),
       what: T('Nội dung phủ đủ chủ đề, các trang được nối với nhau theo thực thể mà chúng nói tới, không phải theo anchor text khớp từ khoá.',
               'Content that covers the topic fully, with pages linked by the entity they are about rather than by exact-match anchor text.'),
       tri: [T('Bài “chống trơn”', '“Slip resistance” article'), T('nói về', 'is about'), T('Gạch 60×60 men mờ', '60×60 matt tile')],
-      fit: [0, 1, 0, 2, 2]
+      fit: [0, 1, 0, 2, 2, 1]
     },
     {
       label: T('4. Xác nhận từ bên ngoài', '4. Outside corroboration'),
       what: T('Báo chí, danh bạ, website đối tác và Wikidata nói cùng một dữ kiện. Dữ kiện được nhiều nguồn độc lập lặp lại thì đáng tin hơn.',
               'Press, directories, partner sites and Wikidata state the same fact. A fact repeated by independent sources is easier to trust.'),
       tri: [T('Báo xây dựng', 'Trade press'), T('nhắc', 'mentions'), T('Gạch Sao Mai, thành lập 2008', 'Sao Mai Tiles, founded 2008')],
-      fit: [2, 0, 0, 1, 0]
+      fit: [2, 0, 0, 1, 0, 2]
     }
   ];
 
@@ -96,8 +96,8 @@
     var list = h('ul', { 'class': 'ea-list', 'aria-live': 'polite' });
     b.appendChild(h('div', { 'class': 'ea-grid' }, [h('div', null, [cWhat, cTri]), list]));
     b.appendChild(h('p', { 'class': 'mh-note' }, T(
-      'Mức độ “thế mạnh” là cách tôi đọc tài liệu công khai của từng bên, không phải đánh giá chính thức. Gạch Sao Mai là thương hiệu giả định.',
-      'The strength levels are my reading of each firm’s public material, not an official rating. Sao Mai Tiles is a fictional brand.')));
+      'Mức độ “thế mạnh” là cách tôi đọc tài liệu công khai của từng bên, không phải đánh giá chính thức; dòng cuối là tôi tự mô tả mình. Gạch Sao Mai là thương hiệu giả định.',
+      'The strength levels are my reading of each firm’s public material, not an official rating; the last row is my own self-description. Sao Mai Tiles is a fictional brand.')));
     var cap = fig.querySelector('figcaption');
     fig.insertBefore(b, cap);
 
