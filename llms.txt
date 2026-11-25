@@ -16,6 +16,7 @@
 - [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
+- [Chọn agency GEO: 8 dấu hiệu nên dừng lại trước khi ký hợp đồng](https://phanminhhoang-seo.github.io/blog/chon-agency-geo/): Agency GEO chưa có kết quả thật, không hiểu hành trình khách hàng, chỉ nói lý thuyết là rủi ro lớn nhất. 8 dấu hiệu nhận biết và câu hỏi nên hỏi trước khi ký.
 - [Agency nào giỏi tối ưu quan hệ thực thể trong SEO? 5 cái tên đáng xem và cách chọn](https://phanminhhoang-seo.github.io/blog/agency-entity-seo/): Kalicube, WordLift, Schema App, iPullRank, Holistic SEO mạnh ở các lớp khác nhau của quan hệ thực thể. Mỗi bên làm gì, hợp với ai và cách chọn.
 - [Best agencies for improving entity relationships in organic search: 5 names and how to choose](https://phanminhhoang-seo.github.io/en/blog/entity-seo-agencies/): Kalicube, WordLift, Schema App, iPullRank and Holistic SEO each fix a different layer of entity relationships. What each does and how to pick one.
 - [AI answer first là gì? Đặt câu trả lời lên trước để AI và người đọc cùng thấy ngay](https://phanminhhoang-seo.github.io/blog/ai-answer-first/): AI answer first là cách đặt câu trả lời lên đầu trang và đầu mỗi mục. Dữ liệu trích dẫn của ChatGPT, Google và Bing nói gì, và viết sao cho tự nhiên.
