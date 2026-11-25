@@ -16,6 +16,7 @@
 - [Khoá học GEO](https://phanminhhoang-seo.github.io/dich-vu/khoa-hoc-geo/): Khoá học GEO 1 kèm 1, 9 buổi online, học trên chính website của bạn: cách AI chọn nguồn, bot AI, nội dung dễ trích dẫn, đo lường GEO. Học phí 15.000.000đ.
 
 ## Bài viết
+- [AI answer first là gì? Đặt câu trả lời lên trước để AI và người đọc cùng thấy ngay](https://phanminhhoang-seo.github.io/blog/ai-answer-first/): AI answer first là cách đặt câu trả lời lên đầu trang và đầu mỗi mục. Dữ liệu trích dẫn của ChatGPT, Google và Bing nói gì, và viết sao cho tự nhiên.
 - [Embedding và vector search: vì sao AI tìm theo nghĩa chứ không chỉ theo từ khoá](https://phanminhhoang-seo.github.io/blog/embedding-vector-search/): Embedding biến đoạn văn thành dãy số thể hiện ý nghĩa, vector search tìm các đoạn gần nghĩa nhất với câu hỏi. Cách hai bước này quyết định AI lấy đoạn nào.
 - [Query fan-out là gì? Cách AI Mode tách một câu hỏi thành nhiều truy vấn](https://phanminhhoang-seo.github.io/blog/query-fan-out-la-gi/): Query fan-out là cách AI Mode tách một câu hỏi thành nhiều truy vấn chạy cùng lúc. Google đã nói gì về kỹ thuật này và nó thay đổi gì với một trang web.
 - [BM25 và hybrid search: vì sao từ khoá vẫn quan trọng khi AI tìm kiếm](https://phanminhhoang-seo.github.io/blog/bm25-hybrid-search/): BM25 là công thức chấm điểm theo từ khoá có từ năm 1994, vẫn là mặc định của Elasticsearch và là một nửa của hybrid search trong nhiều hệ thống AI.
