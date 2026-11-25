@@ -9,7 +9,7 @@
 ## Dịch vụ
 - [Dịch vụ SEO](https://phanminhhoang-seo.github.io/dich-vu/seo/): Dịch vụ SEO tổng thể: audit kỹ thuật và index, nghiên cứu từ khoá theo ý định, kế hoạch nội dung, internal link, KPI chia theo từng tháng.
 - [SEO services](https://phanminhhoang-seo.github.io/en/services/seo/): Full SEO services: technical and indexing audits, intent-based keyword research, content planning, internal linking and KPIs broken down by month.
-- [Dịch vụ GEO](https://phanminhhoang-seo.github.io/dich-vu/geo/): Dịch vụ GEO giúp thương hiệu được ChatGPT, Gemini, Perplexity và Google AI Overviews nhắc tới, trích dẫn. Cam kết theo tháng, đo bằng câu hỏi thật.
+- [Dịch vụ GEO](https://phanminhhoang-seo.github.io/dich-vu/geo/): Dịch vụ GEO giúp thương hiệu được ChatGPT, Gemini, Perplexity và Google AI Overviews nhắc tới, trích dẫn. Bộ câu hỏi theo hành trình khách hàng, có mức nền, cam kết theo tháng.
 - [GEO services](https://phanminhhoang-seo.github.io/en/services/geo/): GEO services that get your brand mentioned and cited by ChatGPT, Gemini, Perplexity and Google AI Overviews. Monthly commitments on real questions.
 - [Khoá học SEO 1 kèm 1](https://phanminhhoang-seo.github.io/dich-vu/mentor-seo/): Khoá học SEO 1 kèm 1, 10 buổi, học trên chính website của bạn: cách Google index, ý định tìm kiếm, internal link, audit nội dung, Search Console.
 - [1-on-1 SEO course](https://phanminhhoang-seo.github.io/en/services/seo-mentoring/): A 10-session 1-on-1 SEO course taught on your own website: how Google indexes, search intent, internal links, content audits and Search Console.
