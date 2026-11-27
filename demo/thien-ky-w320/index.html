@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Demo: W320 Cashew Kernels from Vietnam | Thien Ky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #14200D;
+    --green: #2F5A14;
+    --green-hover: #1F3D0C;
+    --lime: #87C552;
+    --bg: #F4F5EF;
+    --card: #FFFFFF;
+    --line: #E1E4D8;
+    --line-soft: #EEF0E8;
+    --field: #C9CDBF;
+    --text: #1B2412;
+    --muted: #5B6450;
+    --error: #8A2E1E;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, sans-serif; }
+  a { color: var(--green); }
+  a:hover { color: var(--green-hover); }
+  h1, h2 { font-family: "Space Grotesk", sans-serif; color: var(--dark); }
+
+  /* Header */
+  .site-header { background: var(--dark); padding: 0 24px; }
+  .site-header__inner { max-width: 1180px; margin: 0 auto; min-height: 68px; display: flex; flex-wrap: wrap; align-items: center; gap: 28px; }
+  .logo { font: 700 20px "Space Grotesk", sans-serif; color: #fff; letter-spacing: .04em; text-decoration: none; }
+  .nav { display: flex; flex-wrap: wrap; gap: 22px; flex: 1; }
+  .nav a { color: #DCD6C8; text-decoration: none; font-weight: 500; font-size: 14px; }
+  .nav a:hover { color: #fff; }
+  .btn-quote-top { background: var(--lime); color: var(--dark); padding: 11px 18px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; }
+
+  /* Layout */
+  .page { max-width: 1180px; margin: 0 auto; padding: 24px 24px 64px; }
+  .breadcrumb { margin: 0 0 18px; font-size: 13px; color: #6B7360; }
+  .layout { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .content { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+
+  .product-title { margin: 0 0 10px; font-size: 40px; line-height: 1.1; }
+  .lead { margin: 0; font-size: 16px; line-height: 1.6; color: #4D5643; max-width: 620px; }
+  .photo { height: 300px; border-radius: var(--radius); background: #E4E7DB; display: flex; align-items: center; justify-content: center; color: #6B7360; font-size: 14px; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 28px; }
+  .card h2 { margin: 0 0 8px; font-size: 20px; font-weight: 600; }
+  .spec { width: 100%; border-collapse: collapse; }
+  .spec th, .spec td { padding: 11px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; text-align: left; vertical-align: top; }
+  .spec th { width: 45%; color: var(--muted); font-weight: 400; }
+  .spec td { font-weight: 500; }
+  .downloads { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  .btn-outline { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--green); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .stat strong { display: block; font: 700 24px "Space Grotesk", sans-serif; color: var(--dark); }
+  .stat strong.small { font-size: 17px; line-height: 1.3; }
+  .stat span { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .grades h2 { margin: 0 0 12px; font-size: 20px; font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { padding: 10px 16px; background: #fff; border: 1px solid var(--field); border-radius: 999px; text-decoration: none; font-size: 14px; }
+
+  /* Quote form */
+  .quote { flex: 1 1 320px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; position: sticky; top: 16px; }
+  .quote h2 { margin: 0 0 4px; font-size: 22px; font-weight: 600; }
+  .quote__note { margin: 0 0 18px; font-size: 13px; color: var(--muted); }
+  .form { display: flex; flex-direction: column; gap: 14px; }
+  .row-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .lbl { display: block; font-weight: 600; font-size: 12px; color: #2E3726; margin-bottom: 5px; }
+  .inp { width: 100%; height: 44px; padding: 0 12px; border: 1px solid var(--field); border-radius: 8px; font: 14px Inter, sans-serif; color: var(--text); background: #fff; }
+  textarea.inp { height: 72px; padding: 10px 12px; resize: vertical; }
+  .inp:focus { outline: 2px solid var(--green); outline-offset: 1px; }
+  .inp.is-invalid { border-color: var(--error); }
+  .toggle { background: none; border: 0; padding: 4px 0; text-align: left; font: 600 13px Inter, sans-serif; color: var(--green); cursor: pointer; min-height: 32px; }
+  .more[hidden] { display: none; }
+  .more { display: flex; flex-direction: column; gap: 14px; }
+  .error { font-size: 13px; color: var(--error); min-height: 18px; }
+  .btn-primary { min-height: 48px; border: 0; border-radius: 8px; background: var(--green); color: #fff; font: 600 15px Inter, sans-serif; cursor: pointer; }
+  .btn-primary:hover { background: var(--green-hover); }
+  .btn-primary:disabled { opacity: .6; cursor: wait; }
+  .btn-light { min-height: 44px; padding: 0 18px; border: 0; border-radius: 8px; background: var(--line-soft); font: 600 14px Inter, sans-serif; cursor: pointer; }
+  .success { padding: 24px 0; text-align: center; }
+  .success p { margin: 0 0 18px; font-size: 14px; line-height: 1.55; color: #4D5643; }
+  .hp { position: absolute; left: -9999px; } /* honeypot chống spam */
+
+  /* WhatsApp */
+  .whatsapp { position: fixed; right: 24px; bottom: 24px; width: 56px; height: 56px; border-radius: 28px; background: var(--green); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(20,32,13,.25); z-index: 50; }
+
+  @media (max-width: 720px) {
+    .product-title { font-size: 30px; }
+    .stats { grid-template-columns: 1fr; }
+    .quote { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="logo">THIEN KY</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/products/">Products</a>
+      <a href="/quality-control/">Quality Control</a>
+      <a href="/factory/">Factory</a>
+      <a href="/how-to-order/">How to Order</a>
+      <a href="/certifications/">Certifications</a>
+    </nav>
+    <a href="#quote" class="btn-quote-top">Get a Quote</a>
+  </div>
+</header>
+
+<main class="page">
+  <p class="breadcrumb"><a href="/products/">Products</a> / <a href="/products/whole-kernels/">Whole kernels</a> / W320</p>
+
+  <div class="layout">
+    <div class="content">
+      <div>
+        <h1 class="product-title">W320 Cashew Kernels from Vietnam</h1>
+        <p class="lead">White whole kernels, processed and packed at our own factory in Binh Phuoc. The most traded grade for roasters, snack brands and importers in the US.</p>
+      </div>
+
+      <div class="photo">
+        <!-- Thay bằng ảnh thật: <img src="w320.webp" alt="W320 white whole cashew kernels" width="1200" height="600" loading="lazy"> -->
+        [Ảnh thật W320 tại nhà máy]
+      </div>
+
+      <section class="card">
+        <h2>Specifications</h2>
+        <table class="spec">
+          <tr><th scope="row">Grade standard</th><td>AFI, white wholes</td></tr>
+          <tr><th scope="row">Kernel count</th><td>300–320 per lb (660–706 per kg)</td></tr>
+          <tr><th scope="row">Moisture</th><td>[max %]</td></tr>
+          <tr><th scope="row">Broken allowance</th><td>[max %]</td></tr>
+          <tr><th scope="row">Packing</th><td>50 lb (22.68 kg) vacuum tin or bag-in-carton; private label on request</td></tr>
+          <tr><th scope="row">MOQ / lead time</th><td>[MOQ] · [lead time]</td></tr>
+        </table>
+        <div class="downloads">
+          <a href="/files/w320-spec-sheet.pdf" class="btn-outline" data-download="spec-sheet">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            Spec sheet (PDF)
+          </a>
+          <a href="/files/w320-test-report.pdf" class="btn-outline" data-download="test-report">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            Sample test report
+          </a>
+        </div>
+      </section>
+
+      <div class="stats">
+        <div class="stat"><strong>1,100 t</strong><span>monthly capacity</span></div>
+        <div class="stat"><strong>Since 2018</strong><span>exporting</span></div>
+        <div class="stat"><strong class="small">BRCGS · SMETA · FDA · Kosher · AFI</strong></div>
+      </div>
+
+      <section class="grades">
+        <h2>Other grades</h2>
+        <div class="chips">
+          <a href="/products/w180-cashew-kernels/" class="chip">W180</a>
+          <a href="/products/w240-cashew-kernels/" class="chip">W240</a>
+          <a href="/products/w450-cashew-kernels/" class="chip">W450</a>
+          <a href="/products/cashew-splits-pieces/" class="chip">Splits &amp; pieces</a>
+          <a href="/cashew-grades-chart/" class="chip">Grades chart</a>
+        </div>
+      </section>
+    </div>
+
+    <aside id="quote" class="quote">
+      <div id="quote-form-wrap">
+        <h2>Request a quote</h2>
+        <p class="quote__note">Reply within [response time] with price, spec sheet and test report.</p>
+
+        <!-- action: thay bằng endpoint thật (Contact Form 7 / WPForms / API CRM) -->
+        <form id="quote-form" class="form" action="/wp-json/quote/v1/submit" method="post" novalidate>
+          <input type="hidden" name="source_page" value="W320">
+          <label class="hp" aria-hidden="true">Leave empty <input type="text" name="website_hp" tabindex="-1" autocomplete="off"></label>
+
+          <div>
+            <label class="lbl" for="grade">Grade</label>
+            <select id="grade" name="grade" class="inp">
+              <option selected>W320</option><option>W240</option><option>W180</option><option>W450</option><option>Splits &amp; pieces</option>
+            </select>
+          </div>
+          <div class="row-2">
+            <div><label class="lbl" for="qty">Quantity</label><input id="qty" name="quantity" class="inp" type="number" min="1" placeholder="1"></div>
+            <div>
+              <label class="lbl" for="unit">Unit</label>
+              <select id="unit" name="unit" class="inp"><option>20ft container</option><option>40ft container</option><option>Metric tons</option></select>
+            </div>
+          </div>
+          <div><label class="lbl" for="email">Business email *</label><input id="email" name="email" class="inp" type="email" required autocomplete="email" placeholder="name@company.com"></div>
+          <div class="row-2">
+            <div><label class="lbl" for="company">Company *</label><input id="company" name="company" class="inp" required autocomplete="organization"></div>
+            <div><label class="lbl" for="country">Country</label><input id="country" name="country" class="inp" autocomplete="country-name" placeholder="United States"></div>
+          </div>
+
+          <button type="button" class="toggle" id="toggle-more" aria-expanded="false" aria-controls="more">+ Add delivery details (optional)</button>
+          <div class="more" id="more" hidden>
+            <div class="row-2">
+              <div>
+                <label class="lbl" for="incoterm">Incoterm</label>
+                <select id="incoterm" name="incoterm" class="inp"><option>FOB HCMC</option><option>CFR</option><option>CIF</option></select>
+              </div>
+              <div><label class="lbl" for="port">Destination port</label><input id="port" name="port" class="inp" placeholder="Los Angeles"></div>
+            </div>
+            <div><label class="lbl" for="notes">Packing, certifications, notes</label><textarea id="notes" name="notes" class="inp"></textarea></div>
+          </div>
+
+          <p class="error" id="form-error" role="alert"></p>
+          <button type="submit" class="btn-primary" id="submit-btn">Send request</button>
+        </form>
+      </div>
+
+      <div class="success" id="quote-success" hidden>
+        <h2>Request received</h2>
+        <p>We will send the quotation to <strong id="success-email"></strong> within [response time].</p>
+        <button type="button" class="btn-light" id="new-request">New request</button>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- Thay số WhatsApp thật, dạng quốc tế không dấu + -->
+<a href="https://wa.me/84XXXXXXXXX?text=Hi%20Thien%20Ky%2C%20I%27d%20like%20a%20quote%20for%20W320" class="whatsapp" aria-label="Chat on WhatsApp" data-cta="whatsapp" target="_blank" rel="nofollow noopener">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+</a>
+
+<script>
+(function () {
+  var form = document.getElementById('quote-form');
+  var wrap = document.getElementById('quote-form-wrap');
+  var success = document.getElementById('quote-success');
+  var errorBox = document.getElementById('form-error');
+  var submitBtn = document.getElementById('submit-btn');
+  var toggle = document.getElementById('toggle-more');
+  var more = document.getElementById('more');
+
+  // Gửi sự kiện lên GA4 qua dataLayer (Google Tag Manager)
+  function track(event, params) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({ event: event }, params || {}));
+  }
+
+  toggle.addEventListener('click', function () {
+    var open = more.hidden;
+    more.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? '− Hide delivery details' : '+ Add delivery details (optional)';
+  });
+
+  ['email', 'company'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function (e) {
+      e.target.classList.remove('is-invalid');
+      errorBox.textContent = '';
+    });
+  });
+
+  var started = false;
+  form.addEventListener('focusin', function () {
+    if (!started) { started = true; track('quote_form_start', { source_page: 'W320' }); }
+  });
+
+  // Bản demo trên GitHub Pages: không có máy chủ nhận form, chỉ mô phỏng gửi thành công.
+  var DEMO = true;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = form.email, company = form.company;
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    email.classList.toggle('is-invalid', !emailOk);
+    company.classList.toggle('is-invalid', !company.value.trim());
+    if (!emailOk || !company.value.trim()) {
+      errorBox.textContent = 'Please add a valid business email and your company name.';
+      return;
+    }
+    if (form.website_hp.value) return; // bot
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    var send = DEMO
+      ? new Promise(function (r) { setTimeout(r, 600); })
+      : fetch(form.action, { method: 'POST', body: new FormData(form) })
+          .then(function (res) { if (!res.ok) throw new Error('Request failed'); });
+    send
+      .then(function () {
+        track('generate_lead', { form: 'quote', grade: form.grade.value, unit: form.unit.value, source_page: 'W320' });
+        document.getElementById('success-email').textContent = email.value.trim();
+        wrap.hidden = true;
+        success.hidden = false;
+      })
+      .catch(function () {
+        errorBox.textContent = 'Something went wrong. Please email us or chat on WhatsApp.';
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send request';
+      });
+  });
+
+  document.getElementById('new-request').addEventListener('click', function () {
+    form.reset();
+    more.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = '+ Add delivery details (optional)';
+    success.hidden = true;
+    wrap.hidden = false;
+  });
+
+  document.querySelectorAll('[data-download]').forEach(function (a) {
+    a.addEventListener('click', function () { track('file_download_spec', { file: a.dataset.download, source_page: 'W320' }); });
+  });
+  document.querySelector('[data-cta="whatsapp"]').addEventListener('click', function () {
+    track('whatsapp_click', { source_page: 'W320' });
+  });
+})();
+</script>
+</body>
+</html>
