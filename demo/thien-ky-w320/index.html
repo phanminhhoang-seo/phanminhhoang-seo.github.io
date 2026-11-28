@@ -127,6 +127,20 @@
     .whatsapp { right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); }
     body { padding-bottom: 88px; }
   }
+
+  /* Menu điện thoại */
+  .menu-btn { display: none; }
+  @media (max-width: 720px) {
+    .site-header { padding: 0 16px; }
+    .site-header__inner { min-height: 60px; gap: 12px; flex-wrap: nowrap; position: relative; }
+    .logo { font-size: 18px; margin-right: auto; }
+    .btn-quote-top { padding: 9px 14px; font-size: 13px; white-space: nowrap; }
+    .menu-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-right: -8px; background: none; border: 0; color: #fff; cursor: pointer; }
+    .nav { display: none; position: absolute; top: 100%; left: -16px; right: -16px; flex-direction: column; gap: 0; padding: 4px 16px 12px; background: var(--dark); border-top: 1px solid rgba(255,255,255,.1); z-index: 60; }
+    .nav.is-open { display: flex; }
+    .nav a { padding: 13px 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .nav a:last-child { border-bottom: 0; }
+  }
 </style>
 </head>
 <body>
@@ -134,7 +148,7 @@
 <header class="site-header">
   <div class="site-header__inner">
     <a href="/" class="logo">THIEN KY</a>
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" id="main-nav" aria-label="Main">
       <a href="/products/">Products</a>
       <a href="/quality-control/">Quality Control</a>
       <a href="/factory/">Factory</a>
@@ -142,6 +156,9 @@
       <a href="/certifications/">Certifications</a>
     </nav>
     <a href="#quote" class="btn-quote-top">Get a Quote</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
 </header>
 
@@ -429,6 +446,20 @@
     track('sticky_quote_click', { source_page: 'W320' });
     quoteBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+
+  // Menu điện thoại
+  var menuBtn = document.getElementById('menu-btn');
+  var nav = document.getElementById('main-nav');
+  var iconOpen = '<path d="M4 7h16M4 12h16M4 17h16"/>', iconClose = '<path d="M6 6l12 12M18 6L6 18"/>';
+  function setMenu(open) {
+    nav.classList.toggle('is-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menuBtn.querySelector('svg').innerHTML = open ? iconClose : iconOpen;
+  }
+  menuBtn.addEventListener('click', function (e) { e.stopPropagation(); setMenu(!nav.classList.contains('is-open')); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.site-header')) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 })();
 </script>
 </body>
